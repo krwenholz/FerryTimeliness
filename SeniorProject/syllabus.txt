@@ -39,43 +39,43 @@ schedule fits best with how I work: well-defined time and goals along with a
 limit to chaos.  
 
 ## September 3-14 ##
-* Data collection should be happening and stable.  
+* Data collection should be happening.  
 * Primary variables should be decided upon (with reasoning).
-* A light literature review should be in the works.  Initially it seems not much
-literature is related to this particular topic.
 * Determine core technologies (basically a language and database system).
 
 ## September 15-28 ##
 * Choose an open-source license and include it with the repository.
 * Proof interfacing with the data via language of choice.
-* Finalize data collection methods for all primary variables.
-* The model should be taking shape or at least have research into various options.
+* A light literature review should be in the works.  Initially it seems not much
+literature is related to this particular topic.
 
 ## September 29-October 12 ##
-* Literature review should be "complete".  That is, some sources for the model,
-methods, etc. should be found to back up my process.
-* The model is taking shape in code form.  This means, I have one (maybe two)
-models chosen to work with, and I am prepared to implement them.
+* The model should be taking shape or at least have research into various options.
+* Finalize data collection methods for all primary variables.
 
 ## October 13-26 ##
-* The model is generating output, not necessarily correct.  This means the 
-general architecture is decided, and the code base should be fleshed out.
+* The model is taking shape in code form.  This means, I have one (maybe two)
+models chosen to work with, and I am prepared to implement them.
 * The model is interacting with the actual data set.
 * Extra variables are being considered and evaluated as the model begins to
 generate output.  
+* Literature review should be "complete".  That is, some sources for the model,
+methods, etc. should be found to back up my process.
 
 ## October 27-November 9 ##
-* The model is considered stable and interesting, otherwise the flaws are being
-ironed out or well documented.
+* The model is generating output, not necessarily correct.  This means the 
+general architecture is decided, and the code base should be fleshed out.
 * The variables and model itself are well explained in a brief technical writeup
 of the design decisions made thus far.
 
 ## November 10-23 ##
-* The model is finalized.  Minor code changes may be required, but what I have
-is usable or proof of the problems intractibility/complexity above my ability.
+* The model is considered stable and interesting, otherwise the flaws are being
+ironed out or well documented.
 * The data should be backed up and stored for any future use.
 
 ## November 24-December 7 ##
+* The model is finalized.  Minor code changes may be required, but what I have
+is usable or proof of the problem's intractibility/complexity above my ability.
 * Secondary goals are being approached and evaluated.
 * Achievable secondary goals are attacked with vigor.
 
