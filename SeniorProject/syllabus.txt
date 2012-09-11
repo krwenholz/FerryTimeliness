@@ -23,8 +23,9 @@ gathered ferry data (an AI problem) and account for variables of interest.  The
 most basic of these is weather, but if time permits, traffic patterns, time of
 day, and boat type may be considered.  The model is not just a regression fit,
 I envision this being something like a Markov Model or something similar to 
-what we learned in AI to predict behavior of an unknown system.  Ideally, the 
-model is something that can learn over time.
+what we learned in AI to predict behavior of an unknown system.  Output should
+be in form of "ferry x is going to be 0-y minutes late for the z o'clock scheduled
+departure".
 3. Usability: the model should be usable.  Everything produced by this project
 ought to be reproducible, understandable, and enjoyable to use.  This will 
 include open-sourcing the project, licensing, and thoroughly documenting it all.
