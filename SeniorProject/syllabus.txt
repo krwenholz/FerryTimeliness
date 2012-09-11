@@ -18,10 +18,13 @@ Puget Sound.
 way to store this data.  The method should be relatively painless (e.g. a simple
 script), and the data store should be well designed in terms of schema, speed,
 and reproducibility.
-2. Model: a model for predicting ferry timeliness.  The model should utilized
+2. Model: a model for predicting ferry timeliness.  The model should utilize
 gathered ferry data (an AI problem) and account for variables of interest.  The
 most basic of these is weather, but if time permits, traffic patterns, time of
-day, and boat type may be considered.
+day, and boat type may be considered.  The model is not just a regression fit,
+I envision this being something like a Markov Model or something similar to 
+what we learned in AI to predict behavior of an unknown system.  Ideally, the 
+model is something that can learn over time.
 3. Usability: the model should be usable.  Everything produced by this project
 ought to be reproducible, understandable, and enjoyable to use.  This will 
 include open-sourcing the project, licensing, and thoroughly documenting it all.
@@ -39,9 +42,10 @@ schedule fits best with how I work: well-defined time and goals along with a
 limit to chaos.  
 
 ## September 3-14 ##
-* Data collection should be happening.  
+* Data collection should be happening in such a way I can use it all later.
 * Primary variables should be decided upon (with reasoning).
 * Determine core technologies (basically a language and database system).
+* Pick the boat routes.
 
 ## September 15-28 ##
 * Choose an open-source license and include it with the repository.
@@ -50,13 +54,14 @@ limit to chaos.
 literature is related to this particular topic.
 
 ## September 29-October 12 ##
-* The model should be taking shape or at least have research into various options.
+* The prediction model should be taking shape or at least have solid research 
+into various options.
 * Finalize data collection methods for all primary variables.
 
 ## October 13-26 ##
 * The model is taking shape in code form.  This means, I have one (maybe two)
 models chosen to work with, and I am prepared to implement them.
-* The model is interacting with the actual data set.
+* The model(s) is interacting with the actual data set.
 * Extra variables are being considered and evaluated as the model begins to
 generate output.  
 * Literature review should be "complete".  That is, some sources for the model,
@@ -74,8 +79,9 @@ ironed out or well documented.
 * The data should be backed up and stored for any future use.
 
 ## November 24-December 7 ##
-* The model is finalized.  Minor code changes may be required, but what I have
-is usable or proof of the problem's intractibility/complexity above my ability.
+* The predictive model is finalized.  Minor code changes may be required, but 
+what I have is usable or proof of the problem's intractibility/complexity above 
+my ability.
 * Secondary goals are being approached and evaluated.
 * Achievable secondary goals are attacked with vigor.
 
