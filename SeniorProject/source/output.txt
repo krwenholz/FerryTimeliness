@@ -1,0 +1,993 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head id="ctl00_Head1"><title>
+	WSDOT - Ferries - VesselWatch
+</title><meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /><meta HTTP-EQUIV="Pragma" content="no-cache" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta name="robots" content="index" /><link media="screen" rel="Stylesheet" href="http://www.wsdot.wa.gov/media/styles/styles.css" /><link media="print" rel="Stylesheet" href="http://www.wsdot.wa.gov/media/styles/print.css" /><link rel="stylesheet" type="text/css" media="print" href="media/styles/vesselwatch.css" /><link rel="shortcut icon" href="http://www.wsdot.wa.gov/favicon.ico" />
+    <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.7compact"></script>
+    <link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.7/js/dojo/dijit/themes/tundra/tundra.css" />  
+    <script type="text/javascript" src="VesselWatch.js"></script>
+    <script type="text/javascript" src="Terminals.js"></script> 
+    <script type="text/javascript" src="Cameras.js"></script>
+
+    <script type="text/javascript" src="api.js"></script> 
+    <script type="text/javascript" src="VesselWatchJS.aspx?&f=1"></script><meta name="title" content="Washington State Ferries Homepage" /><meta name="description" /><meta name="keywords" /><meta name="subjects" content="Ferries" />
+        <link rel="stylesheet" type="text/css" media="screen" href="http://www.wsdot.wa.gov/media/styles/ferries_ads.css" />
+    <meta name="title" content="WSDOT - Ferries - VesselWatch" /><meta http-equiv="content-language" content="en-us" /></head>
+<body>
+ 
+
+
+
+
+<form name="aspnetForm" method="post" action="Default.aspx" id="aspnetForm">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTU0NzU2MDIxNmRklI1FcQGtpO6UuSTI3goZJDqN9no=" />
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWAgKnx/OoBAL9n+COArz5IQfOEfi9YmD13rHhcIYq1Xf8" />
+<a href="#skipnav" class="skip">Skip Top Navigation</a> <a href="#skiptocontent" class="skip">Skip to Content</a> <a name="top"></a>
+<div id="header">
+  <div class="topban">
+    <ul class="topnav">
+      <li><span id="ctl00_lblSolutionEnvironmentDisplay" style="color:White;"></span></li>
+      <li><a href="http://www.wsdot.wa.gov/">WSDOT Home</a></li>
+      <li><a href="http://www.wsdot.wa.gov/contact/">Contact Us</a></li>
+      <li><a href="http://www.wsdot.wa.gov/goodtogo/">Good To Go!</a></li>
+      <li><a href="http://www.wsdot.wa.gov/employment/">Employment</a></li>
+      <li class="first"><a href="http://www.wsdot.wa.gov/news/">News</a></li>
+    </ul>
+  </div>
+  <div class="logo">
+    <h1><a href="http://www.wsdot.wa.gov">WSDOT</a></h1>
+    <div class="emailupdates"><a href="http://service.govdelivery.com/service/multi_subscribe.html?code=WADOT" onclick="window.open('http://service.govdelivery.com/service/multi_subscribe.html?code=WADOT','Popup','width=780,height=440,toolbar=no,scrollbars=yes,resizable=yes'); return false" title="Sign up for email updates">Email updates</a></div>
+  </div>
+  <div class="mainban">
+    <div class="mainnav">
+      <ul>
+        <li><a href="http://wsdot.wa.gov/traffic/" title="Statewide Traveler Information">Traffic &amp; Cameras</a></li>
+        <li><a href="http://www.wsdot.wa.gov/projects/" title="Highway, Ferry and Rail Construction Projects">Projects</a></li>
+        <li><a href="http://www.wsdot.wa.gov/business/" title="Information on Doing Business with WSDOT">Business</a></li>
+        <li><a href="http://www.wsdot.wa.gov/environment/" title="What does WSDOT do for the environment?">Environment</a></li>
+        <li><a href="http://www.wsdot.wa.gov/mapsdata.htm" title="Maps, Publications and Transportation Data">Maps &amp; Data</a></li>
+      </ul>
+      <div class="search">
+          <input type="text" name="q" id="query-field" class="search-text" />
+          <input type="submit" name="ctl00$btnSearch" value="Search" id="ctl00_btnSearch" class="searchButton" />
+      </div>
+    </div>
+  </div>
+</div>
+<div id="ctl00_divbreadcrumbs" class="breadcrumbs">You are Here: <a href="http://www.wsdot.com">Home</a> &gt; <a href="/ferries">Ferries</a> &gt; <a href="/ferries/vesselwatch">Vesselwatch</a></div>
+
+    <div class="corners-top-wrapper"></div>
+
+<div id="wrapper">
+  <!--PAGEWATCH CODE=""-->
+  <div id="ctl00_LeftNavColumn" class="leftnav">
+    <!-- Begin: Left navigation box --> 
+    <style type="text/css">
+        .labelLayer {font-size: 1.2em; height: 17px; display: block; padding-left: 15px; padding-bottom: 2px; text-indent: -15px; cursor: hand; vertical-align:top;}
+        .disabled {color: #cac8bb}
+        .inputLayer {width: 13px; padding: 0; margin:0; position: relative; top: 2px;}
+        .vslLstRow{padding-left:3px; padding-right:3px; padding-top:1px; padding-bottom:3px;}        
+        .vslLstRow:hover{background-color:#eeeeee;} 
+        .OOSvslLstRow{width:766px;}   
+        .INSvslLstRow{width:inherit;}
+         /* below style added to over ride hover color for header row in vessel list */           
+        .vslLstHeaderRow{width:770px;}
+        .vslLstHeaderRow:hover{background-color:transparent;}
+           
+        .vslLstRowAlt{padding-left:3px; padding-right:3px; padding-top:1px; padding-bottom:3px; width:100%; background-color:#f5f5f5;}         
+        .vslLstRowAlt:hover{background-color:#eeeeee;} 
+        
+        .OOSvesselListDiv{background-color:#f5f5f5; border:solid 1px #979797; margin-top:7px; padding-bottom:4px; width:772px;}
+        #OOSPanel{padding:0px; width:100%;}
+        .OOSHeader{font-size:1.3em; color:#494949; font-weight:bold; margin-bottom:4px; padding:4px; border-bottom:solid 1px #979797;}
+        
+        .vslLstLabel{float:left; margin-right: 2px; width:24px; font-size:.9em;}
+        .vslLstLabelImg{z-index: 1; left: 0px; top: 2px; position: relative; font-size:.9em;}
+        .vslLstDate{float:right; width:70px; text-align: right; font-size:.9em; color: #9a9a9a;}    
+        .vslLstPos{float:right; margin-right: 2px; width: 25px; text-align:center; font-weight:bold; color:#979797; font-size:.9em;} 
+        .vslLstRoute{float:right; margin-right: 2px; width:60px; text-align: right; font-size:.9em;} 
+        .vslLstAterm{float:right; margin-right: 3px; width:110px; text-align: left; padding-left:5px; font-size:.9em;}  
+        .vslLstLastdock{float:right; margin-right: 2px; width:110px; text-align: right; font-size:.9em;}  
+        .vslLstSpeed{float:right; margin-right: 5px; width:30px; text-align: right; font-size:.9em;}
+        .vslLstDepart{float:right; margin-right: 5px; width:50px; text-align: center; font-size:.9em;}  
+        .vslLstSchedDepart{float:right; margin-right: 5px; width:50px; text-align: center; font-size:.9em;}
+        .vslLstETA{float:right; margin-right: 5px; width:50px; text-align: center; font-size:.9em;}  
+        .vslListVesselIcon{float: right; width: 24px; height: 15px; margin-left: 5px; background-repeat:no-repeat; background-position:center center; font-size:.9em;}
+        
+        .vslLegendRow{margin-bottom: 3px; font-size:1.2em;}
+        .vslLegendDesc{padding:2px; width: 120px; padding-left:4px;}
+        .vslLegendString{padding:2px; width: 16px; padding-left:2px; vertical-align: top; width: 16px;}
+        .vslLegendIcon{margin-bottom: 3px; padding:2px; margin-right: 2px; background-repeat:no-repeat; background-position:-3px -3px; width: 16px;}
+
+        .popTitle{color: #919191; font-family:Verdana; font-weight:bold;}
+        .popTitle img{left: 0px; top: 3px; float: right; position: relative;}
+        .popTitle div{float: right; padding-top: 2px; font-size:.8em; font-weight:normal; padding-right: 2px; font-family:Verdana;}
+        #vslPopContainer{color: #919191; line-height:15px; font-size: 11px; padding:1px; font-family:Verdana;}
+        .vslPopModRow{background-color:#f8f8f8;}
+        .vslPopLat{color: #919191;}
+        .vslPopLon{color: #919191;}
+        #vslPopContainer div div{margin-left: 1px; float: right;}   
+        
+        /* modify sprite CSS */
+        .infowindow .sprite { background-image:url(images/infowindow.png); width:1000px; height:1000px; _background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true', sizingMethod='crop', src='images/infowindow.png'); }
+        .tundra .infowindow .sprite { background-image:url(images/infowindow.png); width:1000px; height:1000px; _background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true', sizingMethod='crop', src='images/infowindow.png'); }
+        .nihilo .infowindow .sprite { background-image:url(images/infowindow.png); width:1000px; height:1000px; _background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true', sizingMethod='crop', src='images/infowindow.png'); }
+        .soria .infowindow .sprite { background-image:url(images/infowindow.png); width:1000px; height:1000px; _background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true', sizingMethod='crop', src='images/infowindow.png'); } 
+    
+        /* To customize the map logo */   
+        .map .logo-med {background-image: url(images/WSDOT.png);bottom: 5px;cursor: pointer;height: 19px;position: absolute;right: 5px;width: 88px;z-index: 49;}    
+    
+        /* styles added for terminals */
+        a.infolink {font-weight:bold; text-decoration:underline; font-style:normal; cursor:pointer;}
+        a.infolink:hover {text-decoration: none;}
+        a.infolinkactive {font-weight: bold; text-decoration: none; font-style: italic; cursor: pointer;}
+        div.infolayer {display: none;}
+        div.infolayeractive {display: inline;}  
+        
+        /* It turns out this style has to be overridden in order for the x button to show up in the esri infowindow */
+        .hide {display: inline;}                    
+    </style>
+    
+    
+    <div class="leftnavbox"> 
+        <h4 class="header greyBg">Mobile Users</h4> 
+        <div class="content"> 
+            <ul>
+	            <li><a href="../mvw/default.aspx?size=L">Mobile VesselWatch</a>					
+                <li><a href="mobiletips.aspx">View our Mobile Tips</a>
+            </ul>
+        </div> 
+    </div>
+    <div class="leftnavbox" style="z-index:5;"> 
+        <h4 class="header greyBg">VesselWatch Views</h4> 
+        <div class="content">
+            <ul>               
+                <li><a href="javascript:goToCenterPointLocation('anasjsid');">San Juan Islands & Anacortes / Sidney BC</a></li>
+                <li><a href="javascript:goToCenterPointLocation('sji');">San Juan Inter-Island</a></li>
+                <li><a href="javascript:goToCenterPointLocation('ptkey');">Port Townsend / Coupeville</a></li>
+                <li><a href="javascript:goToCenterPointLocation('mukcl');">Mukilteo / Clinton</a></li>
+                <li><a href="javascript:goToCenterPointLocation('edking');">Edmonds / Kingston</a></li>
+                <li><a href="javascript:goToCenterPointLocation('seabi');">Seattle / Bainbridge</a></li>
+                <li><a href="javascript:goToCenterPointLocation('sea');">Seattle</a> <span style='font-size:.8em;'>(Default View)</span></li>
+                <li><a href="javascript:goToCenterPointLocation('fvs');">Fauntleroy / Vashon / Southworth</a></li>
+                <li><a href="javascript:goToCenterPointLocation('ptdtal');">Point Defiance / Tahlequah</a></li>
+            </ul> 
+        </div> 
+    </div>
+    <div class="leftnavbox" style="z-index:5;"> 
+        <h4 class="header greyBg">Map Layers</h4> 
+        <div class="content">
+            <div>
+                <div style="float:right; width:75px;">
+                    <label class="labelLayer"><input id="ckbox_l" class="inputLayer" type="checkbox" value="1" checked="checked" onclick='ToggleLayer({"layerList" : [{"layer":"vesselLabelLayer"}]},"ckbox_l","l","true");' /> 
+                    Label</label>                
+                </div>
+                <div>
+                    <label class="labelLayer"><input id="ckbox_v" class="inputLayer" type="checkbox" value="1" checked="checked" onclick='ToggleLayer({"layerList" : [{"layer":"vesselLayer"}]},"ckbox_v","v","true");' /> 
+                    Vessel</label>
+                </div>
+            </div>            
+            <label class="labelLayer"><input id="ckbox_p" class="inputLayer" type="checkbox" value="0" onclick='ToggleLayer({"layerList" : [{"layer":"precisionVesselLayer"}]},"ckbox_p","p","true");' /> 
+            Crosshair Marker</label>
+            <label class="labelLayer"><input id="ckbox_t" class="inputLayer" type="checkbox" value="1" checked="checked" onclick='ToggleLayer({"layerList" : [{"layer":"terminalLayer"}]},"ckbox_t","t","true");' /> 
+            Ferry Terminal</label> 
+            <label class="labelLayer"><input id="ckbox_c" class="inputLayer" type="checkbox" value="0" onclick='ToggleLayer({"layerList" : [{"layer":"ferryCamLayer"}]},"ckbox_c","c","true");' /> 
+            Ferry Camera</label>
+            <label class="labelLayer block"><input id="ckbox_f" class="inputLayer" type="checkbox" value="0" onclick='ToggleLayer({"layerList" : [{"layer":"flowLayer"}]},"ckbox_f","f","true");' /> 
+            Traffic Flow</label>                                                  
+        </div> 
+    </div>    
+        
+    
+    <div class="leftnavbox" style="z-index:5;"> 
+        <h4 class="header greyBg">Legend</h4> 
+        <div class="content"> 
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td>
+                        <div id="vesselLegendListDiv">                        
+                        </div>
+                        <div id="TerminalLegendListDiv">
+                        </div>
+                        <div id="CameraLegendListDiv">
+                        </div>                        
+                        <table border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td>
+                                    
+                                    <table border="0" cellpadding="0" cellspacing="0">
+                                        <tr class="vslLegendRow">                    
+                                            <td class="vslLegendString" style="text-align:center;"></td>
+                                            <td class="vslLegendDesc" style="color: #d7054a;">Vessel delayed more than 5 mins</td>
+                                        </tr>
+                                        <tr class="vslLegendRow">                    
+                                            <td class="vslLegendIcon" style="text-align:center;"></td>
+                                            <td class="vslLegendDesc"><strong>Bold</strong> times indicate PM</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr> 
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div> 
+    </div>
+           
+        
+    <div class="leftnavbox"> 
+        <h4 class="header greyBg">Most Requested</h4> 
+        <div class="content"> 
+            <ul>
+		        <li><a href="Default.aspx" id="ctl00_aVesselWatchLink">VesselWatch</a></li>
+		        <li><a href="http://www.wsdot.wa.gov/ferries/schedule/bulletin.aspx">Ferry Alert Bulletins</a></li>
+		        <li><a href="http://www.wsdot.wa.gov/ferries/schedules/current/">Current Schedule</a></li>						        
+		        <li><a href="http://www.wsdot.wa.gov/ferries/wave2go/">Buy Ferry Tickets</a></li>
+		        <li><a href="https://business.wsdot.wa.gov/ferries/reservations/">Reservations</a></li>	
+		        <li><a href="http://www.wsdot.wa.gov/ferries/fares/">Fares</a></li>
+		        <li><a href="Terminals.aspx" id="ctl00_aFindYourTerminal">Find Your Terminal</a></li>
+                <li><a href="Vessels.aspx" id="ctl00_aVesselsByClass">Vessels By Class</a></li>
+		        <li><a href="CameraDetail.aspx" id="ctl00_aFerryCameras">Ferry Cameras</a></li>						
+		        <li><a href="http://www.wsdot.wa.gov/ferries/infodesk/contact.htm">Contact WSF</a></li>						
+	        </ul>
+        </div> 
+    </div>
+    <!-- End: Left navigation box -->
+    <!-- Begin: Left navigation box -->
+    
+    
+    <!-- End: Left navigation box -->
+  </div>
+  <div id="main">
+  
+    
+        <!-- Header Banner Ad -->
+        <script type="text/javascript" language="JavaScript">
+            aj_server = 'http://rotator.adjuggler.com/servlet/ajrotator/'; aj_tagver = '1.0';
+            aj_zone = 'hsm'; aj_adspot = '1150555'; aj_page = '0'; aj_dim ='394726'; aj_ch = ''; aj_ct = ''; aj_kw = '';
+            aj_pv = true; aj_click = '';
+        </script><script type="text/javascript" language="JavaScript" src="http://img1.cdn.adjuggler.com/banners/ajtg.js"></script>
+        <div> ADVERTISEMENT</div>
+        <br/>
+        <div class="row" style="margin-top: 0px; padding-top: 0px;"></div>
+    
+    
+    <div id="ctl00_refreshRateTool" style="float:right; font-size:1em; line-height:15px; text-align:right; width:300px;">
+        <div style="float:right; font-size:1.2em; line-height:15px; text-align:right;" id="mapTimeStamp"></div><br />
+        <div style='float:right; font-size:1em;'><span id="refreshratelabel">Refresh Rate:</span>
+            <select id="ddlist_r" onchange="refreshChange(this.selectedIndex,true);" style="margin-top:1px; font-size:1em; text-decoration: none; vertical-align: middle; height:17px;">
+                <option value='{"layerRefreshList":[{"myFunction":"refreshVessels","myRefreshRate":86400000},{"myFunction":"refreshTerminals","myRefreshRate":86400000},{"myFunction":"refreshCameras","myRefreshRate":86400000},{"myFunction":"refreshTraffic","myRefreshRate":86400000}]}'>Never</option>
+                <option value='{"layerRefreshList":[{"myFunction":"refreshVessels","myRefreshRate":600000},{"myFunction":"refreshTerminals","myRefreshRate":600000},{"myFunction":"refreshCameras","myRefreshRate":600000},{"myFunction":"refreshTraffic","myRefreshRate":600000}]}'>10 min</option>
+                <option value='{"layerRefreshList":[{"myFunction":"refreshVessels","myRefreshRate":300000},{"myFunction":"refreshTerminals","myRefreshRate":300000},{"myFunction":"refreshCameras","myRefreshRate":300000},{"myFunction":"refreshTraffic","myRefreshRate":300000}]}'>5 min</option>
+                <option value='{"layerRefreshList":[{"myFunction":"refreshVessels","myRefreshRate":120000},{"myFunction":"refreshTerminals","myRefreshRate":300000},{"myFunction":"refreshCameras","myRefreshRate":300000},{"myFunction":"refreshTraffic","myRefreshRate":300000}]}'>2 min</option>
+                <option value='{"layerRefreshList":[{"myFunction":"refreshVessels","myRefreshRate":60000},{"myFunction":"refreshTerminals","myRefreshRate":300000},{"myFunction":"refreshCameras","myRefreshRate":300000},{"myFunction":"refreshTraffic","myRefreshRate":300000}]}'>1 min</option>
+                <option value='{"layerRefreshList":[{"myFunction":"refreshVessels","myRefreshRate":30000},{"myFunction":"refreshTerminals","myRefreshRate":300000},{"myFunction":"refreshCameras","myRefreshRate":300000},{"myFunction":"refreshTraffic","myRefreshRate":300000}]}'>30 sec</option>
+                <option value='{"layerRefreshList":[{"myFunction":"refreshVessels","myRefreshRate":15000},{"myFunction":"refreshTerminals","myRefreshRate":300000},{"myFunction":"refreshCameras","myRefreshRate":300000},{"myFunction":"refreshTraffic","myRefreshRate":300000}]}' selected="selected">15 sec</option>        
+            </select>
+        </div>        
+    </div>
+    <h2 id="ctl00_PageHeader" class="header" style="height:35px; margin-bottom:0px;">Ferry VesselWatch</h2>
+    <!--Start Right Column Content -->
+    
+    <!--End Right Column Content -->
+    <div class="leftcolumn" style="padding-top: 0px; margin-top: 0px;">
+      
+    <div id="mapDiv" class="tundra" style="width:770px; height:514px; border:solid 1px #979797; background-image:url('./images/api_system_backdrop.gif');"></div>
+    <div style="margin-bottom:10px; font-size:1.0em; background-color:#f5f5f5; line-height:16px; width:764px; height:34px; padding:3px; border-left:solid 1px #979797; border-right:solid 1px #979797; border-bottom:solid 1px #979797;" id="onExtentChangeInfo"></div>
+	<div id="column_b">	
+        <div class="contentbox" style="width:772px; margin-bottom:3px;">
+            <h4 class="header blueBg" style="color: #494949;">VesselTrack Views <span style="font-size:.8em; font-weight:normal;">(Zoom in & follow a Vessel)</span></h4>
+            <div class="content" style="padding-left:0px;">
+                <table border="0" cellpadding="0" cellspacing="0" style="width:inherit;">
+                    <tr>
+                        <td>
+                            <div class="vslLstRow vslLstHeaderRow" style="font-size:1.2em; color:#494949; font-weight:bold;">   
+                                <div class="vslLstDate"><br />Date</div>
+                                <div class="vslLstPos" style="color:#494949;"><br />Pos</div>
+                                <div class="vslLstRoute"><br />Route</div>
+                                <div id="ctl00_cphPageTemplate_ETAItem" class="vslLstETA">Est. Arrival</div>
+                                <div class="vslLstDepart">Actual<br />Depart&dagger;</div>                                
+                                <div class="vslLstSchedDepart">Sched<br />Depart</div> 
+                                <div class="vslLstAterm"><br />Arriving</div>
+                                <div class="vslLstLastdock"><br />Departing</div>
+                                <div class="vslListVesselIcon"><br />Icon</div>
+                                <div class="vslLstSpeed"><br />Knots</div>                                
+                                <div style='font-size:11px;'><br />Vessel</div>
+                            </div>
+                            <div id="vesselListDiv" style="font-size:1.2em;">
+                            </div>
+                            <table id="OOSvesselListTable" style="display:none;" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <div class="OOSvesselListDiv">
+                                            <div class="OOSHeader">Vessels in Layup <span style="font-size:.8em;">*</span></div>
+                                            <div id="OOSPanel" style="font-size:1.2em;">
+                                            </div>
+                                        </div>
+                                   </td>
+                               </tr>
+                           </table>
+                        </td>
+                    </tr>
+                </table>                
+            </div>
+        </div>
+        <div class="contentbox" style='width:772px; margin-bottom:3px;'>
+            <h4 class="header blueBg" style="color: #494949;">Ferry VesselWatch Feedback</h4>
+            <div class="content" style='font-size:1.2em;'>
+            <a id="ctl00_cphPageTemplate_aFeedbackLink" href="mailto:webfeedback@wsdot.wa.gov?subject=VesselWatch Feedback  (UserAgent: Python-urllib/1.17)">Let us know</a> how this works for you.
+            </div>            
+        </div>              
+	</div>
+	<div id="imgSize" style="visibility:hidden;"></div>	
+	
+
+          
+    </div>
+  </div>
+  <!--/PAGEWATCH-->
+  <div class="cl"></div>
+</div>
+<div style="clear:both"></div>
+<div class="corners-bottom"></div>
+<div class="corners-top"></div>
+<div class="footer">
+  <ul class="bottomnav">
+    <li class="first"><a href="http://www.wsdot.wa.gov/traffic/">Traffic &amp; Cameras</a></li>
+    <li><a href="http://www.wsdot.wa.gov/search/">Search</a></li>
+    <li><a href="http://www.wsdot.wa.gov/contact/">Contact Us</a></li>
+    <li><a href="http://www.wsdot.wa.gov/siteindex/">Site Index</a></li>
+    <li><a href="http://www.wsdot.wa.gov/policy/privacy.htm">Privacy Policy</a></li>
+    <li class="last"><a href="http://www.wsdot.wa.gov/policy/accessibility">Accessibility / Title VI</a> </li>
+  </ul>
+  <div class="copyright">Copyright WSDOT &copy; 2012</div>
+  <!-- End Page footer -->
+</div>
+</form>
+
+</div>
+</body>
+</html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <head id="ctl00_Head1">
+  <title>
+   WSDOT - Ferries - VesselWatch
+  </title>
+  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="index" />
+  <link media="screen" rel="Stylesheet" href="http://www.wsdot.wa.gov/media/styles/styles.css" />
+  <link media="print" rel="Stylesheet" href="http://www.wsdot.wa.gov/media/styles/print.css" />
+  <link rel="stylesheet" type="text/css" media="print" href="media/styles/vesselwatch.css" />
+  <link rel="shortcut icon" href="http://www.wsdot.wa.gov/favicon.ico" />
+  <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.7compact">
+  </script>
+  <link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.7/js/dojo/dijit/themes/tundra/tundra.css" />
+  <script type="text/javascript" src="VesselWatch.js">
+  </script>
+  <script type="text/javascript" src="Terminals.js">
+  </script>
+  <script type="text/javascript" src="Cameras.js">
+  </script>
+  <script type="text/javascript" src="api.js">
+  </script>
+  <script type="text/javascript" src="VesselWatchJS.aspx?&amp;f=1">
+  </script>
+  <meta name="title" content="Washington State Ferries Homepage" />
+  <meta name="description" />
+  <meta name="keywords" />
+  <meta name="subjects" content="Ferries" />
+  <link rel="stylesheet" type="text/css" media="screen" href="http://www.wsdot.wa.gov/media/styles/ferries_ads.css" />
+  <meta name="title" content="WSDOT - Ferries - VesselWatch" />
+  <meta http-equiv="content-language" content="en-us" />
+ </head>
+ <body>
+  <form name="aspnetForm" method="post" action="Default.aspx" id="aspnetForm">
+   <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTU0NzU2MDIxNmRklI1FcQGtpO6UuSTI3goZJDqN9no=" />
+   <input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWAgKnx/OoBAL9n+COArz5IQfOEfi9YmD13rHhcIYq1Xf8" />
+   <a href="#skipnav" class="skip">
+    Skip Top Navigation
+   </a>
+   <a href="#skiptocontent" class="skip">
+    Skip to Content
+   </a>
+   <a name="top">
+   </a>
+   <div id="header">
+    <div class="topban">
+     <ul class="topnav">
+      <li>
+       <span id="ctl00_lblSolutionEnvironmentDisplay" style="color:White;">
+       </span>
+      </li>
+      <li>
+       <a href="http://www.wsdot.wa.gov/">
+        WSDOT Home
+       </a>
+      </li>
+      <li>
+       <a href="http://www.wsdot.wa.gov/contact/">
+        Contact Us
+       </a>
+      </li>
+      <li>
+       <a href="http://www.wsdot.wa.gov/goodtogo/">
+        Good To Go!
+       </a>
+      </li>
+      <li>
+       <a href="http://www.wsdot.wa.gov/employment/">
+        Employment
+       </a>
+      </li>
+      <li class="first">
+       <a href="http://www.wsdot.wa.gov/news/">
+        News
+       </a>
+      </li>
+     </ul>
+    </div>
+    <div class="logo">
+     <h1>
+      <a href="http://www.wsdot.wa.gov">
+       WSDOT
+      </a>
+     </h1>
+     <div class="emailupdates">
+      <a href="http://service.govdelivery.com/service/multi_subscribe.html?code=WADOT" onclick="window.open('http://service.govdelivery.com/service/multi_subscribe.html?code=WADOT','Popup','width=780,height=440,toolbar=no,scrollbars=yes,resizable=yes'); return false" title="Sign up for email updates">
+       Email updates
+      </a>
+     </div>
+    </div>
+    <div class="mainban">
+     <div class="mainnav">
+      <ul>
+       <li>
+        <a href="http://wsdot.wa.gov/traffic/" title="Statewide Traveler Information">
+         Traffic &amp; Cameras
+        </a>
+       </li>
+       <li>
+        <a href="http://www.wsdot.wa.gov/projects/" title="Highway, Ferry and Rail Construction Projects">
+         Projects
+        </a>
+       </li>
+       <li>
+        <a href="http://www.wsdot.wa.gov/business/" title="Information on Doing Business with WSDOT">
+         Business
+        </a>
+       </li>
+       <li>
+        <a href="http://www.wsdot.wa.gov/environment/" title="What does WSDOT do for the environment?">
+         Environment
+        </a>
+       </li>
+       <li>
+        <a href="http://www.wsdot.wa.gov/mapsdata.htm" title="Maps, Publications and Transportation Data">
+         Maps &amp; Data
+        </a>
+       </li>
+      </ul>
+      <div class="search">
+       <input type="text" name="q" id="query-field" class="search-text" />
+       <input type="submit" name="ctl00$btnSearch" value="Search" id="ctl00_btnSearch" class="searchButton" />
+      </div>
+     </div>
+    </div>
+   </div>
+   <div id="ctl00_divbreadcrumbs" class="breadcrumbs">
+    You are Here:
+    <a href="http://www.wsdot.com">
+     Home
+    </a>
+    &gt;
+    <a href="/ferries">
+     Ferries
+    </a>
+    &gt;
+    <a href="/ferries/vesselwatch">
+     Vesselwatch
+    </a>
+   </div>
+   <div class="corners-top-wrapper">
+   </div>
+   <div id="wrapper">
+    <!--PAGEWATCH CODE=""-->
+    <div id="ctl00_LeftNavColumn" class="leftnav">
+     <!-- Begin: Left navigation box -->
+     <style type="text/css">
+      .labelLayer {font-size: 1.2em; height: 17px; display: block; padding-left: 15px; padding-bottom: 2px; text-indent: -15px; cursor: hand; vertical-align:top;}
+        .disabled {color: #cac8bb}
+        .inputLayer {width: 13px; padding: 0; margin:0; position: relative; top: 2px;}
+        .vslLstRow{padding-left:3px; padding-right:3px; padding-top:1px; padding-bottom:3px;}        
+        .vslLstRow:hover{background-color:#eeeeee;} 
+        .OOSvslLstRow{width:766px;}   
+        .INSvslLstRow{width:inherit;}
+         /* below style added to over ride hover color for header row in vessel list */           
+        .vslLstHeaderRow{width:770px;}
+        .vslLstHeaderRow:hover{background-color:transparent;}
+           
+        .vslLstRowAlt{padding-left:3px; padding-right:3px; padding-top:1px; padding-bottom:3px; width:100%; background-color:#f5f5f5;}         
+        .vslLstRowAlt:hover{background-color:#eeeeee;} 
+        
+        .OOSvesselListDiv{background-color:#f5f5f5; border:solid 1px #979797; margin-top:7px; padding-bottom:4px; width:772px;}
+        #OOSPanel{padding:0px; width:100%;}
+        .OOSHeader{font-size:1.3em; color:#494949; font-weight:bold; margin-bottom:4px; padding:4px; border-bottom:solid 1px #979797;}
+        
+        .vslLstLabel{float:left; margin-right: 2px; width:24px; font-size:.9em;}
+        .vslLstLabelImg{z-index: 1; left: 0px; top: 2px; position: relative; font-size:.9em;}
+        .vslLstDate{float:right; width:70px; text-align: right; font-size:.9em; color: #9a9a9a;}    
+        .vslLstPos{float:right; margin-right: 2px; width: 25px; text-align:center; font-weight:bold; color:#979797; font-size:.9em;} 
+        .vslLstRoute{float:right; margin-right: 2px; width:60px; text-align: right; font-size:.9em;} 
+        .vslLstAterm{float:right; margin-right: 3px; width:110px; text-align: left; padding-left:5px; font-size:.9em;}  
+        .vslLstLastdock{float:right; margin-right: 2px; width:110px; text-align: right; font-size:.9em;}  
+        .vslLstSpeed{float:right; margin-right: 5px; width:30px; text-align: right; font-size:.9em;}
+        .vslLstDepart{float:right; margin-right: 5px; width:50px; text-align: center; font-size:.9em;}  
+        .vslLstSchedDepart{float:right; margin-right: 5px; width:50px; text-align: center; font-size:.9em;}
+        .vslLstETA{float:right; margin-right: 5px; width:50px; text-align: center; font-size:.9em;}  
+        .vslListVesselIcon{float: right; width: 24px; height: 15px; margin-left: 5px; background-repeat:no-repeat; background-position:center center; font-size:.9em;}
+        
+        .vslLegendRow{margin-bottom: 3px; font-size:1.2em;}
+        .vslLegendDesc{padding:2px; width: 120px; padding-left:4px;}
+        .vslLegendString{padding:2px; width: 16px; padding-left:2px; vertical-align: top; width: 16px;}
+        .vslLegendIcon{margin-bottom: 3px; padding:2px; margin-right: 2px; background-repeat:no-repeat; background-position:-3px -3px; width: 16px;}
+
+        .popTitle{color: #919191; font-family:Verdana; font-weight:bold;}
+        .popTitle img{left: 0px; top: 3px; float: right; position: relative;}
+        .popTitle div{float: right; padding-top: 2px; font-size:.8em; font-weight:normal; padding-right: 2px; font-family:Verdana;}
+        #vslPopContainer{color: #919191; line-height:15px; font-size: 11px; padding:1px; font-family:Verdana;}
+        .vslPopModRow{background-color:#f8f8f8;}
+        .vslPopLat{color: #919191;}
+        .vslPopLon{color: #919191;}
+        #vslPopContainer div div{margin-left: 1px; float: right;}   
+        
+        /* modify sprite CSS */
+        .infowindow .sprite { background-image:url(images/infowindow.png); width:1000px; height:1000px; _background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true', sizingMethod='crop', src='images/infowindow.png'); }
+        .tundra .infowindow .sprite { background-image:url(images/infowindow.png); width:1000px; height:1000px; _background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true', sizingMethod='crop', src='images/infowindow.png'); }
+        .nihilo .infowindow .sprite { background-image:url(images/infowindow.png); width:1000px; height:1000px; _background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true', sizingMethod='crop', src='images/infowindow.png'); }
+        .soria .infowindow .sprite { background-image:url(images/infowindow.png); width:1000px; height:1000px; _background-image:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true', sizingMethod='crop', src='images/infowindow.png'); } 
+    
+        /* To customize the map logo */   
+        .map .logo-med {background-image: url(images/WSDOT.png);bottom: 5px;cursor: pointer;height: 19px;position: absolute;right: 5px;width: 88px;z-index: 49;}    
+    
+        /* styles added for terminals */
+        a.infolink {font-weight:bold; text-decoration:underline; font-style:normal; cursor:pointer;}
+        a.infolink:hover {text-decoration: none;}
+        a.infolinkactive {font-weight: bold; text-decoration: none; font-style: italic; cursor: pointer;}
+        div.infolayer {display: none;}
+        div.infolayeractive {display: inline;}  
+        
+        /* It turns out this style has to be overridden in order for the x button to show up in the esri infowindow */
+        .hide {display: inline;}
+     </style>
+     <div class="leftnavbox">
+      <h4 class="header greyBg">
+       Mobile Users
+      </h4>
+      <div class="content">
+       <ul>
+        <li>
+         <a href="../mvw/default.aspx?size=L">
+          Mobile VesselWatch
+         </a>
+        </li>
+        <li>
+         <a href="mobiletips.aspx">
+          View our Mobile Tips
+         </a>
+        </li>
+       </ul>
+      </div>
+     </div>
+     <div class="leftnavbox" style="z-index:5;">
+      <h4 class="header greyBg">
+       VesselWatch Views
+      </h4>
+      <div class="content">
+       <ul>
+        <li>
+         <a href="javascript:goToCenterPointLocation('anasjsid');">
+          San Juan Islands &amp; Anacortes / Sidney BC
+         </a>
+        </li>
+        <li>
+         <a href="javascript:goToCenterPointLocation('sji');">
+          San Juan Inter-Island
+         </a>
+        </li>
+        <li>
+         <a href="javascript:goToCenterPointLocation('ptkey');">
+          Port Townsend / Coupeville
+         </a>
+        </li>
+        <li>
+         <a href="javascript:goToCenterPointLocation('mukcl');">
+          Mukilteo / Clinton
+         </a>
+        </li>
+        <li>
+         <a href="javascript:goToCenterPointLocation('edking');">
+          Edmonds / Kingston
+         </a>
+        </li>
+        <li>
+         <a href="javascript:goToCenterPointLocation('seabi');">
+          Seattle / Bainbridge
+         </a>
+        </li>
+        <li>
+         <a href="javascript:goToCenterPointLocation('sea');">
+          Seattle
+         </a>
+         <span style="font-size:.8em;">
+          (Default View)
+         </span>
+        </li>
+        <li>
+         <a href="javascript:goToCenterPointLocation('fvs');">
+          Fauntleroy / Vashon / Southworth
+         </a>
+        </li>
+        <li>
+         <a href="javascript:goToCenterPointLocation('ptdtal');">
+          Point Defiance / Tahlequah
+         </a>
+        </li>
+       </ul>
+      </div>
+     </div>
+     <div class="leftnavbox" style="z-index:5;">
+      <h4 class="header greyBg">
+       Map Layers
+      </h4>
+      <div class="content">
+       <div>
+        <div style="float:right; width:75px;">
+         <label class="labelLayer">
+          <input id="ckbox_l" class="inputLayer" type="checkbox" value="1" checked="checked" onclick='ToggleLayer({"layerList" : [{"layer":"vesselLabelLayer"}]},"ckbox_l","l","true");' />
+          Label
+         </label>
+        </div>
+        <div>
+         <label class="labelLayer">
+          <input id="ckbox_v" class="inputLayer" type="checkbox" value="1" checked="checked" onclick='ToggleLayer({"layerList" : [{"layer":"vesselLayer"}]},"ckbox_v","v","true");' />
+          Vessel
+         </label>
+        </div>
+       </div>
+       <label class="labelLayer">
+        <input id="ckbox_p" class="inputLayer" type="checkbox" value="0" onclick='ToggleLayer({"layerList" : [{"layer":"precisionVesselLayer"}]},"ckbox_p","p","true");' />
+        Crosshair Marker
+       </label>
+       <label class="labelLayer">
+        <input id="ckbox_t" class="inputLayer" type="checkbox" value="1" checked="checked" onclick='ToggleLayer({"layerList" : [{"layer":"terminalLayer"}]},"ckbox_t","t","true");' />
+        Ferry Terminal
+       </label>
+       <label class="labelLayer">
+        <input id="ckbox_c" class="inputLayer" type="checkbox" value="0" onclick='ToggleLayer({"layerList" : [{"layer":"ferryCamLayer"}]},"ckbox_c","c","true");' />
+        Ferry Camera
+       </label>
+       <label class="labelLayer block">
+        <input id="ckbox_f" class="inputLayer" type="checkbox" value="0" onclick='ToggleLayer({"layerList" : [{"layer":"flowLayer"}]},"ckbox_f","f","true");' />
+        Traffic Flow
+       </label>
+      </div>
+     </div>
+     <div class="leftnavbox" style="z-index:5;">
+      <h4 class="header greyBg">
+       Legend
+      </h4>
+      <div class="content">
+       <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+         <td>
+          <div id="vesselLegendListDiv">
+          </div>
+          <div id="TerminalLegendListDiv">
+          </div>
+          <div id="CameraLegendListDiv">
+          </div>
+          <table border="0" cellpadding="0" cellspacing="0">
+           <tr>
+            <td>
+             <table border="0" cellpadding="0" cellspacing="0">
+              <tr class="vslLegendRow">
+               <td class="vslLegendString" style="text-align:center;">
+               </td>
+               <td class="vslLegendDesc" style="color: #d7054a;">
+                Vessel delayed more than 5 mins
+               </td>
+              </tr>
+              <tr class="vslLegendRow">
+               <td class="vslLegendIcon" style="text-align:center;">
+               </td>
+               <td class="vslLegendDesc">
+                <strong>
+                 Bold
+                </strong>
+                times indicate PM
+               </td>
+              </tr>
+             </table>
+            </td>
+           </tr>
+          </table>
+         </td>
+        </tr>
+       </table>
+      </div>
+     </div>
+     <div class="leftnavbox">
+      <h4 class="header greyBg">
+       Most Requested
+      </h4>
+      <div class="content">
+       <ul>
+        <li>
+         <a href="Default.aspx" id="ctl00_aVesselWatchLink">
+          VesselWatch
+         </a>
+        </li>
+        <li>
+         <a href="http://www.wsdot.wa.gov/ferries/schedule/bulletin.aspx">
+          Ferry Alert Bulletins
+         </a>
+        </li>
+        <li>
+         <a href="http://www.wsdot.wa.gov/ferries/schedules/current/">
+          Current Schedule
+         </a>
+        </li>
+        <li>
+         <a href="http://www.wsdot.wa.gov/ferries/wave2go/">
+          Buy Ferry Tickets
+         </a>
+        </li>
+        <li>
+         <a href="https://business.wsdot.wa.gov/ferries/reservations/">
+          Reservations
+         </a>
+        </li>
+        <li>
+         <a href="http://www.wsdot.wa.gov/ferries/fares/">
+          Fares
+         </a>
+        </li>
+        <li>
+         <a href="Terminals.aspx" id="ctl00_aFindYourTerminal">
+          Find Your Terminal
+         </a>
+        </li>
+        <li>
+         <a href="Vessels.aspx" id="ctl00_aVesselsByClass">
+          Vessels By Class
+         </a>
+        </li>
+        <li>
+         <a href="CameraDetail.aspx" id="ctl00_aFerryCameras">
+          Ferry Cameras
+         </a>
+        </li>
+        <li>
+         <a href="http://www.wsdot.wa.gov/ferries/infodesk/contact.htm">
+          Contact WSF
+         </a>
+        </li>
+       </ul>
+      </div>
+     </div>
+     <!-- End: Left navigation box -->
+     <!-- Begin: Left navigation box -->
+     <!-- End: Left navigation box -->
+    </div>
+    <div id="main">
+     <!-- Header Banner Ad -->
+     <script type="text/javascript" language="JavaScript">
+      aj_server = 'http://rotator.adjuggler.com/servlet/ajrotator/'; aj_tagver = '1.0';
+            aj_zone = 'hsm'; aj_adspot = '1150555'; aj_page = '0'; aj_dim ='394726'; aj_ch = ''; aj_ct = ''; aj_kw = '';
+            aj_pv = true; aj_click = '';
+     </script>
+     <script type="text/javascript" language="JavaScript" src="http://img1.cdn.adjuggler.com/banners/ajtg.js">
+     </script>
+     <div>
+      ADVERTISEMENT
+     </div>
+     <br />
+     <div class="row" style="margin-top: 0px; padding-top: 0px;">
+     </div>
+     <div id="ctl00_refreshRateTool" style="float:right; font-size:1em; line-height:15px; text-align:right; width:300px;">
+      <div style="float:right; font-size:1.2em; line-height:15px; text-align:right;" id="mapTimeStamp">
+      </div>
+      <br />
+      <div style="float:right; font-size:1em;">
+       <span id="refreshratelabel">
+        Refresh Rate:
+       </span>
+       <select id="ddlist_r" onchange="refreshChange(this.selectedIndex,true);" style="margin-top:1px; font-size:1em; text-decoration: none; vertical-align: middle; height:17px;">
+        <option value='{"layerRefreshList":[{"myFunction":"refreshVessels","myRefreshRate":86400000},{"myFunction":"refreshTerminals","myRefreshRate":86400000},{"myFunction":"refreshCameras","myRefreshRate":86400000},{"myFunction":"refreshTraffic","myRefreshRate":86400000}]}'>
+         Never
+        </option>
+        <option value='{"layerRefreshList":[{"myFunction":"refreshVessels","myRefreshRate":600000},{"myFunction":"refreshTerminals","myRefreshRate":600000},{"myFunction":"refreshCameras","myRefreshRate":600000},{"myFunction":"refreshTraffic","myRefreshRate":600000}]}'>
+         10 min
+        </option>
+        <option value='{"layerRefreshList":[{"myFunction":"refreshVessels","myRefreshRate":300000},{"myFunction":"refreshTerminals","myRefreshRate":300000},{"myFunction":"refreshCameras","myRefreshRate":300000},{"myFunction":"refreshTraffic","myRefreshRate":300000}]}'>
+         5 min
+        </option>
+        <option value='{"layerRefreshList":[{"myFunction":"refreshVessels","myRefreshRate":120000},{"myFunction":"refreshTerminals","myRefreshRate":300000},{"myFunction":"refreshCameras","myRefreshRate":300000},{"myFunction":"refreshTraffic","myRefreshRate":300000}]}'>
+         2 min
+        </option>
+        <option value='{"layerRefreshList":[{"myFunction":"refreshVessels","myRefreshRate":60000},{"myFunction":"refreshTerminals","myRefreshRate":300000},{"myFunction":"refreshCameras","myRefreshRate":300000},{"myFunction":"refreshTraffic","myRefreshRate":300000}]}'>
+         1 min
+        </option>
+        <option value='{"layerRefreshList":[{"myFunction":"refreshVessels","myRefreshRate":30000},{"myFunction":"refreshTerminals","myRefreshRate":300000},{"myFunction":"refreshCameras","myRefreshRate":300000},{"myFunction":"refreshTraffic","myRefreshRate":300000}]}'>
+         30 sec
+        </option>
+        <option value='{"layerRefreshList":[{"myFunction":"refreshVessels","myRefreshRate":15000},{"myFunction":"refreshTerminals","myRefreshRate":300000},{"myFunction":"refreshCameras","myRefreshRate":300000},{"myFunction":"refreshTraffic","myRefreshRate":300000}]}' selected="selected">
+         15 sec
+        </option>
+       </select>
+      </div>
+     </div>
+     <h2 id="ctl00_PageHeader" class="header" style="height:35px; margin-bottom:0px;">
+      Ferry VesselWatch
+     </h2>
+     <!--Start Right Column Content -->
+     <!--End Right Column Content -->
+     <div class="leftcolumn" style="padding-top: 0px; margin-top: 0px;">
+      <div id="mapDiv" class="tundra" style="width:770px; height:514px; border:solid 1px #979797; background-image:url('./images/api_system_backdrop.gif');">
+      </div>
+      <div style="margin-bottom:10px; font-size:1.0em; background-color:#f5f5f5; line-height:16px; width:764px; height:34px; padding:3px; border-left:solid 1px #979797; border-right:solid 1px #979797; border-bottom:solid 1px #979797;" id="onExtentChangeInfo">
+      </div>
+      <div id="column_b">
+       <div class="contentbox" style="width:772px; margin-bottom:3px;">
+        <h4 class="header blueBg" style="color: #494949;">
+         VesselTrack Views
+         <span style="font-size:.8em; font-weight:normal;">
+          (Zoom in &amp; follow a Vessel)
+         </span>
+        </h4>
+        <div class="content" style="padding-left:0px;">
+         <table border="0" cellpadding="0" cellspacing="0" style="width:inherit;">
+          <tr>
+           <td>
+            <div class="vslLstRow vslLstHeaderRow" style="font-size:1.2em; color:#494949; font-weight:bold;">
+             <div class="vslLstDate">
+              <br />
+              Date
+             </div>
+             <div class="vslLstPos" style="color:#494949;">
+              <br />
+              Pos
+             </div>
+             <div class="vslLstRoute">
+              <br />
+              Route
+             </div>
+             <div id="ctl00_cphPageTemplate_ETAItem" class="vslLstETA">
+              Est. Arrival
+             </div>
+             <div class="vslLstDepart">
+              Actual
+              <br />
+              Depart&dagger;
+             </div>
+             <div class="vslLstSchedDepart">
+              Sched
+              <br />
+              Depart
+             </div>
+             <div class="vslLstAterm">
+              <br />
+              Arriving
+             </div>
+             <div class="vslLstLastdock">
+              <br />
+              Departing
+             </div>
+             <div class="vslListVesselIcon">
+              <br />
+              Icon
+             </div>
+             <div class="vslLstSpeed">
+              <br />
+              Knots
+             </div>
+             <div style="font-size:11px;">
+              <br />
+              Vessel
+             </div>
+            </div>
+            <div id="vesselListDiv" style="font-size:1.2em;">
+            </div>
+            <table id="OOSvesselListTable" style="display:none;" border="0" cellpadding="0" cellspacing="0">
+             <tr>
+              <td>
+               <div class="OOSvesselListDiv">
+                <div class="OOSHeader">
+                 Vessels in Layup
+                 <span style="font-size:.8em;">
+                  *
+                 </span>
+                </div>
+                <div id="OOSPanel" style="font-size:1.2em;">
+                </div>
+               </div>
+              </td>
+             </tr>
+            </table>
+           </td>
+          </tr>
+         </table>
+        </div>
+       </div>
+       <div class="contentbox" style="width:772px; margin-bottom:3px;">
+        <h4 class="header blueBg" style="color: #494949;">
+         Ferry VesselWatch Feedback
+        </h4>
+        <div class="content" style="font-size:1.2em;">
+         <a id="ctl00_cphPageTemplate_aFeedbackLink" href="mailto:webfeedback@wsdot.wa.gov?subject=VesselWatch Feedback  (UserAgent: Python-urllib/1.17)">
+          Let us know
+         </a>
+         how this works for you.
+        </div>
+       </div>
+      </div>
+      <div id="imgSize" style="visibility:hidden;">
+      </div>
+     </div>
+    </div>
+    <!--/PAGEWATCH-->
+    <div class="cl">
+    </div>
+   </div>
+   <div style="clear:both">
+   </div>
+   <div class="corners-bottom">
+   </div>
+   <div class="corners-top">
+   </div>
+   <div class="footer">
+    <ul class="bottomnav">
+     <li class="first">
+      <a href="http://www.wsdot.wa.gov/traffic/">
+       Traffic &amp; Cameras
+      </a>
+     </li>
+     <li>
+      <a href="http://www.wsdot.wa.gov/search/">
+       Search
+      </a>
+     </li>
+     <li>
+      <a href="http://www.wsdot.wa.gov/contact/">
+       Contact Us
+      </a>
+     </li>
+     <li>
+      <a href="http://www.wsdot.wa.gov/siteindex/">
+       Site Index
+      </a>
+     </li>
+     <li>
+      <a href="http://www.wsdot.wa.gov/policy/privacy.htm">
+       Privacy Policy
+      </a>
+     </li>
+     <li class="last">
+      <a href="http://www.wsdot.wa.gov/policy/accessibility">
+       Accessibility / Title VI
+      </a>
+     </li>
+    </ul>
+    <div class="copyright">
+     Copyright WSDOT &copy; 2012
+    </div>
+    <!-- End Page footer -->
+   </div>
+  </form>
+ </body>
+</html>
