@@ -39,20 +39,23 @@ def format_table(html_soup,
     data = []
     table = html_soup
     rows = table.findAll(row_type, attrs=row_attrs)
-    for ii in range(len(rows)):
-        data.append({})
+    for ii in range(0,len(rows)):
+        data.append([])
         cols = rows[ii].findAll(col_type, attrs=col_attrs)
-        for jj in range(len(cols)):
-            data[ii][col_names[jj]: cols[jj].find(text=True)]
-            print data[ii][col_names[jj]]
-        print
+        for jj in range(0,len(col_names)):
+            data[ii].append((col_names[jj], cols[jj].find(text=True)))
+    print data
 
 ##########
 # Now make the nice looking calls to read data and such.
 ##########
 
 html = get_nice_html('http://www.wsdot.com/ferries/vesselwatch/Default.aspx', 'vesselListDiv')
-table_heading = ['Date', 'Pos', 'Route', 'Est. Arrival', 'Actual Departure', 
+table_heading = ['Date', 
+                 'Pos', 
+                 'Route', 
+                 'Est. Arrival', 
+                 'Actual Departure', 
                  'Sched Departure', 
                  'Arriving', 
                  'Departing', 
