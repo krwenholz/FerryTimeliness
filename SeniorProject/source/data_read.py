@@ -13,20 +13,19 @@ import time
     database.
 """
 
-def get_nice_html(url):
+def get_nice_html(url, elem_id):
     """
         Grab raw html from a url and return a cleaned up version using BeautifulSoup.
     """
-    """
+
     # XXX: Attepmt at selenium
     browser = webdriver.Firefox() # Get local session of firefox
     browser.get(url) # Load page
     time.sleep(0.2) # Let the page load, will be added to the API
-    elem = browser.find_element_by_name("p") # Find the query box
+    element = browser.find_element_by_id(elem_id) # Find the query box
+    html_raw = element.get_attribute('innerHTML')
     browser.close()
-    """
-    html_raw = urlopen(url).read()
-    print html_raw
+
     html_soup = BeautifulSoup(''.join(html_raw))
 
     print html_soup.prettify()
@@ -58,5 +57,5 @@ def format_table(html_soup, cellspacing='0', cellpadding='0', border='0',
 # Now make the nice looking calls to read data and such.
 ##########
 
-html = get_nice_html("http://www.wsdot.com/ferries/vesselwatch/Default.aspx")
+html = get_nice_html('http://www.wsdot.com/ferries/vesselwatch/Default.aspx', 'vesselListDiv')
 format_table(html)
