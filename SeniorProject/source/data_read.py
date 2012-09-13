@@ -1,10 +1,6 @@
-from urllib import urlopen
 from BeautifulSoup import BeautifulSoup
 
-
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.keys import Keys
 import time
 
 
@@ -15,10 +11,10 @@ import time
 
 def get_nice_html(url, elem_id):
     """
-        Grab raw html from a url and return a cleaned up version using BeautifulSoup.
+        Grab raw html from a url (using Selenium to bypass Javascript pains),
+        and return a cleaned up version using BeautifulSoup.
     """
 
-    # XXX: Attepmt at selenium
     browser = webdriver.Firefox() # Get local session of firefox
     browser.get(url) # Load page
     time.sleep(0.2) # Let the page load, will be added to the API
@@ -28,29 +24,27 @@ def get_nice_html(url, elem_id):
 
     html_soup = BeautifulSoup(''.join(html_raw))
 
-    print html_soup.prettify()
-
     return html_soup
 
-def format_table(html_soup, cellspacing='0', cellpadding='0', border='0',
-                 style='width:inherit;'):
+def format_table(html_soup,
+                 col_names,
+                 row_type='div', 
+                 row_attrs={'class': 'vslLstRow INSvslLstRow'},
+                 col_type='div',
+                 col_attrs=None,):
     """
         Uses the BeautifulSoup library to find a table with the given parameters
         and then put it in a nice Python style dictionary.
     """
-    table = html_soup.find('table', attrs={'cellspacing':cellspacing, 
-                                           'cellpadding':cellpadding, 
-                                           'border':border, 
-                                           'style':style}
-                          )
-    rows = table.findAll('div', attrs={'class': 'vslLstRow INSvslLstRow'})
-    # vslLstRow INSvslLstRow
-    for row in rows:
-        print 'iterating through rows'
-        cols = row.findAll('td')
-        for td in cols:
-            text = ''.join(td.find(text=True))
-            print text+"|",
+    data = []
+    table = html_soup
+    rows = table.findAll(row_type, attrs=row_attrs)
+    for ii in range(len(rows)):
+        data.append({})
+        cols = rows[ii].findAll(col_type, attrs=col_attrs)
+        for jj in range(len(cols)):
+            data[ii][col_names[jj]: cols[jj].find(text=True)]
+            print data[ii][col_names[jj]]
         print
 
 ##########
@@ -58,4 +52,11 @@ def format_table(html_soup, cellspacing='0', cellpadding='0', border='0',
 ##########
 
 html = get_nice_html('http://www.wsdot.com/ferries/vesselwatch/Default.aspx', 'vesselListDiv')
-format_table(html)
+table_heading = ['Date', 'Pos', 'Route', 'Est. Arrival', 'Actual Departure', 
+                 'Sched Departure', 
+                 'Arriving', 
+                 'Departing', 
+                 'Icon',
+                 'Knots',
+                 'Vessel']
+format_table(html, col_names=table_heading)
