@@ -55,7 +55,7 @@ def write_to_database(datas):
     """
     conn = None
     try:
-        conn = psycopg2.connect("dbname='ftest_bleh' user='ferry_user' host='krwenholz-TH409' password='development2012'");
+        conn = psycopg2.connect("dbname='ftest_bleh' user='ferry_user' host='localhost' password='development2012'");
     except Exception as e:
         print e
         print "I am unable to connect to the database"
