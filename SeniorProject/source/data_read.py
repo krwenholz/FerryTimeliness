@@ -3,6 +3,8 @@ from BeautifulSoup import BeautifulSoup
 from selenium import webdriver
 import time
 
+import psycopg2
+
 
 """
     This file reads in data from the WSDOT Vessel Track site to store in a MySQL
@@ -46,10 +48,28 @@ def format_table(html_soup,
             data[ii].append((col_names[jj], cols[jj].find(text=True)))
     print data
 
+def write_to_database(datas):
+    """
+        Takes in the formatted html data for ferries and writes it to the 
+        database sitting in 409.
+    """
+    conn = None
+    try:
+        conn = psycopg2.connect("dbname='ftest_bleh' user='ferry_user' host='krwenholz-TH409' password='development2012'");
+    except Exception as e:
+        print e
+        print "I am unable to connect to the database"
+        return
+    cur = conn.cursor()
+    print cur("SELECT LASTVAL() FROM testing;")
+    cur.close()
+    conn.close()
+
+
 ##########
 # Now make the nice looking calls to read data and such.
 ##########
-
+"""
 html = get_nice_html('http://www.wsdot.com/ferries/vesselwatch/Default.aspx', 'vesselListDiv')
 table_heading = ['Date', 
                  'Pos', 
@@ -63,3 +83,5 @@ table_heading = ['Date',
                  'Knots',
                  'Vessel']
 format_table(html, col_names=table_heading)
+"""
+write_to_database(None)
