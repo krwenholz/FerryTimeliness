@@ -46,7 +46,7 @@ def format_table(html_soup,
         cols = rows[ii].findAll(col_type, attrs=col_attrs)
         for jj in range(0,len(col_names)):
             data[ii].append((col_names[jj], cols[jj].find(text=True)))
-    print data
+    return data
 
 def write_to_database(datas):
     """
@@ -61,7 +61,15 @@ def write_to_database(datas):
         print "I am unable to connect to the database"
         return
     cur = conn.cursor()
-    print cur.execute("SELECT LASTVAL() FROM site_data;")
+    """
+    query_string = "INSERT INTO site_data (vessel, knots, departing, arriving,"+
+                   "scheduled_departure, actual_departure, estimated_arrival, route,"+
+                   "date) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, now);"
+    """
+    print cur.execute(query_string, (datas['Vessel'], datas['knots'], datas['Departing'],
+                                     datas['Arriving'], datas['Sched Departure'], 
+                                     datas['Actual Departure'], datas['Est. Arrival'],
+                                     datas['Route']))
     cur.close()
     conn.close()
 
@@ -69,7 +77,6 @@ def write_to_database(datas):
 ##########
 # Now make the nice looking calls to read data and such.
 ##########
-"""
 html = get_nice_html('http://www.wsdot.com/ferries/vesselwatch/Default.aspx', 'vesselListDiv')
 table_heading = ['Date', 
                  'Pos', 
@@ -82,6 +89,5 @@ table_heading = ['Date',
                  'Icon',
                  'Knots',
                  'Vessel']
-format_table(html, col_names=table_heading)
-"""
-write_to_database(None)
+datas = format_table(html, col_names=table_heading)
+write_to_database(datas)
