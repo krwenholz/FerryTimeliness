@@ -43,18 +43,20 @@ def format_table(html_soup,
     table = html_soup
     rows = table.findAll(row_type, attrs=row_attrs)
     for ii in range(0,len(rows)):
-        data.append({})
+        nextVessel = {}
         cols = rows[ii].findAll(col_type, attrs=col_attrs)
         for jj in range(0,len(col_names)):
             if col_names[jj]=='vessel':
                 for vv in vessels:
                     if vv in str(cols[jj]):
-                        data[ii][col_names[jj]]=vv
+                        nextVessel[col_names[jj]]=vv
             else:
-                data[ii][col_names[jj]]=cols[jj].find(text=True)
+                nextVessel[col_names[jj]]=cols[jj].find(text=True)
+        if len(nextVessel)==len(col_names):
+            data.append(nextVessel)
     for dd in data:
         for kk in dd.keys():
-            if dd[kk]=='N/A' or dd[kk]=='--:--':
+            if dd[kk]=='N/A' or dd[kk]=='--:--' or dd[kk]=='At Dock':
                 if 'depart' in kk or 'est' in kk:
                     dd[kk]='00:00'
     print data
@@ -82,7 +84,7 @@ def write_to_database(datas):
         print query_string % query_data
         cur.execute(query_string, query_data)
 
-    cur.commit()
+    conn.commit()
     cur.close()
     conn.close()
 
@@ -90,7 +92,7 @@ def write_to_database(datas):
 ##########
 # Now make the nice looking calls to read data and such.
 ##########
-html = get_nice_html('http://www.wsdot.com/ferries/vesselwatch/Default.aspx', 'vesselListDiv')
+
 table_heading = ['date', 
                  'pos', 
                  'route', 
@@ -121,5 +123,10 @@ vessel_names = ['Chelan',
                 'Sealth',
                 'Issaquah',
                 'Chetzemoka']
-data = format_table(html, col_names=table_heading, vessels=vessel_names)
-#write_to_database(data)
+while(True):
+    html = get_nice_html('http://www.wsdot.com/ferries/vesselwatch/Default.aspx', 'vesselListDiv')
+    data = format_table(html, col_names=table_heading, vessels=vessel_names)
+    write_to_database(data)
+    sleep(600)
+
+
