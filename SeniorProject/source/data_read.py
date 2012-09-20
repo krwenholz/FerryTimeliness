@@ -55,13 +55,13 @@ def write_to_database(datas):
     """
     conn = None
     try:
-        conn = psycopg2.connect("dbname='ftest_bleh' user='ferry_user' host='localhost' password='development2012'");
+        conn = psycopg2.connect("dbname='ferry_data' user='ferry_user' host='localhost' password='development2012'");
     except Exception as e:
         print e
         print "I am unable to connect to the database"
         return
     cur = conn.cursor()
-    print cur("SELECT LASTVAL() FROM testing;")
+    print cur.execute("SELECT LASTVAL() FROM site_data;")
     cur.close()
     conn.close()
 
