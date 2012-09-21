@@ -1,5 +1,5 @@
 from BeautifulSoup import BeautifulSoup
-
+from time import sleep
 from selenium import webdriver
 import time
 
@@ -56,9 +56,10 @@ def format_table(html_soup,
             data.append(nextVessel)
     for dd in data:
         for kk in dd.keys():
-            if dd[kk]=='N/A' or dd[kk]=='--:--' or dd[kk]=='At Dock':
-                if 'depart' in kk or 'est' in kk:
-                    dd[kk]='00:00'
+            try:
+                time.strptime(dd[kk],'%H:%M')
+            except:
+                dd[kk]='00:00'
     print data
     return data
 
@@ -127,6 +128,7 @@ while(True):
     html = get_nice_html('http://www.wsdot.com/ferries/vesselwatch/Default.aspx', 'vesselListDiv')
     data = format_table(html, col_names=table_heading, vessels=vessel_names)
     write_to_database(data)
-    sleep(600)
+    time.sleep(600)
+    print '###  Starting next data read ###'
 
 
