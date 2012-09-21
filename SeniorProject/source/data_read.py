@@ -56,10 +56,11 @@ def format_table(html_soup,
             data.append(nextVessel)
     for dd in data:
         for kk in dd.keys():
-            try:
-                time.strptime(dd[kk],'%H:%M')
-            except:
-                dd[kk]='00:00'
+            if kk in ['est_arrival','actual_departure','scheduled_departure']:
+                try:
+                    time.strptime(dd[kk],'%H:%M')
+                except:
+                    dd[kk]='00:00'
     print data
     return data
 
