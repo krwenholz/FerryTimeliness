@@ -70,6 +70,7 @@ def write_to_database(datas):
                                      datas['Arriving'], datas['Sched Departure'], 
                                      datas['Actual Departure'], datas['Est. Arrival'],
                                      datas['Route']))
+    con.commit()
     cur.close()
     conn.close()
 
