@@ -1,5 +1,5 @@
 from BeautifulSoup import BeautifulSoup
-
+from time import sleep
 from selenium import webdriver
 import time
 
@@ -30,10 +30,11 @@ def get_nice_html(url, elem_id):
 
 def format_table(html_soup,
                  col_names,
+                 vessels,
                  row_type='div', 
                  row_attrs={'class': 'vslLstRow INSvslLstRow'},
                  col_type='div',
-                 col_attrs=None,):
+                 col_attrs=None):
     """
         Uses the BeautifulSoup library to find a table with the given parameters
         and then put it in a nice Python style dictionary.
@@ -42,10 +43,25 @@ def format_table(html_soup,
     table = html_soup
     rows = table.findAll(row_type, attrs=row_attrs)
     for ii in range(0,len(rows)):
-        data.append([])
+        nextVessel = {}
         cols = rows[ii].findAll(col_type, attrs=col_attrs)
         for jj in range(0,len(col_names)):
-            data[ii].append((col_names[jj], cols[jj].find(text=True)))
+            if col_names[jj]=='vessel':
+                for vv in vessels:
+                    if vv in str(cols[jj]):
+                        nextVessel[col_names[jj]]=vv
+            else:
+                nextVessel[col_names[jj]]=cols[jj].find(text=True)
+        if len(nextVessel)==len(col_names):
+            data.append(nextVessel)
+    for dd in data:
+        for kk in dd.keys():
+            if kk in ['est_arrival','actual_departure','scheduled_departure']:
+                try:
+                    time.strptime(dd[kk],'%H:%M')
+                except:
+                    dd[kk]='00:00'
+    print data
     return data
 
 def write_to_database(datas):
@@ -61,16 +77,16 @@ def write_to_database(datas):
         print "I am unable to connect to the database"
         return
     cur = conn.cursor()
-    """
-    query_string = "INSERT INTO site_data (vessel, knots, departing, arriving,"+
-                   "scheduled_departure, actual_departure, estimated_arrival, route,"+
-                   "date) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, now);"
-    """
-    print cur.execute(query_string, (datas['Vessel'], datas['knots'], datas['Departing'],
-                                     datas['Arriving'], datas['Sched Departure'], 
-                                     datas['Actual Departure'], datas['Est. Arrival'],
-                                     datas['Route']))
-    con.commit()
+    for dd in datas:
+        query_string = "INSERT INTO site_data (vessel, knots, departing, arriving, scheduled_departure, actual_departure, estimated_arrival, route, date) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, 'now');"
+        query_data = (dd['vessel'], dd['knots'], dd['departing'],
+                                   dd['arriving'], dd['scheduled_departure'], 
+                                   dd['actual_departure'], dd['est_arrival'],
+                                   dd['route'],)
+        print query_string % query_data
+        cur.execute(query_string, query_data)
+
+    conn.commit()
     cur.close()
     conn.close()
 
@@ -78,17 +94,42 @@ def write_to_database(datas):
 ##########
 # Now make the nice looking calls to read data and such.
 ##########
-html = get_nice_html('http://www.wsdot.com/ferries/vesselwatch/Default.aspx', 'vesselListDiv')
-table_heading = ['Date', 
-                 'Pos', 
-                 'Route', 
-                 'Est. Arrival', 
-                 'Actual Departure', 
-                 'Sched Departure', 
-                 'Arriving', 
-                 'Departing', 
-                 'Icon',
-                 'Knots',
-                 'Vessel']
-datas = format_table(html, col_names=table_heading)
-write_to_database(datas)
+
+table_heading = ['date', 
+                 'pos', 
+                 'route', 
+                 'est_arrival', 
+                 'actual_departure', 
+                 'scheduled_departure', 
+                 'arriving', 
+                 'departing', 
+                 'icon',
+                 'knots',
+                 'vessel']
+vessel_names = ['Chelan', 
+                'Yakima', 
+                'Hyak', 
+                'Evergreen State', 
+                'Elwha', 
+                'Kennewick', 
+                'Salish', 
+                'Cathlamet', 
+                'Kittitas', 
+                'Puyallup', 
+                'Spokane',
+                'Tacoma',
+                'Wenatchee',
+                'Kitsap',
+                'Kaleetan',
+                'Tillikum',
+                'Sealth',
+                'Issaquah',
+                'Chetzemoka']
+while(True):
+    html = get_nice_html('http://www.wsdot.com/ferries/vesselwatch/Default.aspx', 'vesselListDiv')
+    data = format_table(html, col_names=table_heading, vessels=vessel_names)
+    write_to_database(data)
+    time.sleep(600)
+    print '###  Starting next data read ###'
+
+
