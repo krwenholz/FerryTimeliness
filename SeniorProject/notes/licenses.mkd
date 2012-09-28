@@ -1,0 +1,21 @@
+# Licenses, Links, and Thoughts #
+
+# [Creative Commons](http://creativecommons.org/choose/) #
+* Several versions
+* Generally for written work
+* Nifty HTML/other icons can be easily generated
+* Very freedom oriented
+
+# GNU Free Document License #
+http://www.gnu.org/licenses/fdl.html
+
+# Apache 2.0 #
+http://www.apache.org/licenses/LICENSE-2.0
+
+# [BSD License](http://opensource.org/licenses/BSD-2-Clause) #
+* Not a coypleft license
+* Requires attribution
+* Leaves you out of promotions
+* Removes liability
+* Very non-restrictive
+

@@ -54,12 +54,25 @@ def format_table(html_soup,
                 nextVessel[col_names[jj]]=cols[jj].find(text=True)
         if len(nextVessel)==len(col_names):
             data.append(nextVessel)
+    # TODO: set the flag field appropriately
     for dd in data:
         for kk in dd.keys():
             if kk in ['est_arrival','actual_departure','scheduled_departure']:
                 try:
                     time.strptime(dd[kk],'%H:%M')
                 except:
+                    # At Dock = 1
+                    # --:-- = 2
+                    # N/A = 3
+                    # else = 4
+                    if dd[kk]=='At Dock':
+                        dd['flags']=1
+                    if dd[kk]=='--:--':
+                        dd['flags']=2
+                    if dd[kk]=='N/A':
+                        dd['flags']=3
+                    else:
+                        dd['flags']=4
                     dd[kk]='00:00'
     print data
     return data
@@ -78,11 +91,12 @@ def write_to_database(datas):
         return
     cur = conn.cursor()
     for dd in datas:
-        query_string = "INSERT INTO site_data (vessel, knots, departing, arriving, scheduled_departure, actual_departure, estimated_arrival, route, date) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, 'now');"
+        # TODO: adjust the insert to work with another column
+        query_string = "INSERT INTO wsdot_vesselwatch(vessel, knots, departing, arriving, scheduled_departure, actual_departure, estimated_arrival, route, date, flags) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, 'now', %s);"
         query_data = (dd['vessel'], dd['knots'], dd['departing'],
                                    dd['arriving'], dd['scheduled_departure'], 
                                    dd['actual_departure'], dd['est_arrival'],
-                                   dd['route'],)
+                                   dd['route'], dd['flags'],)
         print query_string % query_data
         cur.execute(query_string, query_data)
 
