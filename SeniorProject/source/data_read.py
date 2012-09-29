@@ -63,17 +63,17 @@ def format_table(html_soup,
                     time.strptime(dd[kk],'%H:%M')
                 except:
                     # At Dock = 1
-                    # --:-- = 2
-                    # N/A = 3
-                    # else = 4
+                    # --:-- = 10
+                    # N/A = 100
+                    # else = 1000
                     if dd[kk]=='At Dock':
-                        dd['flags']=1
+                        dd['flags']+=1
                     if dd[kk]=='--:--':
-                        dd['flags']=2
+                        dd['flags']+=10
                     if dd[kk]=='N/A':
-                        dd['flags']=3
+                        dd['flags']+=100
                     else:
-                        dd['flags']=4
+                        dd['flags']+=1000
                     dd[kk]='00:00'
     print data
     return data
