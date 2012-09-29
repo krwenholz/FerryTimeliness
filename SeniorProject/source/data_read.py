@@ -68,9 +68,9 @@ def format_table(html_soup,
                     # else = 1000
                     if dd[kk]=='At Dock':
                         dd['flags']+=1
-                    if dd[kk]=='--:--':
+                    elif dd[kk]=='--:--':
                         dd['flags']+=10
-                    if dd[kk]=='N/A':
+                    elif dd[kk]=='N/A':
                         dd['flags']+=100
                     else:
                         dd['flags']+=1000
