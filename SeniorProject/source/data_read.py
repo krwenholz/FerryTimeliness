@@ -56,6 +56,7 @@ def format_table(html_soup,
             data.append(nextVessel)
     # TODO: set the flag field appropriately
     for dd in data:
+        dd['flags']=0
         for kk in dd.keys():
             if kk in ['est_arrival','actual_departure','scheduled_departure']:
                 try:
