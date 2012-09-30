@@ -6,11 +6,18 @@
 * Nifty HTML/other icons can be easily generated
 * Very freedom oriented
 
-# GNU Free Document License #
-http://www.gnu.org/licenses/fdl.html
+# [GNU Free Document License](http://www.gnu.org/licenses/fdl.html) #
+* Different from but much like the GNU Free Software license: aims to be 
+copyleft, encourage freedom, and maintain original owner's ability to claim
+credit
+* Great for documentation and I can apply it to a collection
 
-# Apache 2.0 #
-http://www.apache.org/licenses/LICENSE-2.0
+# [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0) #
+* Used for open source projects (not just free)
+* Meant to be widely used
+* Aimed at giving contributors rights as well
+* Designed for "package deals"
+* Not copyleft
 
 # [BSD License](http://opensource.org/licenses/BSD-2-Clause) #
 * Not a coypleft license
