@@ -141,10 +141,12 @@ vessel_names = ['Chelan',
                 'Issaquah',
                 'Chetzemoka']
 while(True):
+    print time.asctime()
     html = get_nice_html('http://www.wsdot.com/ferries/vesselwatch/Default.aspx', 'vesselListDiv')
     data = format_table(html, col_names=table_heading, vessels=vessel_names)
     write_to_database(data)
     time.sleep(600)
     print '###  Starting next data read ###'
+
 
 
