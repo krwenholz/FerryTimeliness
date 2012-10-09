@@ -1,0 +1,9 @@
+# Notes about collecting weather data #
+## Promising links ##
+[The data collection center for NOAA?](http://www.ncdc.noaa.gov)
+
+## The golden children ##
+It seems I get free access to these from UPS campus.  This is very good news.
+[Unedited climate data](http://cdo.ncdc.noaa.gov/ulcd/ULCD)
+[Quality controlled data](http://cdo.ncdc.noaa.gov/qclcd/QCLCD?prior=N)
+
