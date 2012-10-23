@@ -7,8 +7,8 @@ import psycopg2
 
 
 """
-    This file reads in data from the WSDOT Vessel Track site to store in a MySQL
-    database.
+    This file reads in data from the WSDOT Vessel Track site to store in a 
+    PostgreSQL database.
 """
 
 def get_nice_html(url, elem_id):

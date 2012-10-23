@@ -9,3 +9,5 @@
 
 ## My database schema ##
 site_data( id bigserial PRIMARY KEY, vessel varchar(20), knots real, departing varchar(40), arriving varchar(40), scheduled_departure time, actual_departure time, estimated_arrival time, route varchar(20), date timestamp);
+CREATE TABLE  request_data(id bigserial PRIMARY KEY, vessel varchar(20), departing varchar(40), arriving varchar(40), scheduled_departure timestamp, actual_departure timestamp, route_name varchar(20), initial_eta timestamp, actual_arrival timestamp, date date);
+
