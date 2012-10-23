@@ -1,6 +1,6 @@
 import time
 import csv
-
+from datetime import datetime
 import psycopg2
 
 
@@ -42,6 +42,15 @@ def write_to_database(datas):
 ##########
 fname = '/home/krwenholz/Dropbox/Senior/ThesisStorage/data_request_October2012.csv'
 reader = csv.reader(open(fname, 'rb'))
-write_to_database(reader)
+print reader.next()[3]
+FMT = '%m-%d-%Y %H:%M'
+y2k = datetime.strptime('1-1-2000 00:00', FMT)
+t1 = datetime.strptime(reader.next()[3].replace('/','-'), FMT) 
+t2 = datetime.strptime(reader.next()[3].replace('/','-'), FMT)
+print (t1 - y2k).total_seconds()
+
+
+
+#write_to_database(reader)
 
 
