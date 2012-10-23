@@ -19,7 +19,7 @@ def get_nice_html(url, elem_id):
 
     browser = webdriver.Firefox() # Get local session of firefox
     browser.get(url) # Load page
-    time.sleep(0.2) # Let the page load, will be added to the API
+    time.sleep(0.4) # Let the page load, will be added to the API
     element = browser.find_element_by_id(elem_id) # Find the query box
     html_raw = element.get_attribute('innerHTML')
     browser.close()
@@ -141,10 +141,16 @@ vessel_names = ['Chelan',
                 'Issaquah',
                 'Chetzemoka']
 while(True):
-    html = get_nice_html('http://www.wsdot.com/ferries/vesselwatch/Default.aspx', 'vesselListDiv')
-    data = format_table(html, col_names=table_heading, vessels=vessel_names)
-    write_to_database(data)
+    try:
+        print time.asctime()
+        html = get_nice_html('http://www.wsdot.com/ferries/vesselwatch/Default.aspx', 'vesselListDiv')
+        data = format_table(html, col_names=table_heading, vessels=vessel_names)
+        write_to_database(data)
+    except Exception as e:
+        print 'There was an error: '
+        print e
     time.sleep(600)
     print '###  Starting next data read ###'
+
 
 
