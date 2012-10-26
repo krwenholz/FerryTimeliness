@@ -1,0 +1,20 @@
+# Database SQL commands
+    ferry_data=# CREATE TABLE  departure_data(id bigserial PRIMARY KEY, vessel varchar(20), departing varchar(40), arriving varchar(40), scheduled_departure int, actual_departure int, date date);
+    NOTICE:  CREATE TABLE will create implicit sequence "departure_data_id_seq" for serial column "departure_data.id"
+    NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index "departure_data_pkey" for table "departure_data"
+    CREATE TABLE
+    ferry_data=# GRANT INSERT, DELETE, UPDATE, SELECT ON departure_data TO ferry_user;
+    GRANT
+    ferry_data=# CREATE TABLE  arrival_data(id bigserial PRIMARY KEY, vessel varchar(20), departing varchar(40), arriving varchar(40), scheduled_arrival int, actual_arrival int, date date);
+    NOTICE:  CREATE TABLE will create implicit sequence "arrival_data_id_seq" for serial column "arrival_data.id"
+    NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index "arrival_data_pkey" for table "arrival_data"
+    CREATE TABLE
+    ferry_data=# GRANT INSERT, DELETE, UPDATE, SELECT ON arrival_data TO ferry_user;
+    GRANT
+    ferry_data=# 
+
+# Data scrub finds
+bad timings =  396
+bad data type =  9037
+good data =  331468
+
