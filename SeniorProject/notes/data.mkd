@@ -18,3 +18,18 @@ bad timings =  396
 bad data type =  9037
 good data =  331468
 
+# Data transformations for the SVM 
+LibSVM provides many tips I'll be following.
+* To avoid future problems with scaling, I think I'll take the max of each attribute,
+multiply by 1.5, and then divide everything by that to get it all in [-1,1].
+This should also get close to future-proofing things in terms of the scaling
+of test data (e.g. real life data).
+* Categorization will have to take place with an attribute for each boat, location
+etc.  The problem here is to also train with an unknown for each of these 
+(in case a new boat is added or new destination).  I might not do this on the
+first round, but it'll probably come in at some point.
+* Everything has to be a number: times, weather, all of it.
+* v-fold cross validation will be used.  This involves partitioning the data
+into v subsets, training on v-1 subsets, and checking the untrained subset
+for accuracy. 
+* I'll need a late-or-not field in my data points.
