@@ -1,0 +1,48 @@
+# Report for week ending October 19th #
+
+## Brief Checklist of Accomplishments ##
+The last week was highly unproductive until Tuesday came along, but afterwards
+it went great!  The massive data I have is daunting, but these are the major
+accomplishments of the week:
+* I found and settled on an SVM library, 
+[LibSVM](http://www.csie.ntu.edu.tw/~cjlin/libsvm/).  This library isn't actually
+all in Python, but it comes with a well-supported and regularly (i.e. many 
+search results) recommended Python wrapper.  
+* All of the last two years' weather data from NOAA took a while to download
+and format, but the process is almost complete.   I'm using Python to parse
+the CSV files and write out a clean (less junk columns) CSV file.  
+* The WSDOT data has been scrubbed!  A tricky Python script wrote it all to
+a new CSV file (optionally a database) for the time being.  I removed approximately
+10,000 rows for having suspicious (arriving before departing) times and too
+much NULL data to be useful.  
+* I started backing things up like mad.  I have a USB stick of all the data,
+a Github repository for some of it, and it's all in Dropbox.
+
+
+## Design Decisions Being Made ##
+* I decided to drop Clojure for this project.  While I love the language, 
+functional programming, and the initial motivations seemed great, finding a 
+Python SVM library was too easy.  Using Python here will make me more comfortable
+in interviews later this year, and I need to move quickly with this complex
+project.
+* Finally settling on an SVM model is a fairly big decision going forward.  I
+like the model for its ease of explanation, existing code base, and use for other
+similar tasks.  I'm also far enough along that I can try this and maybe change if
+it doesn't work out perfectly.
+* LibSVM, the Python library I chose seems well used in paper references (at
+least according to the home page), comes with a great guide, and has a very
+straightforward home page.  Basically, I like the character of the whole thing.
+* It was a bit sad to drop so much data, but I don't have time to reason out
+how to "correct" it or why it's wrong.  With ~340,000 points I think it'll be
+fine to just be very strict in my standards for data cleanliness.
+* I'm starting to make some huge decisions about how to format my data.  Most
+of this is being informed by the guide and will be talked about more next week,
+but it's interesting to be seeing how I need to scale, clean, and convert 
+everything.  (I like this "bigish" data stuff better than I thought I would.)
+
+
+## On track? ##
+Not entirely. . . . Actually getting the data sort of stalled me, and having
+Clojure take up the time it did was a waste for the timeliness of this project,
+albeit a worthwhile waste for others.  I expect to be back on track with a 
+model sometime this coming week.
