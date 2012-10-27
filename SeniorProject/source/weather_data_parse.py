@@ -20,15 +20,18 @@ for yy in ('2010','2011','2012'):
             #            (1,2,4,6,10,14,18,22,24,26,30,32,34,40,43)]
             buildStr = []
             for row in reader:
-                for ii in (1,2,4,6,10,14,18,22,24,26,30,32,34,40,42):
+                for ii in (1,2,4,6,10,14,18,22,24,26,30,42):
                     try:
-                        buildStr.append(row[ii])
+                        if not row[ii] in (' ', '', '  '):
+                            # we don't want to insert empty data
+                            buildStr.append(row[ii].strip())
+                            buildStr.append(', ')
                     except Exception as e:
                         print e
                         print row
                         print yy
                         print mm
-            buildStr.append('\n')
+                buildStr.append('\n')
             w_file.write(''.join(buildStr))
 w_file.close()
 

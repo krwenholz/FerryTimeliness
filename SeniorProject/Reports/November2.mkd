@@ -1,0 +1,3 @@
+I'm dropping most of the precipitation data (pressure tendency/change and hourly
+precip) since it has massive gaps.  This shouldn't be a big deal since temperature 
+and humidity probably imply these variables.
