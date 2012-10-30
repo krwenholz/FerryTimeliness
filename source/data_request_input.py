@@ -47,6 +47,8 @@ def write_to_database(datas, depart_file=None, arrival_file=None):
     failed_data = 0
     bad_time = 0
     write_attempts = 0
+    depart_file.write('vessel, departing, arriving, scheduled_departure, actual_departure, date\n')
+    arrival_file.write('vessel, departing, arriving, scheduled_departure, actual_departure, date\n')
     for row in datas:
         try:
             if (datetime.strptime(row[4], FMT) - datetime.strptime(row[7], FMT)).total_seconds() > 0:
@@ -99,7 +101,7 @@ def write_to_database(datas, depart_file=None, arrival_file=None):
 fname = '/home/krwenholz/Dropbox/Senior/ThesisStorage/data_request_October2012.csv'
 reader = csv.reader(open(fname, 'rb'))
 # TODO: add in depart and arrival files to make some csv magic
-data_dir = '/home/krwenholz/Dropbox/Senior/Thesis/SeniorProject/Data/'
+data_dir = '../Data/'
 depart_data = open(data_dir+'departures'+'.csv', 'w')
 arrival_data = open(data_dir+'arrivals'+'.csv', 'w')
 write_to_database(reader, depart_data, arrival_data)

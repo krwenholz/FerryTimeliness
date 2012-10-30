@@ -14,6 +14,7 @@ import time
 
 data_dir = '../Data/'
 w_file = open(data_dir+'weather.csv', 'w')
+w_file.write('date, time, sky_condition, visibility, d-bulb_F, w-bulb_F, dew_point_F, rel_humidity, wind_speed, wind_dir, station_pressure, altimeter\n')
 for yy in ('2010','2011','2012'):
     for mm in ('01','02','03','04','05','06','07','08','09','10','11','12'):
         if not (yy=='2011' or yy=='2010' and mm in ('12', '11', '10', '09')

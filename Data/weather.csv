@@ -1,3 +1,4 @@
+date, time, sky_condition, visibility, d-bulb_F, w-bulb_F, dew_point_F, rel_humidity, wind_speed, wind_dir, station_pressure, altimeter
 2010-09-01,3180.0, BKN007 OVC065, 10.00, 56, 55, 54, 93, 15, 190, 29.64, 29.98
 2010-09-01,4080.0, SCT007 BKN065 OVC080, 10.00, 55, 54, 54, 96, 16, 190, 29.64, 29.98
 2010-09-01,6660.0, BKN006 OVC080, 10.00, 55, 54, 54, 96, 16, 190, 29.63, 29.97
