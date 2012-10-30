@@ -39,8 +39,9 @@ def write_to_database(datas, depart_file=None, arrival_file=None):
     #cur = conn.cursor()
 
     # Several query strings are available
-    departure_query_string = "INSERT INTO departure_data(vessel, departing, arriving, scheduled_departure, actual_departure, date) VALUES(%s, %s, %s, %d, %d, %s);"
-    arrival_query_string = "INSERT INTO arrival_data(vessel, departing, arriving, scheduled_arrival, actual_arrival, date) VALUES(%s, %s, %s, %d, %d, %s);"
+    #departure_query_string = "INSERT INTO departure_data(vessel, departing, arriving, scheduled_departure, actual_departure, date) VALUES(%s, %s, %s, %d, %d, %s);"
+    #arrival_query_string = "INSERT INTO arrival_data(vessel, departing, arriving, scheduled_arrival, actual_arrival, date) VALUES(%s, %s, %s, %d, %d, %s);"
+    # We will write in the vessel name, departure location, arrival location, 
     csv_string = "%s, %s, %s, %d, %d, %s\n"
 
     failed_data = 0

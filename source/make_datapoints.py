@@ -7,3 +7,5 @@ import csv
 #   x ferries and each one corresponds to a '1' in position y of the final 
 #   feature vector)
 # TODO: spit it out into a format usable by LibSVM
+#   <classification label> <index1>:<value1> <index2>:<value2>. . . .\n
+#   . . . .

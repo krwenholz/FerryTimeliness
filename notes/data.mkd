@@ -1,3 +1,10 @@
+# Data formats
+* arrival and departure data (times in seconds after midnight):
+    <boat name>, <departure/arrival location>, <departure/arrival destination>, <estimated time>, <actual time>, <date>
+* weather data:
+     <date>, <time>, <sky condition>, <visibility>, <dry bulb F>, <wet bulb F>, <dew point F>, <relative humidity>, <wind speed>, <wind direction>, <station pressure>, <altimeter>
+
+
 # Database SQL commands
     ferry_data=# CREATE TABLE  departure_data(id bigserial PRIMARY KEY, vessel varchar(20), departing varchar(40), arriving varchar(40), scheduled_departure int, actual_departure int, date date);
     NOTICE:  CREATE TABLE will create implicit sequence "departure_data_id_seq" for serial column "departure_data.id"
@@ -33,4 +40,5 @@ first round, but it'll probably come in at some point.
 into v subsets, training on v-1 subsets, and checking the untrained subset
 for accuracy. 
 * I'll need a late-or-not field in my data points.
+
 

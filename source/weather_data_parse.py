@@ -1,7 +1,19 @@
 import csv
+from datetime import datetime
+import time
 
-data_dir = '/home/krwenholz/Dropbox/Senior/Thesis/SeniorProject/Data/'
-w_file = open(data_dir+'aggregate_weather.csv', 'w')
+"""
+    Takes weather data from the state as input and makes a huge mess of a csv 
+    table containing the 
+    1 (Date), 2 (time), 4 (sky condition), 6 (visibility),
+    10 (dry bulb fahrenheit), 14 (wet bulb fahrenheit), 18 (dew point 
+    fahrenheit), 22 (relative humidity), 24 (wind speed), 26 (wind
+    direction), 30 (station pressure), 43 (altimeter)
+    The date is made to look nice and time is done as seconds after midnight.
+"""
+
+data_dir = '../Data/'
+w_file = open(data_dir+'weather.csv', 'w')
 for yy in ('2010','2011','2012'):
     for mm in ('01','02','03','04','05','06','07','08','09','10','11','12'):
         if not (yy=='2011' or yy=='2010' and mm in ('12', '11', '10', '09')
@@ -14,23 +26,17 @@ for yy in ('2010','2011','2012'):
             # Columns I want 1 (Date), 2 (time), 4 (sky condition), 6 (visibility),
             #   10 (dry bulb fahrenheit), 14 (wet bulb fahrenheit), 18 (dew point 
             #   fahrenheit), 22 (relative humidity), 24 (wind speed), 26 (wind
-            #   direction), 30 (station pressure), 32 (pressure tendency), 
-            #   34 (pressure change), 40 (hourly precip), 43 (altimeter)
-            #nextRow = [row[ii]+',' for row in reader for ii in
-            #            (1,2,4,6,10,14,18,22,24,26,30,32,34,40,43)]
+            #   direction), 30 (station pressure), 43 (altimeter)
             buildStr = []
             for row in reader:
-                for ii in (1,2,4,6,10,14,18,22,24,26,30,42):
-                    try:
-                        if not row[ii] in (' ', '', '  '):
+                buildStr.append(str(datetime.strptime(row[1].strip(), "%Y%m%d").date()))
+                buildStr.append(',')
+                buildStr.append(str(time.mktime(time.strptime('1970-01-01 '+row[2].strip(), '%Y-%m-%d %H%M'))-28800))
+                for ii in (4,6,10,14,18,22,24,26,30,42):
+                   if not row[ii] in (' ', '', '  '):
                             # we don't want to insert empty data
-                            buildStr.append(row[ii].strip())
                             buildStr.append(', ')
-                    except Exception as e:
-                        print e
-                        print row
-                        print yy
-                        print mm
+                            buildStr.append(row[ii].strip())
                 buildStr.append('\n')
             w_file.write(''.join(buildStr))
 w_file.close()
