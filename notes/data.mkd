@@ -2,7 +2,7 @@
 * arrival and departure data (times in seconds after midnight):
     <boat name>, <departure/arrival location>, <departure/arrival destination>, <estimated time>, <actual time>, <date>
 * weather data:
-     <date>, <time>, <sky condition>, <visibility>, <dry bulb F>, <wet bulb F>, <dew point F>, <relative humidity>, <wind speed>, <wind direction>, <station pressure>, <altimeter>
+     <date>, <time>, <visibility>, <dry bulb F>, <wet bulb F>, <dew point F>, <relative humidity>, <wind speed>, <wind direction>, <station pressure>, <altimeter>
 
 
 # Database SQL commands
