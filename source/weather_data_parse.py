@@ -35,8 +35,8 @@ for yy in ('2010','2011','2012'):
             #   direction), 30 (station pressure), 43 (altimeter)
             buildStr = []
             for row in reader:
-                if row[colnums[-3]].strip() == 'VR' or any([row[ii] 
-                    in ('  ', '', ' ') for ii in colnums]):
+                if row[colnums[-3]].strip() == 'VR' or any([row[ii].strip()
+                    in ('  ', '', ' ', 'M') for ii in colnums]):
                     bad_data += 1
                 else:
                     buildStr.append(str(datetime.strptime(row[1].strip(), "%Y%m%d").date()))

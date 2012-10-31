@@ -78,10 +78,6 @@ def scale_data(datas):
         value/(max*1.5), where max is the maximum value
         the index takes on in datas.  This modifies datas.
     """
-    for row in datas:
-        if not all([is_number(ii) for ii in row]):
-            print row 
-            return
     maxima = [max([float(ele) for ele in row]) for row in datas]
     #print 'Found in columns the following maxima.\n', maxima 
     print 'These columns will be replaced with value/(max*1.5).'
@@ -92,6 +88,8 @@ def scale_data(datas):
 # TODO: make sure to output anything done specially in the above (e.g. I have
 #   x ferries and each one corresponds to a '1' in position y of the final 
 #   feature vector)
+# TODO: Output a file for notes about what the feature vectors look like (column
+#   names) and how they were scaled.
 # TODO: spit it out into a format usable by LibSVM
 #   <classification label> <index1>:<value1> <index2>:<value2>. . . .\n
 #   . . . .
@@ -136,8 +134,9 @@ print 'From join_data on departures and weather\n', joined_dep[0]
 # SCALE
 #####
 scale_data(joined_dep)
-print joined_dep[0]
-all([ii <= 1 or -1 <= ii for ii in row for row in joined_dep])
+print 'From scale_data on departures and weather\n', joined_dep[0]
+print 'Did everything scale? ', all([ii <= 1 or -1 <= ii for ii in row 
+                                                         for row in joined_dep])
 
 #####
 # OUTPUT
