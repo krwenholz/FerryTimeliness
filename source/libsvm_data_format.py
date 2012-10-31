@@ -65,14 +65,12 @@ def join_data(d_ferry, d_weather):
             weather_map[row[0]].append(row[1:])
         else:
             weather_map.setdefault(row[0], [row[1:]])
-    print weather_map
     dropped_data = 0
     for row in d_ferry:
-        # FIXME: This comparison looks very broken since it never works
-        if row[2] in weather_map:
+        wdata = weather_map.get(row[2].strip())
+        if wdata:
             # Now we find the closest time and append weather data to ferry data
             # in the new_data.
-            wdata = weather_map[row[0]]
             minidxval = (0,999999999)
             for ii in range(len(wdata)):
                 if abs(wdata[ii][0]-row[0]) < minidxval[1]:
@@ -105,7 +103,9 @@ weather_list = [row for row in weather_read]
 departure_list = [row for row in departure_read]
 # arrival_read = csv.reader(open(sys.argv[3], 'rb'))
 print 'Weather is ', weather_list.pop(0)
+print '\n'
 print 'Departure list is ', departure_list.pop(0)
+print '\n'
 
 #####
 # CATEGORIZE
