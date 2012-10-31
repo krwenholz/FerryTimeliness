@@ -34,21 +34,6 @@ def make_features(indices, datas):
         row.extend([0 if not attr==features[ii] else 1 
                          for ii in range(len(features))
                          for attr in feature_sets[ii]])
-    return datas
-
-def scale_data(datas):
-    """
-        For every row in datas we replace the value stored there with 
-        value/(max*1.5), where max is the maximum value
-        the index takes on in datas.  This modifies datas.
-    """
-    maxima = [max([ele for ele in row]) for row in datas]
-    #print 'Found in columns the following maxima.\n', maxima 
-    print 'These columns will be replaced with value/(max*1.5).'
-    for row in datas:
-        for ii in range(len(row)):
-            row[ii] = (row[ii]/(maxima[ii]*1.5))
-    return new_data 
 
 def join_data(d_ferry, d_weather):
     """
@@ -86,6 +71,23 @@ def join_data(d_ferry, d_weather):
     print 'We found that ', dropped_data, ' points lacked a matching weather date.'
     print 'These points have been removed.\n'
     return new_data
+
+def scale_data(datas):
+    """
+        For every row in datas we replace the value stored there with 
+        value/(max*1.5), where max is the maximum value
+        the index takes on in datas.  This modifies datas.
+    """
+    for row in datas:
+        if not all([is_number(ii) for ii in row]):
+            print row 
+            return
+    maxima = [max([float(ele) for ele in row]) for row in datas]
+    #print 'Found in columns the following maxima.\n', maxima 
+    print 'These columns will be replaced with value/(max*1.5).'
+    for row in datas:
+        for ii in range(len(row)):
+            row[ii] = (float(row[ii])/(float(maxima[ii])*1.5))
 
 # TODO: make sure to output anything done specially in the above (e.g. I have
 #   x ferries and each one corresponds to a '1' in position y of the final 
@@ -133,9 +135,9 @@ print 'From join_data on departures and weather\n', joined_dep[0]
 #####
 # SCALE
 #####
-#scale_data(departure_list)
-#print departure_list[0]
-#all([ii <= 1 or -1 <= ii for ii in row for row in departure_list])
+scale_data(joined_dep)
+print joined_dep[0]
+all([ii <= 1 or -1 <= ii for ii in row for row in joined_dep])
 
 #####
 # OUTPUT

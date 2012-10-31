@@ -5,3 +5,10 @@ and humidity probably imply these variables.
 * I had to increase my buffer size to accomadate the large files.
 
 * I removed the sky code since there were about >30 of them, all meaningless.
+
+* 13220 points removed because of no weather data on date.
+
+* I had to remove 902 weather data points due to a VR (basically, not able to read) 
+    wind direction.  This does not affect the total SVM points since we can
+    just grab weather from an hour later.
+

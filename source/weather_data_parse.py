@@ -15,6 +15,11 @@ import time
 data_dir = '../Data/'
 w_file = open(data_dir+'weather.csv', 'w')
 w_file.write('date, time, visibility, d-bulb_F, w-bulb_F, dew_point_F, rel_humidity, wind_speed, wind_dir, station_pressure, altimeter\n')
+
+bad_data = 0
+
+colnums = (6,10,14,18,22,24,26,30,42)
+
 for yy in ('2010','2011','2012'):
     for mm in ('01','02','03','04','05','06','07','08','09','10','11','12'):
         if not (yy=='2011' or yy=='2010' and mm in ('12', '11', '10', '09')
@@ -30,18 +35,22 @@ for yy in ('2010','2011','2012'):
             #   direction), 30 (station pressure), 43 (altimeter)
             buildStr = []
             for row in reader:
-                buildStr.append(str(datetime.strptime(row[1].strip(), "%Y%m%d").date()))
-                buildStr.append(',')
-                tt = row[2].strip()
-                buildStr.append(str(time.mktime(time.strptime('1970-01-01 '+tt[:2]+':'+tt[2:], '%Y-%m-%d %H:%M'))-28800))
-                for ii in (6,10,14,18,22,24,26,30,42):
-                   if not row[ii] in (' ', '', '  '):
-                            # we don't want to insert empty data
-                            buildStr.append(', ')
-                            buildStr.append(row[ii].strip())
-                buildStr.append('\n')
+                if row[colnums[-3]].strip() == 'VR' or any([row[ii] 
+                    in ('  ', '', ' ') for ii in colnums]):
+                    bad_data += 1
+                else:
+                    buildStr.append(str(datetime.strptime(row[1].strip(), "%Y%m%d").date()))
+                    buildStr.append(',')
+                    tt = row[2].strip()
+                    buildStr.append(str(time.mktime(time.strptime('1970-01-01 '+tt[:2]+':'+tt[2:], '%Y-%m-%d %H:%M'))-28800))
+                    for ii in colnums:
+                        buildStr.append(', ')
+                        buildStr.append(row[ii].strip())
+                    buildStr.append('\n')
             w_file.write(''.join(buildStr))
 w_file.close()
+
+print 'We dropped ', bad_data, ' points for bad wind data.'
 
 
 
