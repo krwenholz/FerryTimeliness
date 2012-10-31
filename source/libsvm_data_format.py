@@ -73,12 +73,13 @@ def join_data(d_ferry, d_weather):
             # in the new_data.
             minidxval = (0,999999999)
             for ii in range(len(wdata)):
-                if abs(wdata[ii][0]-row[0]) < minidxval[1]:
+                diff = abs(float(wdata[ii][0])-float(row[0]))
+                if diff < minidxval[1]:
                     # We have a new minimum!
-                    minidxval = (ii, wdata[ii][0]-row[0])
+                    minidxval = (ii, diff)
             join = row[:2]
             join.extend(row[3:])
-            join.extend(wdata[ii])
+            join.extend(wdata[minidxval[0]])
             new_data.append(join)
         else:
             dropped_data += 1
