@@ -12,3 +12,9 @@ and humidity probably imply these variables.
     wind direction.  This does not affect the total SVM points since we can
     just grab weather from an hour later.
 
+* I'm not breaking up the departure and arrival data any more.  That was done in
+    a moment of panic.  After reflection, I now see what is going on in the
+    data.
+
+* I need to use Seattle weather data (more sites to come, maybe), so it's all
+    more centralized.

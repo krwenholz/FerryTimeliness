@@ -98,6 +98,7 @@ def scale_data(datas):
 # READ IN
 #####
 print 'Usage: python2 libsvm_data_format.py <weather data> <departures> <arrivals>'
+print 'Reading data in. . . .'
 weather_read = csv.reader(open(sys.argv[1], 'rb'))
 departure_read = csv.reader(open(sys.argv[2], 'rb'))
 weather_list = [row for row in weather_read]
@@ -113,18 +114,19 @@ print '\n'
 #####
 # I have to remove the date from the end for departures and date from start for 
 # weather
+print 'Making feature vectors of categorical variables. . . .'
 categoricals_d = categoricals(departure_list[0])[:-1]
 make_features(categoricals_d, departure_list)
-print 'From make_features on departures\n', departure_list[0]
+#print 'From make_features on departures\n', departure_list[0]
 
 categoricals_w = categoricals(weather_list[0])[1:]
 make_features(categoricals_w, weather_list)
-print 'From make_features on weather \n', weather_list[0]
+#print 'From make_features on weather \n', weather_list[0]
 
-print '\n'
 #####
 # COMBINE WEATHER AND FERRIES
 #####
+print 'Combining data tables. . . .'
 joined_dep = join_data(departure_list, weather_list)
 print 'From join_data on departures and weather\n', joined_dep[0]
 
@@ -133,12 +135,13 @@ print 'From join_data on departures and weather\n', joined_dep[0]
 #####
 # SCALE
 #####
+print 'Scaling data. . . .'
 scale_data(joined_dep)
-print 'From scale_data on departures and weather\n', joined_dep[0]
-print 'Did everything scale? ', all([ii <= 1 or -1 <= ii for ii in row 
-                                                         for row in joined_dep])
+#print 'From scale_data on departures and weather\n', joined_dep[0]
+#print 'Did everything scale? ', all([ii <= 1 or -1 <= ii for ii in row 
+#                                                         for row in joined_dep])
 
 #####
 # OUTPUT
 #####
-# Append and write
+print 'Outputting final data. . . .'
