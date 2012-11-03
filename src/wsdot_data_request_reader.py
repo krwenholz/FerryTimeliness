@@ -21,7 +21,7 @@ def make_time(daytime):
     return time.mktime(time.strptime('1970-01-01 '+daytime, 
                                      '%Y-%m-%d %H:%M'))-28800
 
-def write_to_database(datas, depart_file=None, arrival_file=None):
+def write_to_database(datas, data_file=None):
     """
         Takes in a data reader for the csv file and puts it all in a table.
     """
@@ -42,13 +42,13 @@ def write_to_database(datas, depart_file=None, arrival_file=None):
     #departure_query_string = "INSERT INTO departure_data(vessel, departing, arriving, scheduled_departure, actual_departure, date) VALUES(%s, %s, %s, %d, %d, %s);"
     #arrival_query_string = "INSERT INTO arrival_data(vessel, departing, arriving, scheduled_arrival, actual_arrival, date) VALUES(%s, %s, %s, %d, %d, %s);"
     # We will write in the vessel name, departure location, arrival location, 
-    csv_string = "%s, %s, %s, %d, %d, %s\n"
+    #   eta dep time, actual dep time, eta arrival time, actual arrival time
+    csv_string = "%s, %s, %s, %d, %d, %d, %d, %s\n"
 
     failed_data = 0
     bad_time = 0
     write_attempts = 0
-    depart_file.write('vessel, departing, arriving, scheduled_departure, actual_departure, date\n')
-    arrival_file.write('vessel, departing, arriving, scheduled_departure, actual_departure, date\n')
+    data_file.write('vessel, departing, arriving, scheduled_departure, actual_departure, date\n')
     for row in datas:
         try:
             if (datetime.strptime(row[4], FMT) - datetime.strptime(row[7], FMT)).total_seconds() > 0:
@@ -59,26 +59,17 @@ def write_to_database(datas, depart_file=None, arrival_file=None):
                 query_data = (row[0], row[1], row[2],
                               make_time(row[3].split(' ')[1]),
                               make_time(row[4].split(' ')[1]),
-                              datetime.strptime(row[8], FMT_DATE).date())
-                if not 'NULL' in query_data:
-                    # We don't want to write NULLs into our final data
-                    write_attempts += 1
-                    depart_file.write(csv_string % query_data)
-                    #cur.execute(query_string, query_data)
-            except:
-                # Something went wrong in the data, probably a null
-                failed_data+=1
-            try:
-                # Now, tackle the arrival data
-                query_data = (row[0], row[1], row[2],
                               make_time(row[6].split(' ')[1]),
                               make_time(row[7].split(' ')[1]),
                               datetime.strptime(row[8], FMT_DATE).date())
                 if not 'NULL' in query_data:
                     # We don't want to write NULLs into our final data
                     write_attempts += 1
-                    arrival_file.write(csv_string % query_data)
+                    data_file.write(csv_string % query_data)
                     #cur.execute(query_string, query_data)
+            except:
+                # Something went wrong in the data, probably a null
+                failed_data+=1
             except:
                 # Something went wrong, probably a null
                 failed_data+=1
@@ -100,10 +91,8 @@ def write_to_database(datas, depart_file=None, arrival_file=None):
 ##########
 fname = '/home/krwenholz/Dropbox/Senior/ThesisStorage/data_request_October2012.csv'
 reader = csv.reader(open(fname, 'rb'))
-# TODO: add in depart and arrival files to make some csv magic
 data_dir = '../Data/'
-depart_data = open(data_dir+'departures'+'.csv', 'w')
-arrival_data = open(data_dir+'arrivals'+'.csv', 'w')
-write_to_database(reader, depart_data, arrival_data)
+data_file = open(data_dir+'ferry_data'+'.csv', 'w')
+write_to_database(reader, data_file)
 
 

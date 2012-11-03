@@ -52,6 +52,8 @@ def join_data(d_ferry, d_weather):
             weather_map.setdefault(row[0], [row[1:]])
     dropped_data = 0
     for row in d_ferry:
+        # TODO: It may be possible to see if arrival is less than dep or something
+        #   with the estimates to then use the correct weather day
         wdata = weather_map.get(row[2].strip())
         if wdata:
             # Now we find the closest time and append weather data to ferry data
@@ -97,16 +99,16 @@ def scale_data(datas):
 #####
 # READ IN
 #####
-print 'Usage: python2 libsvm_data_format.py <weather data> <departures> <arrivals>'
+print 'Usage: python2 libsvm_data_format.py <weather data> <ferry_data>'
 print 'Reading data in. . . .'
 weather_read = csv.reader(open(sys.argv[1], 'rb'))
-departure_read = csv.reader(open(sys.argv[2], 'rb'))
+ferry_read = csv.reader(open(sys.argv[2], 'rb'))
 weather_list = [row for row in weather_read]
-departure_list = [row for row in departure_read]
+ferry_list = [row for row in departure_read]
 # arrival_read = csv.reader(open(sys.argv[3], 'rb'))
 print 'Weather is ', weather_list.pop(0)
 print '\n'
-print 'Departure list is ', departure_list.pop(0)
+print 'Ferry list is ', departure_list.pop(0)
 print '\n'
 
 #####
@@ -115,8 +117,8 @@ print '\n'
 # I have to remove the date from the end for departures and date from start for 
 # weather
 print 'Making feature vectors of categorical variables. . . .'
-categoricals_d = categoricals(departure_list[0])[:-1]
-make_features(categoricals_d, departure_list)
+categoricals_f = categoricals(ferry_list[0])[:-1]
+make_features(categoricals_f, ferry_list)
 #print 'From make_features on departures\n', departure_list[0]
 
 categoricals_w = categoricals(weather_list[0])[1:]
@@ -127,7 +129,7 @@ make_features(categoricals_w, weather_list)
 # COMBINE WEATHER AND FERRIES
 #####
 print 'Combining data tables. . . .'
-joined_dep = join_data(departure_list, weather_list)
+joined_dep = join_data(ferry_list, weather_list)
 print 'From join_data on departures and weather\n', joined_dep[0]
 
 
