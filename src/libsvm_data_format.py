@@ -74,27 +74,53 @@ def join_data(d_ferry, d_weather):
     print 'These points have been removed.\n'
     return new_data
 
+def label_data(datas, col1, col2, isMulti):
+    """ 
+        Labels the data according to the difference between col2 and col1.
+        The labels are for multi-class only if isMulti is True.
+    """
+    if isMulti:
+        label_groups = [180, 300, 600]
+        for row in datas:
+            row.insert(0, len(filter(lambda: x< int(row[col2])-int(row[col1]), 
+                                     label_groups)))
+    else:
+        for row in datas:
+            row.insert(0, 1 if int(row[col2])-int(row[col1])<180 else -1)
+
 def scale_data(datas):
     """
         For every row in datas we replace the value stored there with 
         value/(max*1.5), where max is the maximum value
-        the index takes on in datas.  This modifies datas.
+        the index takes on in datas.  This modifies datas.  The only column
+        not changed is the first.
     """
     maxima = [max([float(ele) for ele in row]) for row in datas]
     #print 'Found in columns the following maxima.\n', maxima 
     print 'These columns will be replaced with value/(max*1.5).'
     for row in datas:
-        for ii in range(len(row)):
+        for ii in range(1, len(row)):
             row[ii] = (float(row[ii])/(float(maxima[ii])*1.5))
 
 # TODO: make sure to output anything done specially in the above (e.g. I have
 #   x ferries and each one corresponds to a '1' in position y of the final 
-#   feature vector)
-# TODO: Output a file for notes about what the feature vectors look like (column
-#   names) and how they were scaled.
-# TODO: spit it out into a format usable by LibSVM
-#   <classification label> <index1>:<value1> <index2>:<value2>. . . .\n
-#   . . . .
+#   feature vector) and stuff was scaled by a max value of z
+def SVMable(datas, outfile):
+    """
+        Formats datas a list of lists, where the embedded lists are instances.
+        The format written to outfile is 
+        <label> <index1>:<value1> <index2>:<value2>...
+        <label> is the SVM class label.
+        <indexI> starts at 1.
+        <valueI> is the value associated with the index.
+    """
+    outStr = ['%d']
+    outStr = outStr.extend([' '+ii+':%d' for ii in range(1,len(datas[0]))])
+    outStr.append('\n')
+    outStr = ''.join(outStr)
+    for row in datas:
+        outfile.write(outStr % row)
+
 
 #####
 # READ IN
@@ -104,11 +130,11 @@ print 'Reading data in. . . .'
 weather_read = csv.reader(open(sys.argv[1], 'rb'))
 ferry_read = csv.reader(open(sys.argv[2], 'rb'))
 weather_list = [row for row in weather_read]
-ferry_list = [row for row in departure_read]
+ferry_list = [row for row in ferry_read]
 # arrival_read = csv.reader(open(sys.argv[3], 'rb'))
 print 'Weather is ', weather_list.pop(0)
 print '\n'
-print 'Ferry list is ', departure_list.pop(0)
+print 'Ferry list is ', ferry_list.pop(0)
 print '\n'
 
 #####
@@ -119,31 +145,31 @@ print '\n'
 print 'Making feature vectors of categorical variables. . . .'
 categoricals_f = categoricals(ferry_list[0])[:-1]
 make_features(categoricals_f, ferry_list)
-#print 'From make_features on departures\n', departure_list[0]
 
 categoricals_w = categoricals(weather_list[0])[1:]
 make_features(categoricals_w, weather_list)
-#print 'From make_features on weather \n', weather_list[0]
 
 #####
 # COMBINE WEATHER AND FERRIES
 #####
 print 'Combining data tables. . . .'
-joined_dep = join_data(ferry_list, weather_list)
-print 'From join_data on departures and weather\n', joined_dep[0]
+join = join_data(ferry_list, weather_list)
+print 'From join_data on ferries and weather\n', join[0]
 
-
+print 'Prepending with class labels. . . .'
+label_data(join, 0, 1, False)
+print 'Labels now look like\n', join[0]
 
 #####
 # SCALE
 #####
 print 'Scaling data. . . .'
-scale_data(joined_dep)
-#print 'From scale_data on departures and weather\n', joined_dep[0]
-#print 'Did everything scale? ', all([ii <= 1 or -1 <= ii for ii in row 
-#                                                         for row in joined_dep])
+scale_data(joined)
 
 #####
 # OUTPUT
 #####
 print 'Outputting final data. . . .'
+outfile = open('../Data/svm_points.txt', 'w')
+
+print 'Looks like it was a success!'

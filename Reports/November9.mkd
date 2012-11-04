@@ -1,0 +1,23 @@
+# Report for week ending November 2nd #
+
+## Brief Checklist of Accomplishments ##
+
+## Design Decisions Being Made ##
+* The script below tells me that ferries fall into these gaps for x 
+minutes late:
+    0-5 minutes: 287,263
+    5-10 minutes: 29,372
+    >10 minutes: 15,223
+SCRIPT:
+    data = csv.reader(open('./departures.csv', 'r'))
+    counts = [0,0,0]
+    for row in data:
+        counts[len(filter(lambda x: x<row[4]-row[3], [300,600]))]+=1
+* The finer-grained analysis revealed 
+    0-3 min: 273,256
+    3-5 min: 23,898
+    5-10 min: 21,871
+    >10 min: 12,839
+
+
+## On track? ##

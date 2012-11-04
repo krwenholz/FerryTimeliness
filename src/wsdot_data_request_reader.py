@@ -21,7 +21,7 @@ def make_time(daytime):
     return time.mktime(time.strptime('1970-01-01 '+daytime, 
                                      '%Y-%m-%d %H:%M'))-28800
 
-def write_to_database(datas, data_file=None):
+def write_to_database(datas, data_file):
     """
         Takes in a data reader for the csv file and puts it all in a table.
     """
@@ -29,26 +29,12 @@ def write_to_database(datas, data_file=None):
     FMT_DATE = '%m/%d/%Y'
     
     print 'Preparing to write data for ', datas.next()
-    #conn = None
-    #try:
-    #    conn = psycopg2.connect("dbname='ferry_data' user='ferry_user' host='localhost' password='development2012'");
-    #except Exception as e:
-    #    print e
-    #    print "I am unable to connect to the database"
-        #return
-    #cur = conn.cursor()
-
-    # Several query strings are available
-    #departure_query_string = "INSERT INTO departure_data(vessel, departing, arriving, scheduled_departure, actual_departure, date) VALUES(%s, %s, %s, %d, %d, %s);"
-    #arrival_query_string = "INSERT INTO arrival_data(vessel, departing, arriving, scheduled_arrival, actual_arrival, date) VALUES(%s, %s, %s, %d, %d, %s);"
-    # We will write in the vessel name, departure location, arrival location, 
-    #   eta dep time, actual dep time, eta arrival time, actual arrival time
     csv_string = "%s, %s, %s, %d, %d, %d, %d, %s\n"
 
     failed_data = 0
     bad_time = 0
     write_attempts = 0
-    data_file.write('vessel, departing, arriving, scheduled_departure, actual_departure, date\n')
+    data_file.write('vessel, departing, arriving, scheduled_departure, actual_departure, initial_eta, actual_arrival, date\n')
     for row in datas:
         try:
             if (datetime.strptime(row[4], FMT) - datetime.strptime(row[7], FMT)).total_seconds() > 0:
@@ -68,19 +54,15 @@ def write_to_database(datas, data_file=None):
                     data_file.write(csv_string % query_data)
                     #cur.execute(query_string, query_data)
             except:
-                # Something went wrong in the data, probably a null
-                failed_data+=1
-            except:
                 # Something went wrong, probably a null
                 failed_data+=1
         except:
             # Probably a NULL in the time
             failed_data+=1
-    print "Attempted to write ", write_attempts, " lines of data."
     print "Found ", bad_time, " lines of bad time data. (not written)"
     print "Found ", failed_data, " lines of bad data. (not written)"
-    depart_file.close()
-    arrival_file.close()
+    print "Attempted to write ", write_attempts, " lines of data."
+    data_file.close()
 #    conn.commit()
 #    cur.close()
 #    conn.close()
@@ -94,5 +76,4 @@ reader = csv.reader(open(fname, 'rb'))
 data_dir = '../Data/'
 data_file = open(data_dir+'ferry_data'+'.csv', 'w')
 write_to_database(reader, data_file)
-
 
