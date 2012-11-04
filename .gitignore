@@ -30,3 +30,5 @@ venv
 *.swp
 
 output.txt
+
+_data*

@@ -13,7 +13,7 @@ import time
 """
 
 data_dir = '../Data/'
-w_file = open(data_dir+'weather.csv', 'w')
+w_file = open(data_dir+'weather_data.csv', 'w')
 w_file.write('date, time, visibility, d-bulb_F, w-bulb_F, dew_point_F, rel_humidity, wind_speed, wind_dir, station_pressure, altimeter\n')
 
 bad_data = 0

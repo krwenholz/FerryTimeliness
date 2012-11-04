@@ -54,7 +54,7 @@ def join_data(d_ferry, d_weather):
     for row in d_ferry:
         # TODO: It may be possible to see if arrival is less than dep or something
         #   with the estimates to then use the correct weather day
-        wdata = weather_map.get(row[2].strip())
+        wdata = weather_map.get(row[4].strip())
         if wdata:
             # Now we find the closest time and append weather data to ferry data
             # in the new_data.
@@ -64,8 +64,8 @@ def join_data(d_ferry, d_weather):
                 if diff < minidxval[1]:
                     # We have a new minimum!
                     minidxval = (ii, diff)
-            join = row[:2]
-            join.extend(row[3:])
+            join = row[:4]
+            join.extend(row[5:])
             join.extend(wdata[minidxval[0]])
             new_data.append(join)
         else:
@@ -102,9 +102,6 @@ def scale_data(datas):
         for ii in range(1, len(row)):
             row[ii] = (float(row[ii])/(float(maxima[ii])*1.5))
 
-# TODO: make sure to output anything done specially in the above (e.g. I have
-#   x ferries and each one corresponds to a '1' in position y of the final 
-#   feature vector) and stuff was scaled by a max value of z
 def SVMable(datas, outfile):
     """
         Formats datas a list of lists, where the embedded lists are instances.
@@ -115,11 +112,11 @@ def SVMable(datas, outfile):
         <valueI> is the value associated with the index.
     """
     outStr = ['%d']
-    outStr = outStr.extend([' '+ii+':%d' for ii in range(1,len(datas[0]))])
+    outStr.extend([' '+str(ii)+':%d' for ii in range(1,len(datas[0]))])
     outStr.append('\n')
     outStr = ''.join(outStr)
     for row in datas:
-        outfile.write(outStr % row)
+        outfile.write(outStr % tuple(row))
 
 
 #####
@@ -164,12 +161,16 @@ print 'Labels now look like\n', join[0]
 # SCALE
 #####
 print 'Scaling data. . . .'
-scale_data(joined)
+scale_data(join)
 
 #####
 # OUTPUT
 #####
 print 'Outputting final data. . . .'
 outfile = open('../Data/svm_points.txt', 'w')
+SVMable(join, outfile)
+
+# TODO: output specific stuff like how the final vector looks
+# TODO: separate out some of the data for training
 
 print 'Looks like it was a success!'
