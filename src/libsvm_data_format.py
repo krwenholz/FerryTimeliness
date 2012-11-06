@@ -102,7 +102,7 @@ def scale_data(datas):
         for ii in range(1, len(row)):
             row[ii] = (float(row[ii])/(float(maxima[ii])*1.5))
 
-def SVMable(datas, outfile):
+def SVMable(datas, outfile, test_outfile):
     """
         Formats datas a list of lists, where the embedded lists are instances.
         The format written to outfile is 
@@ -116,7 +116,10 @@ def SVMable(datas, outfile):
     outStr.append('\n')
     outStr = ''.join(outStr)
     for row in datas:
-        outfile.write(outStr % tuple(row))
+        if not (random.uniform(0,10) > 9):
+            outfile.write(outStr % tuple(row))
+        else:
+            test_outfile.write(outStr % tuple(row))
 
 
 #####
@@ -168,7 +171,8 @@ scale_data(join)
 #####
 print 'Outputting final data. . . .'
 outfile = open('../Data/svm_points.txt', 'w')
-SVMable(join, outfile)
+test_outfile = open('../Data/svm_points_test.txt', 'w')
+SVMable(join, outfile, test_outfile)
 
 # TODO: output specific stuff like how the final vector looks
 # TODO: separate out some of the data for training
