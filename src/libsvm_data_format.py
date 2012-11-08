@@ -1,5 +1,6 @@
 import csv
 import sys
+import random
 
 def is_number(s):
     """
@@ -64,10 +65,10 @@ def join_data(d_ferry, d_weather):
                 if diff < minidxval[1]:
                     # We have a new minimum!
                     minidxval = (ii, diff)
-            join = row[:4]
-            join.extend(row[5:])
-            join.extend(wdata[minidxval[0]])
-            new_data.append(join)
+            row_join = row[:4]
+            row_join.extend(row[5:])
+            row_join.extend(wdata[minidxval[0]])
+            new_data.append(row_join)
         else:
             dropped_data += 1
     print 'We found that ', dropped_data, ' points lacked a matching weather date.'
@@ -95,12 +96,15 @@ def scale_data(datas):
         the index takes on in datas.  This modifies datas.  The only column
         not changed is the first.
     """
-    maxima = [max([float(ele) for ele in row]) for row in datas]
-    #print 'Found in columns the following maxima.\n', maxima 
-    print 'These columns will be replaced with value/(max*1.5).'
+    maxima = [float(ele) for ele in datas[0]]
+    for row in datas:
+        for ii in range(len(row)):
+            maxima[ii] = max(maxima[ii],float(row[ii]))
+    print 'The maxima are ', maxima
+    print 'The columns will be replaced with value/max.'
     for row in datas:
         for ii in range(1, len(row)):
-            row[ii] = (float(row[ii])/(float(maxima[ii])*1.5))
+            row[ii] = repr(float(row[ii])/float(maxima[ii]))
 
 def SVMable(datas, outfile, test_outfile):
     """
@@ -112,7 +116,7 @@ def SVMable(datas, outfile, test_outfile):
         <valueI> is the value associated with the index.
     """
     outStr = ['%d']
-    outStr.extend([' '+str(ii)+':%d' for ii in range(1,len(datas[0]))])
+    outStr.extend([' '+str(ii)+':%s' for ii in range(1,len(datas[0]))])
     outStr.append('\n')
     outStr = ''.join(outStr)
     for row in datas:
@@ -157,8 +161,15 @@ join = join_data(ferry_list, weather_list)
 print 'From join_data on ferries and weather\n', join[0]
 
 print 'Prepending with class labels. . . .'
-label_data(join, 0, 1, False)
+# Rows 2 and 3 correspond to eta and actual arrival, respectively
+label_data(join, 2, 3, False)
 print 'Labels now look like\n', join[0]
+# Now I filter out the actual arrival since that's what I'll be predicting
+for ii in range(len(join)):
+    new_row = []
+    new_row.extend(join[ii][:3])
+    new_row.extend(join[ii][4:])
+    join[ii] = new_row
 
 #####
 # SCALE
@@ -170,7 +181,7 @@ scale_data(join)
 # OUTPUT
 #####
 print 'Outputting final data. . . .'
-outfile = open('../Data/svm_points.txt', 'w')
+outfile = open('../Data/svm_points_data.txt', 'w')
 test_outfile = open('../Data/svm_points_test.txt', 'w')
 SVMable(join, outfile, test_outfile)
 

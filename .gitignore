@@ -32,3 +32,5 @@ venv
 output.txt
 
 _data*
+svm_points_data.txt
+svm_points_test.txt
