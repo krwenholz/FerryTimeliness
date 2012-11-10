@@ -1,23 +1,49 @@
-# Report for week ending November 2nd #
+# Report for week ending November 9th #
 
 ## Brief Checklist of Accomplishments ##
+* I got the SVM ran!  It spit out tons of data and is checking my ~40,000 test
+points now.  No idea how long it'll take.  Hopefully not much longer.  (Getting
+it all to run has been the hardest part so far, albeit not impossible.)
+* I commented and cleaned tons of my code as I did some bug fixing.
+* Everything was backed up again.
 
 ## Design Decisions Being Made ##
-* The script below tells me that ferries fall into these gaps for x 
+Below are the data I used to mark out my late value as any time greater than 3
+minutes.
+* The script below tells me that ferries fall into these gaps for x
 minutes late:
-    0-5 minutes: 287,263
-    5-10 minutes: 29,372
-    >10 minutes: 15,223
+    * 0-5: 287,263
+    * 5-10: 29,372
+    * >10: 15,223
+
 SCRIPT:
     data = csv.reader(open('./departures.csv', 'r'))
     counts = [0,0,0]
     for row in data:
         counts[len(filter(lambda x: x<row[4]-row[3], [300,600]))]+=1
-* The finer-grained analysis revealed 
-    0-3 min: 273,256
-    3-5 min: 23,898
-    5-10 min: 21,871
-    >10 min: 12,839
+* The finer-grained analysis revealed
+    0-3: 273,256
+    3-5: 23,898
+    5-10: 21,871
+    >10: 12,839
+
+* The final data for ferries is
+[est. departure, actual departure, estimated arrival, departure loc.,
+destination, vessel name].  Of course, the data and such are used to match with
+weather, but these are the only features part of the mapping to 77 space.
+
+* It now occurs to me that I have two measures of temperature, dry and wet bulb.
+These will be removed in the next iteration.  I need to revisit the other weather
+parameters as well.  To make this a viable application, I should only use weather
+data available from what will be my "live" source.
 
 
 ## On track? ##
+Close.  I was supposed to have model output (which I do) and a technical writeup.
+The writeup isn't quite the format I imagined, but the amount of documentation I
+have for the process, decisions, and use of my software is close to what I envisioned.
+These next few days will see the production of a single step-by-step guide to
+using the software I have built.  Depending on how the predictions go, I may
+be able to start on the "application" aspect of this soon.  I bet some data
+tweaking will be needed first, especially with regards to what weather data I can
+get live.
