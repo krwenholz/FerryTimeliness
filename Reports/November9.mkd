@@ -17,15 +17,17 @@ minutes late:
     * >10: 15,223
 
 SCRIPT:
+
     data = csv.reader(open('./departures.csv', 'r'))
     counts = [0,0,0]
     for row in data:
         counts[len(filter(lambda x: x<row[4]-row[3], [300,600]))]+=1
+
 * The finer-grained analysis revealed
-    0-3: 273,256
-    3-5: 23,898
-    5-10: 21,871
-    >10: 12,839
+    * 0-3: 273,256
+    * 3-5: 23,898
+    * 5-10: 21,871
+    * >10: 12,839
 
 * The final data for ferries is
 [est. departure, actual departure, estimated arrival, departure loc.,
