@@ -48,7 +48,7 @@ for yy in ('2010', '2011', '2012'):
                         buildStr.append(', ')
                         buildStr.append(row[ii].strip())
                     buildStr.append('\n')
-            w_file.write(row[0] + '\n')  # .join(buildStr))
+            w_file.write(''.join(buildStr))
 w_file.close()
 
 print 'We dropped ', bad_data, ' points for bad wind data.'
