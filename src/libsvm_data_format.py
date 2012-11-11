@@ -2,6 +2,7 @@ import csv
 import sys
 import random
 
+
 def is_number(s):
     """
         Is s a number?  True is 'tis so.  False otherwise.
@@ -12,11 +13,13 @@ def is_number(s):
     except ValueError:
         return False
 
+
 def categoricals(datas):
     """
         Finds indices in a list which are not numbers.
     """
     return [ii for ii in range(len(datas)) if not is_number(datas[ii])]
+
 
 def make_features(indices, datas):
     """
@@ -31,10 +34,11 @@ def make_features(indices, datas):
     for row in datas:
         features = [row[ii] for ii in indices]
         for ii in range(len(indices)):
-            row.pop(indices[ii]-ii)
-        row.extend([0 if not attr==features[ii] else 1
+            row.pop(indices[ii] - ii)
+        row.extend([0 if not attr == features[ii] else 1
                          for ii in range(len(features))
                          for attr in feature_sets[ii]])
+
 
 def join_data(d_ferry, d_weather):
     """
@@ -59,9 +63,9 @@ def join_data(d_ferry, d_weather):
         if wdata:
             # Now we find the closest time and append weather data to ferry data
             # in the new_data.
-            minidxval = (0,999999999)
+            minidxval = (0, 999999999)
             for ii in range(len(wdata)):
-                diff = abs(float(wdata[ii][0])-float(row[0]))
+                diff = abs(float(wdata[ii][0]) - float(row[0]))
                 if diff < minidxval[1]:
                     # We have a new minimum!
                     minidxval = (ii, diff)
@@ -75,6 +79,7 @@ def join_data(d_ferry, d_weather):
     print 'These points have been removed.\n'
     return new_data
 
+
 def label_data(datas, col1, col2, isMulti):
     """
         Labels the data according to the difference between col2 and col1.
@@ -83,11 +88,12 @@ def label_data(datas, col1, col2, isMulti):
     if isMulti:
         label_groups = [180, 300, 600]
         for row in datas:
-            row.insert(0, len(filter(lambda: x< int(row[col2])-int(row[col1]),
+            row.insert(0, len(filter(lambda x: x < int(row[col2]) - int(row[col1]),
                                      label_groups)))
     else:
         for row in datas:
-            row.insert(0, 1 if int(row[col2])-int(row[col1])<180 else -1)
+            row.insert(0, 1 if int(row[col2]) - int(row[col1]) < 180 else - 1)
+
 
 def scale_data(datas):
     """
@@ -99,12 +105,13 @@ def scale_data(datas):
     maxima = [float(ele) for ele in datas[0]]
     for row in datas:
         for ii in range(len(row)):
-            maxima[ii] = max(maxima[ii],float(row[ii]))
+            maxima[ii] = max(maxima[ii], float(row[ii]))
     print 'The maxima are ', maxima
     print 'The columns will be replaced with value/max.'
     for row in datas:
         for ii in range(1, len(row)):
-            row[ii] = repr(float(row[ii])/float(maxima[ii]))
+            row[ii] = repr(float(row[ii]) / float(maxima[ii]))
+
 
 def SVMable(datas, outfile, test_outfile):
     """
@@ -116,11 +123,11 @@ def SVMable(datas, outfile, test_outfile):
         <valueI> is the value associated with the index.
     """
     outStr = ['%d']
-    outStr.extend([' '+str(ii)+':%s' for ii in range(1,len(datas[0]))])
+    outStr.extend([' ' + str(ii) + ':%s' for ii in range(1, len(datas[0]))])
     outStr.append('\n')
     outStr = ''.join(outStr)
     for row in datas:
-        if not (random.uniform(0,10) > 9):
+        if not (random.uniform(0, 10) > 9):
             outfile.write(outStr % tuple(row))
         else:
             test_outfile.write(outStr % tuple(row))
