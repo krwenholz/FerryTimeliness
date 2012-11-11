@@ -1,0 +1,14 @@
+# Report for week ending November 9th #
+
+## Brief Checklist of Accomplishments ##
+* 60.5% accuracy on the first run.  Not too bad, but I want to get up to ~75%.
+This may be possible with some whittling down of extraneous features.
+
+## Design Decisions Being Made ##
+* I'm removing wet bulb temperature, since the combination of dry bulb and humidity
+predicts wet bulb.
+
+## On track? ##
+
+TODO: Test with no wet bulb
+TODO: Test with no weather data

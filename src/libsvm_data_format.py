@@ -32,7 +32,7 @@ def make_features(indices, datas):
         features = [row[ii] for ii in indices]
         for ii in range(len(indices)):
             row.pop(indices[ii]-ii)
-        row.extend([0 if not attr==features[ii] else 1 
+        row.extend([0 if not attr==features[ii] else 1
                          for ii in range(len(features))
                          for attr in feature_sets[ii]])
 
@@ -40,7 +40,7 @@ def join_data(d_ferry, d_weather):
     """
         This method takes in ferry data and joins appropriate weather data.
         That is, we first match on dates (drop the data if no matching dates
-        exist) then by closest time.  Thus, we create rows of all departure 
+        exist) then by closest time.  Thus, we create rows of all departure
         data followed by all the weather data, without any dates.
     """
     new_data = []
@@ -76,14 +76,14 @@ def join_data(d_ferry, d_weather):
     return new_data
 
 def label_data(datas, col1, col2, isMulti):
-    """ 
+    """
         Labels the data according to the difference between col2 and col1.
         The labels are for multi-class only if isMulti is True.
     """
     if isMulti:
         label_groups = [180, 300, 600]
         for row in datas:
-            row.insert(0, len(filter(lambda: x< int(row[col2])-int(row[col1]), 
+            row.insert(0, len(filter(lambda: x< int(row[col2])-int(row[col1]),
                                      label_groups)))
     else:
         for row in datas:
@@ -91,7 +91,7 @@ def label_data(datas, col1, col2, isMulti):
 
 def scale_data(datas):
     """
-        For every row in datas we replace the value stored there with 
+        For every row in datas we replace the value stored there with
         value/(max*1.5), where max is the maximum value
         the index takes on in datas.  This modifies datas.  The only column
         not changed is the first.
@@ -109,7 +109,7 @@ def scale_data(datas):
 def SVMable(datas, outfile, test_outfile):
     """
         Formats datas a list of lists, where the embedded lists are instances.
-        The format written to outfile is 
+        The format written to outfile is
         <label> <index1>:<value1> <index2>:<value2>...
         <label> is the SVM class label.
         <indexI> starts at 1.
@@ -144,7 +144,7 @@ print '\n'
 #####
 # CATEGORIZE
 #####
-# I have to remove the date from the end for departures and date from start for 
+# I have to remove the date from the end for departures and date from start for
 # weather
 print 'Making feature vectors of categorical variables. . . .'
 categoricals_f = categoricals(ferry_list[0])[:-1]
