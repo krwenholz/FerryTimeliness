@@ -34,3 +34,4 @@ output.txt
 *_data*
 *_test*
 *.model
+*.csv

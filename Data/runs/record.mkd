@@ -1,0 +1,6 @@
+## November 9th ##
+Ran with all files marked November 9th.  Notably, this was the first run.
+60.5% successful on test data.
+
+## November 10th ##
+Ran with ferry_data_Nov9, weather_data_Nov10_NoWBulb, svm_points_*_Nov10.
