@@ -60,18 +60,18 @@ def join_data(d_ferry, d_weather):
         # TODO: It may be possible to see if arrival is less than dep or something
         #   with the estimates to then use the correct weather day
         wdata = weather_map.get(row[4].strip())
-        if wdata:
+        if wdata or True:
             # Now we find the closest time and append weather data to ferry data
             # in the new_data.
             minidxval = (0, 999999999)
-            for ii in range(len(wdata)):
-                diff = abs(float(wdata[ii][0]) - float(row[0]))
-                if diff < minidxval[1]:
-                    # We have a new minimum!
-                    minidxval = (ii, diff)
+            #for ii in range(len(wdata)):
+            #    diff = abs(float(wdata[ii][0]) - float(row[0]))
+            #    if diff < minidxval[1]:
+            #        # We have a new minimum!
+            #        minidxval = (ii, diff)
             row_join = row[:4]
             row_join.extend(row[5:])
-            row_join.extend(wdata[minidxval[0]])
+            #row_join.extend(wdata[minidxval[0]])
             new_data.append(row_join)
         else:
             dropped_data += 1

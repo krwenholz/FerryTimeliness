@@ -11,16 +11,36 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 52.0,
+		"height": 252.0,
 		"selected_items":
 		[
 			[
-				"Browse",
-				"Preferences: Browse Packages"
+				"latex",
+				"LaTeXTools: View PDF"
 			],
 			[
-				"Pack",
-				"Package Control: Install Package"
+				"todo",
+				"Show TODOs: Project and open files"
+			],
+			[
+				"linter",
+				"SublimeLinter: Show Error List"
+			],
+			[
+				"lint sho",
+				"SublimeLinter: Show Error List"
+			],
+			[
+				"linter sh",
+				"SublimeLinter: Show Error List"
+			],
+			[
+				"Subli",
+				"SublimeLinter: Show Error List"
+			],
+			[
+				"Show ",
+				"Show TODOs: Open files only"
 			],
 			[
 				"package",
@@ -28,6 +48,18 @@
 			],
 			[
 				"Package",
+				"Preferences: Browse Packages"
+			],
+			[
+				"SublimeL",
+				"SublimeLinter: Show Error List"
+			],
+			[
+				"Browse",
+				"Preferences: Browse Packages"
+			],
+			[
+				"Pack",
 				"Package Control: Install Package"
 			]
 		],
@@ -48,12 +80,24 @@
 	},
 	"file_history":
 	[
+		"/home/krwenholz/Downloads/let9b.tex",
+		"/home/krwenholz/Source/Resume/resume.tex",
 		"/home/krwenholz/Dropbox/Work-Career/Applications/CIA_2012/DataAnalyst/CoverLetter/coverletter_cia2012_DataAnalyst.tex",
+		"/home/krwenholz/Downloads/cover_letter_2.tex",
+		"/home/krwenholz/Downloads/cover_example.tex",
+		"/home/krwenholz/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Reports/November16.mkd",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/libsvm_data_format.py",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/libsvm_data_format_Nov10_NoWeather.out",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/svm_points_data.txt",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/weather_data_reader.py",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/weather_data_Nov10_NoWBulb.csv",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/weather_data.csv",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/libsvm_data_format_Nov9.out",
+		"/home/krwenholz/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
 		"/home/krwenholz/Source/math-cs-UPS/math-cs-ups/index.php",
 		"/home/krwenholz/notes-sublime.mkd",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Reports/November9.mkd",
-		"/home/krwenholz/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
-		"/home/krwenholz/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
 		"/home/krwenholz/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings"
 	],
 	"find":
@@ -140,6 +184,42 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"data/svm",
+				"Data/svm_points_data.txt"
+			],
+			[
+				"data/",
+				"Data/svm_points_data.txt"
+			],
+			[
+				"libsv",
+				"src/libsvm_data_format.py"
+			],
+			[
+				"weather",
+				"src/weather_data_reader.py"
+			],
+			[
+				"wea",
+				"Data/weather_data.csv"
+			],
+			[
+				"src/we",
+				"src/weather_data_reader.py"
+			],
+			[
+				"src/",
+				"src/libsvm_data_format.py"
+			],
+			[
+				"repor",
+				"Reports/November16.mkd"
+			],
+			[
+				"src/w",
+				"src/weather_data_reader.py"
+			]
 		],
 		"width": 0.0
 	},
@@ -155,6 +235,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_width": 124.0,
 	"status_bar_visible": true
 }
