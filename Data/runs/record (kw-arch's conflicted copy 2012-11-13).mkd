@@ -3,8 +3,6 @@ Ran with all files marked November 9th.  Notably, this was the first run.
 60.1061% (18803/31283) successful on test data.
 
 ## November 10th ##
-NoWeather
-60.383% (20020/33155) (classification)
-
 NoWBulb:
-Accuracy = 60.7101% (19270/31741) (classification)
+
+NoWeather:

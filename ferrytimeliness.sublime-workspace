@@ -80,6 +80,8 @@
 	},
 	"file_history":
 	[
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/libsvm_data_format.py",
+		"/home/krwenholz/.conkyrc",
 		"/home/krwenholz/Downloads/let9b.tex",
 		"/home/krwenholz/Source/Resume/resume.tex",
 		"/home/krwenholz/Dropbox/Work-Career/Applications/CIA_2012/DataAnalyst/CoverLetter/coverletter_cia2012_DataAnalyst.tex",
@@ -87,7 +89,6 @@
 		"/home/krwenholz/Downloads/cover_example.tex",
 		"/home/krwenholz/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Reports/November16.mkd",
-		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/libsvm_data_format.py",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/libsvm_data_format_Nov10_NoWeather.out",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/svm_points_data.txt",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/weather_data_reader.py",
@@ -106,7 +107,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
 		]
@@ -174,6 +175,10 @@
 	{
 		"height": 112.0
 	},
+	"output.find_results":
+	{
+		"height": 112.0
+	},
 	"replace":
 	{
 		"height": 0.0
@@ -225,11 +230,15 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"selected_items":
 		[
+			[
+				"",
+				"/home/krwenholz/Source/CS325/cs325-final_project/cs325-final_project.sublime-project"
+			]
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"show_minimap": false,
 	"show_open_files": false,
