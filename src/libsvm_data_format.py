@@ -60,15 +60,15 @@ def join_data(d_ferry, d_weather):
         # TODO: It may be possible to see if arrival is less than dep or something
         #   with the estimates to then use the correct weather day
         wdata = weather_map.get(row[4].strip())
-        if wdata or True:
+        if wdata:
             # Now we find the closest time and append weather data to ferry data
             # in the new_data.
             minidxval = (0, 999999999)
-            #for ii in range(len(wdata)):
-            #    diff = abs(float(wdata[ii][0]) - float(row[0]))
-            #    if diff < minidxval[1]:
-            #        # We have a new minimum!
-            #        minidxval = (ii, diff)
+            for ii in range(len(wdata)):
+                diff = abs(float(wdata[ii][0]) - float(row[0]))
+                if diff < minidxval[1]:
+                    # We have a new minimum!
+                    minidxval = (ii, diff)
             row_join = row[:4]
             row_join.extend(row[5:])
             #row_join.extend(wdata[minidxval[0]])
@@ -127,7 +127,7 @@ def SVMable(datas, outfile, test_outfile):
     outStr.append('\n')
     outStr = ''.join(outStr)
     for row in datas:
-        if not (random.uniform(0, 10) > 9):
+        if (random.uniform(0, 10) < 0.5):
             outfile.write(outStr % tuple(row))
         else:
             test_outfile.write(outStr % tuple(row))
@@ -178,11 +178,11 @@ for ii in range(len(join)):
     new_row.extend(join[ii][4:])
     join[ii] = new_row
 
-#####
-# SCALE
-#####
-print 'Scaling data. . . .'
-scale_data(join)
+######
+## SCALE
+######
+#print 'Scaling data. . . .'
+#scale_data(join)
 
 #####
 # OUTPUT

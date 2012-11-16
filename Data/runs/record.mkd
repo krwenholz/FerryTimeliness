@@ -4,7 +4,12 @@ Ran with all files marked November 9th.  Notably, this was the first run.
 
 ## November 10th ##
 NoWeather
-60.383% (20020/33155) (classification)
+    60.383% (20020/33155) (classification)
 
 NoWBulb:
-Accuracy = 60.7101% (19270/31741) (classification)
+    Accuracy = 60.7101% (19270/31741) (classification)
+
+## November 13th ##
+I'm working on setting up a basic data set now.  This will lead to the chance
+to use the LibSVM package in a more direct manner.  Hopefully, it yields better
+results.

@@ -7,13 +7,44 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/home/krwenholz/notes-sublime.mkd",
+			"settings":
+			{
+				"buffer_size": 198,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "## November 9th ##\nRan with all files marked November 9th.  Notably, this was the first run.\n60.1061% (18803/31283) successful on test data.\n\n## November 10th ##\nNoWeather\n    60.383% (20020/33155) (classification)\n\nNoWBulb:\n    Accuracy = 60.7101% (19270/31741) (classification)\n\n## November 13th ##\nI'm working on setting up a basic data set now.  This will lead to the chance\nto use the LibSVM package in a more direct manner.  Hopefully, it yields better\nresults.\n",
+			"file": "Data/runs/record.mkd",
+			"file_size": 468,
+			"file_write_time": 1352854434000000,
+			"settings":
+			{
+				"buffer_size": 468,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 252.0,
+		"height": 232.0,
 		"selected_items":
 		[
+			[
+				"linter",
+				"SublimeLinter: Show Error List"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"lint",
+				"SublimeLinter: Show Error List"
+			],
 			[
 				"latex",
 				"LaTeXTools: View PDF"
@@ -21,10 +52,6 @@
 			[
 				"todo",
 				"Show TODOs: Project and open files"
-			],
-			[
-				"linter",
-				"SublimeLinter: Show Error List"
 			],
 			[
 				"lint sho",
@@ -63,7 +90,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 593.0
+		"width": 602.0
 	},
 	"console":
 	{
@@ -80,18 +107,21 @@
 	},
 	"file_history":
 	[
+		"/home/krwenholz/.zshrc",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/libsvm_data_format.py",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/weather_data_reader.py",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/wsdot_data_request_reader.py",
+		"/home/krwenholz/Dropbox/Work-Career/Applications/CIA_2012/DataAnalyst/CoverLetter/coverletter_cia2012_DataAnalyst.tex",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/record.mkd",
 		"/home/krwenholz/.conkyrc",
 		"/home/krwenholz/Downloads/let9b.tex",
 		"/home/krwenholz/Source/Resume/resume.tex",
-		"/home/krwenholz/Dropbox/Work-Career/Applications/CIA_2012/DataAnalyst/CoverLetter/coverletter_cia2012_DataAnalyst.tex",
 		"/home/krwenholz/Downloads/cover_letter_2.tex",
 		"/home/krwenholz/Downloads/cover_example.tex",
 		"/home/krwenholz/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Reports/November16.mkd",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/libsvm_data_format_Nov10_NoWeather.out",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/svm_points_data.txt",
-		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/weather_data_reader.py",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/weather_data_Nov10_NoWBulb.csv",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/weather_data.csv",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/libsvm_data_format_Nov9.out",
@@ -107,7 +137,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 90.0,
+		"height": 0.0,
 		"where_history":
 		[
 		]
@@ -135,8 +165,237 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/home/krwenholz/notes-sublime.mkd",
+					"settings":
+					{
+						"buffer_size": 198,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								198,
+								198
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Data/runs/record.mkd",
+					"settings":
+					{
+						"buffer_size": 468,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								468,
+								468
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -190,20 +449,36 @@
 		"selected_items":
 		[
 			[
-				"data/svm",
-				"Data/svm_points_data.txt"
+				"ws",
+				"src/wsdot_data_request_reader.py"
 			],
 			[
-				"data/",
-				"Data/svm_points_data.txt"
+				"weather",
+				"src/weather_data_reader.py"
+			],
+			[
+				"record",
+				"Data/runs/record.mkd"
+			],
+			[
+				"reco",
+				"Data/runs/record.mkd"
+			],
+			[
+				"recor",
+				"Data/runs/record.mkd"
 			],
 			[
 				"libsv",
 				"src/libsvm_data_format.py"
 			],
 			[
-				"weather",
-				"src/weather_data_reader.py"
+				"data/svm",
+				"Data/svm_points_data.txt"
+			],
+			[
+				"data/",
+				"Data/svm_points_data.txt"
 			],
 			[
 				"wea",
@@ -243,7 +518,7 @@
 	"show_minimap": false,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 124.0,
 	"status_bar_visible": true
 }
