@@ -1,14 +1,44 @@
-# Report for week ending November 9th #
+# Report for week ending November 16th #
 
 ## Brief Checklist of Accomplishments ##
-* 60.5% accuracy on the first run.  Not too bad, but I want to get up to ~75%.
-This may be possible with some whittling down of extraneous features.
+So, this last week has focused on refining an actual method for the predictions
+and getting some solid data.  I'll be doing the actual technical writeup soon,
+since my work has shifted from using my own scaling and cleaning tools to using
+the full power of the LibSVM software.  This is a checklist rundown of it all:
+* I have an actual process!  This is covered a little in the design decisions
+section, but basically, file names now have conventions, there's a series of
+steps, and it's reproducible.
+* Three sets of data were run with varying success.  In all cases, I used
+    default parameters to fit the data.  This is probably poor form.  Here it is
+    though:
+
+    60.1061% (18803/31283) successful on test data. Notably, this was the
+    first run.  Pretty much a full data set (all weather, all boat info).
+
+    60.7101% (19270/31741) successful on test data.  This run removed the wet
+    bulb temperature (implied by dry bulb and humidity).
+
+    60.383% (20020/33155) successful on test data.  This run was without any
+    weather data at all.
+* The data is currently running with no wet bulb to find the best fit parameters.
+Now on day 2.5, it seems this is a hard problem.
 
 ## Design Decisions Being Made ##
+I read the LibSVM guide in better detail (i.e. looked well into the confusing
+appendix).  It seems I can use the LibSVM software to scale the data (possibly
+a fault in my implementation), and it can help select some basic parameters to
+greatly (according to their examples) improve the model accuracy.  So, I'm using
+it all to a fuller potential now. A checklisty breakdown follows:
 * I'm removing wet bulb temperature, since the combination of dry bulb and humidity
 predicts wet bulb.
+* The LibSVM software is being used for scaling (should be more stable), even
+though I'm not sure how this will work with a "live" implementation.
+* Using default parameters doesn't work.  This makes computation take longer
+initially it seems (who knows how long), but I think it'll pay huge dividends.
+Once I get an initial set, I'll start investigating what parameters I can
+remove and maintain accuracy.
 
 ## On track? ##
-
-TODO: Test with no wet bulb
-TODO: Test with no weather data
+Ish.  I need to have a technical writeup soon, but otherwise, this is the part
+of the project I wanted to really spend time on.  If all goes well, I can make
+a small app type deal of it with a solid model soon.  We'll see!
