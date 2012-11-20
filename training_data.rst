@@ -38,4 +38,4 @@ How does the LIBSVM SCRIPT work?
 Using LibSVM (my procedure)
 +++++++++++++++++++++++++++
 
-.. _data http://cdo.ncdc.noaa.gov/qclcd/QCLCD?prior=N
+.. _data: http://cdo.ncdc.noaa.gov/qclcd/QCLCD?prior=N
