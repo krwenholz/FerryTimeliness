@@ -31,9 +31,4 @@ venv
 
 output.txt
 
-*_data*
-*_test*
-*.model
-*.csv
-*.scale
-*.out
+Data/*

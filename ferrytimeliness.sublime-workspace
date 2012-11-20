@@ -8,21 +8,13 @@
 	"buffers":
 	[
 		{
-			"file": "/home/krwenholz/notes-sublime.mkd",
+			"contents": "Shift + ctrl .+ A // auto-aligns stuff\nctrl + g // goto line number\nctrl + up (down) // column super powers\nctrl + alt + p // look up all projects\nctrl + shift + b // toggle sidebar\nrun TODO // gather TODO comments\n\n\n\n\n## Packages ##\nhttps://github.com/Kronuz/SublimeCodeIntel\nhttps://github.com/SublimeLinter/SublimeLinter\nhttps://github.com/revolunet/sublimetext-markdown-preview\nhttps://github.com/robcowie/SublimeTODO",
+			"file": "/home/krwenholz/Dropbox/notes/sublime.mkd",
+			"file_size": 420,
+			"file_write_time": 1353175862000000,
 			"settings":
 			{
-				"buffer_size": 198,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "## November 9th ##\nRan with all files marked November 9th.  Notably, this was the first run.\n60.1061% (18803/31283) successful on test data.\n\n## November 10th ##\nNoWeather\n    60.383% (20020/33155) (classification)\n\nNoWBulb:\n    Accuracy = 60.7101% (19270/31741) (classification)\n\n## November 13th ##\nI'm working on setting up a basic data set now.  This will lead to the chance\nto use the LibSVM package in a more direct manner.  Hopefully, it yields better\nresults.\n",
-			"file": "Data/runs/record.mkd",
-			"file_size": 468,
-			"file_write_time": 1352854434000000,
-			"settings":
-			{
-				"buffer_size": 468,
+				"buffer_size": 421,
 				"line_ending": "Unix"
 			}
 		}
@@ -30,9 +22,17 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 232.0,
+		"height": 392.0,
 		"selected_items":
 		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
 			[
 				"linter",
 				"SublimeLinter: Show Error List"
@@ -90,7 +90,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 602.0
+		"width": 593.0
 	},
 	"console":
 	{
@@ -107,19 +107,21 @@
 	},
 	"file_history":
 	[
-		"/home/krwenholz/.zshrc",
+		"/home/krwenholz/notes-sublime.mkd",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/record.mkd",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/libsvm_data_format.py",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Reports/November16.mkd",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Reports/November9.mkd",
+		"/home/krwenholz/.zshrc",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/weather_data_reader.py",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/wsdot_data_request_reader.py",
 		"/home/krwenholz/Dropbox/Work-Career/Applications/CIA_2012/DataAnalyst/CoverLetter/coverletter_cia2012_DataAnalyst.tex",
-		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/record.mkd",
 		"/home/krwenholz/.conkyrc",
 		"/home/krwenholz/Downloads/let9b.tex",
 		"/home/krwenholz/Source/Resume/resume.tex",
 		"/home/krwenholz/Downloads/cover_letter_2.tex",
 		"/home/krwenholz/Downloads/cover_example.tex",
 		"/home/krwenholz/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
-		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Reports/November16.mkd",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/libsvm_data_format_Nov10_NoWeather.out",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/svm_points_data.txt",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/weather_data_Nov10_NoWBulb.csv",
@@ -127,8 +129,6 @@
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/libsvm_data_format_Nov9.out",
 		"/home/krwenholz/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
 		"/home/krwenholz/Source/math-cs-UPS/math-cs-ups/index.php",
-		"/home/krwenholz/notes-sublime.mkd",
-		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Reports/November9.mkd",
 		"/home/krwenholz/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings"
 	],
 	"find":
@@ -165,137 +165,23 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/home/krwenholz/notes-sublime.mkd",
+					"file": "/home/krwenholz/Dropbox/notes/sublime.mkd",
 					"settings":
 					{
-						"buffer_size": 198,
+						"buffer_size": 421,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								198,
-								198
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": false,
-							"sublimelinter_mark_style": "outline",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Data/runs/record.mkd",
-					"settings":
-					{
-						"buffer_size": 468,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								468,
-								468
+								215,
+								215
 							]
 						],
 						"settings":
@@ -449,6 +335,18 @@
 		"selected_items":
 		[
 			[
+				"recor",
+				"Data/runs/record.mkd"
+			],
+			[
+				"november",
+				"Reports/November9.mkd"
+			],
+			[
+				"lib",
+				"src/libsvm_data_format.py"
+			],
+			[
 				"ws",
 				"src/wsdot_data_request_reader.py"
 			],
@@ -462,10 +360,6 @@
 			],
 			[
 				"reco",
-				"Data/runs/record.mkd"
-			],
-			[
-				"recor",
 				"Data/runs/record.mkd"
 			],
 			[
