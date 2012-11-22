@@ -6,6 +6,7 @@ usable by LibSVM and how to run it through LibSVM.
 
 The data used spanned October 2010 through September 2012.  A lot of cleaning
 and investigation into meaning was required to make the data make sense and work.
+All source files are in the 'src' directory.
 
 Weather Data
 ++++++++++++
@@ -15,16 +16,29 @@ Quality controlled data_ from NOAA was obtained with access from the University
 of Puget Sound.  This data was downloaded month by month to match the ferry
 data timeline.
 
-How does the WEATHER SCRIPT work?
----------------------------------
+How does weather_data_reader.py work?
+-------------------------------------
+The weather_data_reader.py script is used to parse all of the weather data pulled
+from the NOAA source into a single CSV file (header included).  To adjust this
+file, all you need to do is adjust the printed header at the top (line 17) and
+the tuple of column numbers (line 21) to include the columns you want.  To run
+from the command line you use
+
+    python weather_data_reader.py
+
+The output is a file, "weather_data.csv", in the data directory (line 15).
+Command line output will indicate how many points are dropped due to empty
+or bad data type entries in the desired columns.
+
 
 Ferry Data
 ++++++++++
 Where does it come from?
 ------------------------
 
-How does the FERRY DATA SCRIPT work?
-------------------------------------
+How does wsdot_data_request_reader.py work?
+-------------------------------------------
+
 
 
 Joining Weather and Ferry Data
