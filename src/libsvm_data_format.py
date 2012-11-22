@@ -5,7 +5,7 @@ import random
 
 def is_number(s):
     """
-        Is s a number?  True is 'tis so.  False otherwise.
+        Is s a number?  True if 'tis so.  False otherwise.
     """
     try:
         float(s)
@@ -127,10 +127,8 @@ def SVMable(datas, outfile, test_outfile):
     outStr.append('\n')
     outStr = ''.join(outStr)
     for row in datas:
-        if (random.uniform(0, 10) < 0.5):
+        if True:
             outfile.write(outStr % tuple(row))
-        else:
-            test_outfile.write(outStr % tuple(row))
 
 
 #####
@@ -143,9 +141,11 @@ ferry_read = csv.reader(open(sys.argv[2], 'rb'))
 weather_list = [row for row in weather_read]
 ferry_list = [row for row in ferry_read]
 # arrival_read = csv.reader(open(sys.argv[3], 'rb'))
-print 'Weather is ', weather_list.pop(0)
+whdr = weather_list.pop(0)
+fhdr = ferry_list.pop(0)
+print 'Weather is ', whdr
 print '\n'
-print 'Ferry list is ', ferry_list.pop(0)
+print 'Ferry list is ', fhdr
 print '\n'
 
 #####
@@ -192,7 +192,7 @@ outfile = open('../Data/svm_points_data.txt', 'w')
 test_outfile = open('../Data/svm_points_test.txt', 'w')
 SVMable(join, outfile, test_outfile)
 
-# TODO: output specific stuff like how the final vector looks
-# TODO: separate out some of the data for training
+whdr.extend(fhdr)
+print 'Final output is of the form ', whdr
 
 print 'Looks like it was a success!'

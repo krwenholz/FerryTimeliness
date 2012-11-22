@@ -72,8 +72,8 @@ def write_to_database(datas, data_file):
 ##########
 # Now make the nice looking calls to read data and such.
 ##########
-fname = '/home/krwenholz/Dropbox/Senior/ThesisStorage/data_request_October2012.csv'
+fname = '../Data/data_request_October2012.csv'
 reader = csv.reader(open(fname, 'rb'))
 data_dir = '../Data/'
-data_file = open(data_dir + 'ferry_data' + '.csv', 'w')
+data_file = open(data_dir + 'ferry_data.csv', 'w')
 write_to_database(reader, data_file)
