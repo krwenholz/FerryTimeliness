@@ -70,7 +70,7 @@ def join_data(d_ferry, d_weather):
                     # We have a new minimum!
                     minidxval = (ii, diff)
             # XXX: Easy place to adjust the output columns
-            row_join = row[:4]  # Remove the date
+            row_join = row[2:4]  # XXX: Remove the date and departure stuff
             row_join.extend(row[5:])
             row_join.extend(wdata[minidxval[0]])
             new_data.append(row_join)
@@ -170,7 +170,7 @@ print 'From join_data on ferries and weather\n', join[0]
 
 print 'Prepending with class labels. . . .'
 # Rows 2 and 3 correspond to eta and actual arrival, respectively
-label_data(join, 2, 3, False)
+label_data(join, 0, 1, False)  # XXX: Use to determine the label
 print 'Labels now look like\n', join[0]
 # Now I filter out the actual arrival since that's what I'll be predicting
 for ii in range(len(join)):
