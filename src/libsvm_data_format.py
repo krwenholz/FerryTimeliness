@@ -69,9 +69,10 @@ def join_data(d_ferry, d_weather):
                 if diff < minidxval[1]:
                     # We have a new minimum!
                     minidxval = (ii, diff)
-            row_join = row[:4]
+            # XXX: Easy place to adjust the output columns
+            row_join = row[:4]  # Remove the date
             row_join.extend(row[5:])
-            #row_join.extend(wdata[minidxval[0]])
+            row_join.extend(wdata[minidxval[0]])
             new_data.append(row_join)
         else:
             dropped_data += 1
@@ -178,11 +179,6 @@ for ii in range(len(join)):
     new_row.extend(join[ii][4:])
     join[ii] = new_row
 
-######
-## SCALE
-######
-#print 'Scaling data. . . .'
-#scale_data(join)
 
 #####
 # OUTPUT
@@ -191,8 +187,5 @@ print 'Outputting final data. . . .'
 outfile = open('../Data/svm_points_data.txt', 'w')
 test_outfile = open('../Data/svm_points_test.txt', 'w')
 SVMable(join, outfile, test_outfile)
-
-whdr.extend(fhdr)
-print 'Final output is of the form ', whdr
 
 print 'Looks like it was a success!'
