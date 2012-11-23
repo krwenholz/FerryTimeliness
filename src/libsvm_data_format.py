@@ -63,16 +63,16 @@ def join_data(d_ferry, d_weather):
         if wdata:
             # Now we find the closest time and append weather data to ferry data
             # in the new_data.
-            minidxval = (0, 999999999)
-            for ii in range(len(wdata)):
-                diff = abs(float(wdata[ii][0]) - float(row[0]))
-                if diff < minidxval[1]:
-                    # We have a new minimum!
-                    minidxval = (ii, diff)
-            # XXX: Easy place to adjust the output columns
+            #minidxval = (0, 999999999)
+            #for ii in range(len(wdata)):
+                #diff = abs(float(wdata[ii][0]) - float(row[0]))
+                #if diff < minidxval[1]:
+                    ## We have a new minimum!
+                    #minidxval = (ii, diff)
+            ## XXX: Easy place to adjust the output columns
             row_join = row[2:4]  # XXX: Remove the date and departure stuff
             row_join.extend(row[5:])
-            row_join.extend(wdata[minidxval[0]])
+            #row_join.extend(wdata[minidxval[0]])
             new_data.append(row_join)
         else:
             dropped_data += 1
