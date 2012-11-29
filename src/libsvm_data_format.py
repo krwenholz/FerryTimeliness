@@ -65,10 +65,10 @@ def join_data(d_ferry, d_weather):
             # in the new_data.
             #minidxval = (0, 999999999)
             #for ii in range(len(wdata)):
-                #diff = abs(float(wdata[ii][0]) - float(row[0]))
-                #if diff < minidxval[1]:
-                    ## We have a new minimum!
-                    #minidxval = (ii, diff)
+            #    diff = abs(float(wdata[ii][0]) - float(row[0]))
+            #    if diff < minidxval[1]:
+            #        # We have a new minimum!
+            #        minidxval = (ii, diff)
             ## XXX: Easy place to adjust the output columns
             row_join = row[2:4]  # XXX: Remove the date and departure stuff
             row_join.extend(row[5:])
@@ -169,14 +169,15 @@ join = join_data(ferry_list, weather_list)
 print 'From join_data on ferries and weather\n', join[0]
 
 print 'Prepending with class labels. . . .'
-# Rows 2 and 3 correspond to eta and actual arrival, respectively
+# Columns 2 and 3 correspond to eta and actual arrival, respectively
 label_data(join, 0, 1, False)  # XXX: Use to determine the label
 print 'Labels now look like\n', join[0]
 # Now I filter out the actual arrival since that's what I'll be predicting
+# XXX: This next bit is the key to killing off the arrival column
 for ii in range(len(join)):
     new_row = []
-    new_row.extend(join[ii][:3])
-    new_row.extend(join[ii][4:])
+    new_row.extend(join[ii][:2])
+    new_row.extend(join[ii][3:])
     join[ii] = new_row
 
 

@@ -52,15 +52,42 @@ In theory, the output CSV file should be ready for a database (Postgres) using
 simple inserts (i.e. you shouldn't even need to format the dates).
 
 
-Joining Weather and Ferry Data
-++++++++++++++++++++++++++++++
-Why join the data?
-------------------
+Preparing Weather and Ferry Data
+++++++++++++++++++++++++++++++++
+What has to be done with?
+-------------------------
+We have to join the weather and ferry data if we ever want to test the usefulness
+of weather in predicting ferry tardiness.  The script, for better or worse, does
+more than this, though.  Most importantly, it categorizes and labels the data
+by turning categorical variables into something like a bit vector appended to the
+current row and then putting a 1 at the head for within three minutes on time and
+-1 otherwise.  In essence, even after aggregating the data, it is necessary to
+perform several cleaning operations, some of which we use LibSVM for (discussed
+near the end).
 
 How does libsvm_data_format.py work?
 --------------------------------
+The bottom of the file is a full setup to combine weather and ferry data (some
+lines may be commented out depending on your version).  From the top down to
+this script part, you'll find all of the functions for cleaning up the data:
+scaling, handling categorical variables, labeling, joining, and outputting in
+a format understandable by LibSVM.  To run the script, use the following
+
+    python2 libsvm_data_format.py ../Data/<weather_data> ../Data/<ferry_data> >
+        ../Data/<formatting_output>
+
+On completion, you will find "../Data/svm_points_data.txt" and
+"../Data/svm_points_test.txt" with training and testing data ready to feed to
+LibSVM.  In "../Data/<formatting_output>" will be a variety of outputs
+describing how the data was transformed into a suitable output.
 
 Using LibSVM (my procedure)
 +++++++++++++++++++++++++++
 
+
 .. _data: http://cdo.ncdc.noaa.gov/qclcd/QCLCD?prior=N
+
+
+
+
+

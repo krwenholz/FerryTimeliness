@@ -1,8 +1,0 @@
-## November 9th ##
-Ran with all files marked November 9th.  Notably, this was the first run.
-60.1061% (18803/31283) successful on test data.
-
-## November 10th ##
-NoWBulb:
-
-NoWeather:

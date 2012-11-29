@@ -8,13 +8,43 @@
 	"buffers":
 	[
 		{
-			"contents": "Shift + ctrl .+ A // auto-aligns stuff\nctrl + g // goto line number\nctrl + up (down) // column super powers\nctrl + alt + p // look up all projects\nctrl + shift + b // toggle sidebar\nrun TODO // gather TODO comments\n\n\n\n\n## Packages ##\nhttps://github.com/Kronuz/SublimeCodeIntel\nhttps://github.com/SublimeLinter/SublimeLinter\nhttps://github.com/revolunet/sublimetext-markdown-preview\nhttps://github.com/robcowie/SublimeTODO",
-			"file": "/home/krwenholz/Dropbox/notes/sublime.mkd",
-			"file_size": 420,
-			"file_write_time": 1353175862000000,
+			"file": "training_data.rst",
 			"settings":
 			{
-				"buffer_size": 421,
+				"buffer_size": 3870,
+				"line_ending": "Unix",
+				"name": "# Training the Data"
+			}
+		},
+		{
+			"file": "src/libsvm_data_format.py",
+			"settings":
+			{
+				"buffer_size": 6481,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Data/runs/WithTraining/ArrivalFull/data_ArrivalFull",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Data/data_request_October2012.csv",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Data/runs/WithTraining/README",
+			"settings":
+			{
+				"buffer_size": 251,
 				"line_ending": "Unix"
 			}
 		}
@@ -25,6 +55,30 @@
 		"height": 392.0,
 		"selected_items":
 		[
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				"lint",
+				"SublimeLinter: Show Error List"
+			],
+			[
+				"lin",
+				"SublimeLinter: Show Error List"
+			],
+			[
+				":",
+				":w - Save"
+			],
+			[
+				":q",
+				"Set Syntax: SQL"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
 			[
 				"install",
 				"Package Control: Install Package"
@@ -40,10 +94,6 @@
 			[
 				"packa",
 				"Package Control: Install Package"
-			],
-			[
-				"lint",
-				"SublimeLinter: Show Error List"
 			],
 			[
 				"latex",
@@ -107,14 +157,20 @@
 	},
 	"file_history":
 	[
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/data_request_October2012.csv",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/ferry_data.csv",
+		"/home/krwenholz/python_tests.py",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/notes/data.mkd",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/libsvm_data_format.py",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/wsdot_data_request_reader.py",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/weather_data_reader.py",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/notes/weather_data.mkd",
+		"/home/krwenholz/Dropbox/notes/sublime.mkd",
 		"/home/krwenholz/notes-sublime.mkd",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/record.mkd",
-		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/libsvm_data_format.py",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Reports/November16.mkd",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Reports/November9.mkd",
 		"/home/krwenholz/.zshrc",
-		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/weather_data_reader.py",
-		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/wsdot_data_request_reader.py",
 		"/home/krwenholz/Dropbox/Work-Career/Applications/CIA_2012/DataAnalyst/CoverLetter/coverletter_cia2012_DataAnalyst.tex",
 		"/home/krwenholz/.conkyrc",
 		"/home/krwenholz/Downloads/let9b.tex",
@@ -133,7 +189,7 @@
 	],
 	"find":
 	{
-		"height": 0.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -147,6 +203,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Kittitas, Mukilteo",
+			"right",
+			"left",
+			"jj",
+			"nextPlac",
+			"ii",
+			"    ",
 			"\n"
 		],
 		"highlight": true,
@@ -165,23 +228,482 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/home/krwenholz/Dropbox/notes/sublime.mkd",
+					"file": "training_data.rst",
 					"settings":
 					{
-						"buffer_size": 421,
+						"buffer_size": 3870,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								215,
-								215
+								3808,
+								3808
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"auto_name": "# Training the Data",
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/RestructuredText/reStructuredText.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 597.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/libsvm_data_format.py",
+					"settings":
+					{
+						"buffer_size": 6481,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2645,
+								2645
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 816.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Data/runs/WithTraining/ArrivalFull/data_ArrivalFull",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Data/data_request_October2012.csv",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Data/runs/WithTraining/README",
+					"settings":
+					{
+						"buffer_size": 251,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								251,
+								251
 							]
 						],
 						"settings":
@@ -335,6 +857,54 @@
 		"selected_items":
 		[
 			[
+				"readme",
+				"Data/runs/WithTraining/README"
+			],
+			[
+				"data",
+				"Data/data_request_October2012.csv"
+			],
+			[
+				"runs/withtraining/arr",
+				"Data/runs/WithTraining/ArrivalFull/data_ArrivalFull"
+			],
+			[
+				"requ",
+				"Data/data_request_October2012.csv"
+			],
+			[
+				"ferry_data",
+				"Data/ferry_data.csv"
+			],
+			[
+				"libsv",
+				"src/libsvm_data_format.py"
+			],
+			[
+				"data/",
+				"Data/data_request_October2012.csv"
+			],
+			[
+				"lib",
+				"src/libsvm_data_format.py"
+			],
+			[
+				"wsdo",
+				"src/wsdot_data_request_reader.py"
+			],
+			[
+				"wsdot",
+				"src/wsdot_data_request_reader.py"
+			],
+			[
+				"weather",
+				"src/weather_data_reader.py"
+			],
+			[
+				"notes/",
+				"notes/weather_data.mkd"
+			],
+			[
 				"recor",
 				"Data/runs/record.mkd"
 			],
@@ -343,16 +913,8 @@
 				"Reports/November9.mkd"
 			],
 			[
-				"lib",
-				"src/libsvm_data_format.py"
-			],
-			[
 				"ws",
 				"src/wsdot_data_request_reader.py"
-			],
-			[
-				"weather",
-				"src/weather_data_reader.py"
 			],
 			[
 				"record",
@@ -363,15 +925,7 @@
 				"Data/runs/record.mkd"
 			],
 			[
-				"libsv",
-				"src/libsvm_data_format.py"
-			],
-			[
 				"data/svm",
-				"Data/svm_points_data.txt"
-			],
-			[
-				"data/",
 				"Data/svm_points_data.txt"
 			],
 			[
