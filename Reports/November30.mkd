@@ -1,0 +1,42 @@
+# Report for week ending November 30th #
+
+## Brief Checklist of Accomplishments ##
+* The technical document is finished!  It sits in the top level directory.
+* Training and testing have run for 4 different models with parameter training:
+    - Full model: 88%
+    - Full - Weather: 89%
+    - Full - Departure: 67%
+    - Full - Weather - Departure: 68%
+* Application development is planned out.  It's going to be simple and crude,
+but it should work and maybe not look too bad.
+* The project as a whole has been reorganized to make it seem like something
+people might look at and use.
+* Everything falls under the MIT license now (basically I claim no responsibility).
+It isn't the sort of open source I originally planned, but the simplicity of the
+license is incredibly attractive.
+
+## Design Decisions Being Made ##
+Most of the work going on now is to polish up my findings in documentation and
+maybe get a quick application in.  Not many decisions are being made other than
+to keep things in plain text files, use the same process for any new models, and
+to use the simplest thing possible for a web application.
+
+The application will sit on Heroku, a service I have experience with.  It's also
+free and pretty simple if you know Git.  I can use
+a Java web framework ([Play!](http://www.playframework.org/) seems like the
+simplest) to get going quickly, since LibSVM includes a Java library of itself.
+I'm not totally certain how this will go, but keeping it simple should help.
+I would use Python on Heroku if it weren't for the fact that the Python for
+LibSVM is only a wrapper, and Heroku doesn't let you use C code on their
+servers (to the best of my knowledge).
+
+## On track? ##
+Yes!  It doesn't look quite like what I expected, mostly since I used a framework
+already build for my model.  As a whole, however, the project accomplished most
+of my goals.  I did something interesting and novel that should make for a
+reasonably nice paper.  If I can get an application done in short order, I'll
+be thrilled, but I also plan to run some sort of statistical analysis over break.
+I'm not familiar or comfortable with stats.  Meaning, I avoided doing any
+throughout this project, but I see now how necessary they may be to make my work
+defensible and meaningful.  Or an awesome and working application will be enough
+to show the virtue of my work.
