@@ -59,8 +59,8 @@ def join_data(d_ferry, d_weather):
     for row in d_ferry:
         # TODO: It may be possible to see if arrival is less than dep or something
         #   with the estimates to then use the correct weather day
-        wdata = weather_map.get(row[4].strip())
-        if wdata:
+        #wdata = weather_map.get(row[4].strip())
+        if True:  # wdata:
             # Now we find the closest time and append weather data to ferry data
             # in the new_data.
             #minidxval = (0, 999999999)
@@ -70,7 +70,7 @@ def join_data(d_ferry, d_weather):
             #        # We have a new minimum!
             #        minidxval = (ii, diff)
             ## XXX: Easy place to adjust the output columns
-            row_join = row[2:4]  # XXX: Remove the date and departure stuff
+            row_join = row[:2]
             row_join.extend(row[5:])
             #row_join.extend(wdata[minidxval[0]])
             new_data.append(row_join)
@@ -176,8 +176,8 @@ print 'Labels now look like\n', join[0]
 # XXX: This next bit is the key to killing off the arrival column
 for ii in range(len(join)):
     new_row = []
-    new_row.extend(join[ii][:2])
-    new_row.extend(join[ii][3:])
+    new_row.extend(join[ii][:1])
+    new_row.extend(join[ii][2:])
     join[ii] = new_row
 
 
