@@ -1,0 +1,31 @@
+# SVM Success #
+
+# Full #
+Uses "all" parameters to predict arrival time.
+(best c=2048.0, g=0.03125, rate=75.028)
+Accuracy = 87.014% (classification)
+
+# NoWeather #
+Uses parameters - weather to predict arrival time.
+(best c=32768.0, g=0.5, rate=84.84)
+Accuracy = 88.014% (44007/50000) (classification)
+
+# ArrivalFull #
+Uses parameters - departure info to predict arrival time.
+(best c=0.5, g=0.0001220703125, rate=60.176)
+Accuracy = Not Calculated
+
+# ArrivalNoWeather #
+Uses parameters - weather - departure to predict arrival time.
+(bests not recorded)
+Accuracy = 59.352% (29676/50000) (classification)
+
+# Departure #
+Predicts departures using all parameters.
+(best c=0.5, g=2.0, rate=75.72)
+Accuracy = 76.308% (38154/50000) (classification)
+
+# DepartureNoWeather #
+Predicts departures without weather.
+(best c=2048.0, g=0.00048828125, rate=75.62)
+Accuracy = 75.686% (37843/50000) (classification)
