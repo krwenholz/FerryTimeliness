@@ -55,7 +55,8 @@ a thorough record of my steps, and making it all well organized so other folks
 can use it later.  This was a huge project goal for me.  Most of my work has always
 been self-contained and never meant to be visible to others, but this project
 changed and tackled the shift to openness for me.  The fact it has an open-source
-license on it even makes me pretty proud.
+license on it even makes me pretty proud.  You can see the "entry point" to my
+work [here](http://github.com/krwenholz/FerryTimeliness/).
 
 The last accomplishment is how much I have to write about.  My thesis looked like
 it was in jeopardy a little at the end of last semester, but this project is
