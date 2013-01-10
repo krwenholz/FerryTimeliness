@@ -8,10 +8,7 @@
 	"buffers":
 	[
 		{
-			"contents": "# SVM Success #\n\n# Full #\nUses \"all\" parameters to predict arrival time.\n(best c=2048.0, g=0.03125, rate=75.028)\nAccuracy = 87.014% (classification)\n\n# NoWeather #\nUses parameters - weather to predict arrival time.\n(best c=32768.0, g=0.5, rate=84.84)\nAccuracy = 88.014% (44007/50000) (classification)\n\n# ArrivalFull #\nUses parameters - departure info to predict arrival time.\n(best c=0.5, g=0.0001220703125, rate=60.176)\nAccuracy = Not Calculated\n\n# ArrivalNoWeather #\nUses parameters - weather - departure to predict arrival time.\n(bests not recorded)\nAccuracy = 59.352% (29676/50000) (classification)\n\n# Departure #\nPredicts departures using all parameters.\n(best c=0.5, g=2.0, rate=75.72)\nAccuracy = 76.308% (38154/50000) (classification)\n\n# DepartureNoWeather #\nPredicts departures without weather.\n(best c=2048.0, g=0.00048828125, rate=75.62)\nAccuracy = 75.686% (37843/50000) (classification)\n",
 			"file": "Data/runs/WithTraining/README",
-			"file_size": 898,
-			"file_write_time": 1354647195000000,
 			"settings":
 			{
 				"buffer_size": 898,
@@ -22,16 +19,16 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 72.0,
+		"height": 232.0,
 		"selected_items":
 		[
 			[
-				":q",
-				"Set Syntax: SQL"
-			],
-			[
 				":w",
 				":w - Save"
+			],
+			[
+				":q",
+				"Set Syntax: SQL"
 			],
 			[
 				"lint",
@@ -127,6 +124,9 @@
 	},
 	"file_history":
 	[
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Reports/December14.mkd",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/README.md",
+		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/syllabus.txt",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/WithTraining/DepartureNoWeather/param_train.out",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/WithTraining/Departure/param_train.out",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/WithTraining/ArrivalNoWeather2/param_train.out",
@@ -137,8 +137,6 @@
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/WithTraining/Departure/test_data.predict",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/WithTraining/ArrivalNoWeather2/test_data.predict",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/src/libsvm_data_format.py",
-		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/README.md",
-		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/syllabus.txt",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Reports/November30.mkd",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/HOWTO.mkd",
 		"/home/krwenholz/Dropbox/Senior/FerryTimeliness/Data/runs/WithTraining/README",
@@ -384,16 +382,28 @@
 		"selected_items":
 		[
 			[
+				"dece",
+				"Reports/December14.mkd"
+			],
+			[
+				"reports/",
+				"Reports/November16.mkd"
+			],
+			[
+				"readme",
+				"README.md"
+			],
+			[
+				"syll",
+				"syllabus.txt"
+			],
+			[
 				"param_train.out",
 				"Data/runs/WithTraining/DepartureNoWeather/param_train.out"
 			],
 			[
 				"predict",
 				"Data/runs/WithTraining/NoWeather/test_data.predict"
-			],
-			[
-				"readme",
-				"Data/runs/WithTraining/README"
 			],
 			[
 				"libsv",

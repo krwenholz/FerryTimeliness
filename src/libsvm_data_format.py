@@ -60,10 +60,10 @@ def join_data(d_ferry, d_weather):
         # TODO: It may be possible to see if arrival is less than dep or something
         #   with the estimates to then use the correct weather day
         #wdata = weather_map.get(row[4].strip())
-        if True:  # wdata:
+        if True: #wdata:
             # Now we find the closest time and append weather data to ferry data
             # in the new_data.
-            #minidxval = (0, 999999999)
+            minidxval = (0, 999999999)
             #for ii in range(len(wdata)):
             #    diff = abs(float(wdata[ii][0]) - float(row[0]))
             #    if diff < minidxval[1]:
@@ -140,7 +140,12 @@ print 'Reading data in. . . .'
 weather_read = csv.reader(open(sys.argv[1], 'rb'))
 ferry_read = csv.reader(open(sys.argv[2], 'rb'))
 weather_list = [row for row in weather_read]
-ferry_list = [row for row in ferry_read]
+route = ["Kingston", "Edmonds"]
+#route = ["Keystone", "Port Townsend"] #Keystone=Coupeville
+#route = ["Tahlequah", "Pt. Defiance"]
+ferry_list = [ferry_read.next()] + [row for row in ferry_read 
+                                    if row[1].strip() in route 
+                                    and row[2].strip() in route]
 # arrival_read = csv.reader(open(sys.argv[3], 'rb'))
 whdr = weather_list.pop(0)
 fhdr = ferry_list.pop(0)
