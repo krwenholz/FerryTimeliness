@@ -1,0 +1,31 @@
+# Where's my ferry?
+## An examination of ferry tardiness using support vector machines
+## By Kyle Wenholz
+## Advised by Professor Brad Richards
+## Fall 2012 and Spring 2013
+
+
+### Introduction
+Of course.
+
+### Preliminaries
+1. What's the problem?
+    1. Scheduling problems in general
+    2. The ferry system in Washington's Pacific Northwest
+        1. Brief History
+        2. Areas serviced (geographic spread), routes
+        3. Existing interfaces for the public
+            1. Vessel Watch
+            2. Pamphlets
+            3. General knowledge
+            4. Email alerts
+2. Solutions considered
+    1. Artificial Intelligence as a model
+    2. Neural Networks
+    3. Support Vector Machines
+        1. Easier to expalain and understand
+        2. More immediately supported by existing libraries
+        3. Data lends itself well to this form of understanding
+
+### Retrieving and preparing the data
+1. 

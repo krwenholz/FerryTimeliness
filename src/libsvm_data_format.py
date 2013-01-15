@@ -63,15 +63,15 @@ def join_data(d_ferry, d_weather):
         if True: #wdata:
             # Now we find the closest time and append weather data to ferry data
             # in the new_data.
-            minidxval = (0, 999999999)
+            #minidxval = (0, 999999999)
             #for ii in range(len(wdata)):
             #    diff = abs(float(wdata[ii][0]) - float(row[0]))
             #    if diff < minidxval[1]:
             #        # We have a new minimum!
             #        minidxval = (ii, diff)
             ## XXX: Easy place to adjust the output columns
-            row_join = row[:2]
-            row_join.extend(row[5:])
+            row_join = row[2:]
+            #row_join.extend(row[5:])
             #row_join.extend(wdata[minidxval[0]])
             new_data.append(row_join)
         else:
@@ -140,9 +140,9 @@ print 'Reading data in. . . .'
 weather_read = csv.reader(open(sys.argv[1], 'rb'))
 ferry_read = csv.reader(open(sys.argv[2], 'rb'))
 weather_list = [row for row in weather_read]
-route = ["Kingston", "Edmonds"]
+#route = ["Kingston", "Edmonds"]
 #route = ["Keystone", "Port Townsend"] #Keystone=Coupeville
-#route = ["Tahlequah", "Pt. Defiance"]
+route = ["Tahlequah", "Pt. Defiance"]
 ferry_list = [ferry_read.next()] + [row for row in ferry_read 
                                     if row[1].strip() in route 
                                     and row[2].strip() in route]
@@ -174,7 +174,6 @@ join = join_data(ferry_list, weather_list)
 print 'From join_data on ferries and weather\n', join[0]
 
 print 'Prepending with class labels. . . .'
-# Columns 2 and 3 correspond to eta and actual arrival, respectively
 label_data(join, 0, 1, False)  # XXX: Use to determine the label
 print 'Labels now look like\n', join[0]
 # Now I filter out the actual arrival since that's what I'll be predicting
