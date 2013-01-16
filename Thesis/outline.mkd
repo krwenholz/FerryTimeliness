@@ -1,14 +1,16 @@
 # Where's my ferry?
 ## An examination of ferry tardiness using support vector machines
-## By Kyle Wenholz
-## Advised by Professor Brad Richards
-## Fall 2012 and Spring 2013
+By Kyle Wenholz
+Advised by Professor Brad Richards
+Fall 2012 and Spring 2013
 
 
 ### Introduction
+    Duration: 0.5%
 Of course.
 
 ### Preliminaries
+    Duration: 15%
 1. What's the problem?
     1. Scheduling problems in general
     2. The ferry system in Washington's Pacific Northwest
@@ -19,13 +21,90 @@ Of course.
             2. Pamphlets
             3. General knowledge
             4. Email alerts
-2. Solutions considered
+
+### Retrieving and preparing the data
+    Duration: 10%
+1. Accessibility of the Vessel Watch data
+    1. Briefly discuss the web page scraper
+        1. Using a simulated web browser
+        2. Accounting for "botched" grabs
+    2. Using a request for the data
+        1. Discuss what I actually received
+        2. Discuss the quality and amount of data
+2. Grabbing weather data
+    1. Grabbed from a deeply hidden NOAA archive
+    2. Manually downloaded files
+    3. Why the Tacoma Narrows station
+        1. Completeness of dates
+        2. Completeness of records
+3. Formatting and making nice the data
+    1. Discussion of data quality
+    2. Suite of Python scripts to cut out bad data
+    3. Scripts to join weather and ferry data
+    4. Performance issues encountered
+
+### The model 
+    Duration: 50%
+1. Solutions considered
     1. Artificial Intelligence as a model
     2. Neural Networks
     3. Support Vector Machines
         1. Easier to expalain and understand
         2. More immediately supported by existing libraries
         3. Data lends itself well to this form of understanding
+2. What an SVM is
+    1. How an SVM works
+    2. How it relates to the ferry problem
+        1. Separating late as >3 minutes past estimate
+        2. The data as points in >33 space
+    3. The complication of fitting such a curve
+3. Use of LibSVM
+    1. Why not write my own?
+        1. Time
+        2. Correctness
+        3. Performance
+    2. Use in other papers/popularity
+    3. Ease of use of the library (reasonably documented)
+5. How runs were organized and performed using LibSVM
+    1. Needing to fit c and gamma parameters to get better curves
+    2. Duration of runs and sheer size of data sets
+    3. Using LibSVM to do heavy lifting for subsets and such
 
-### Retrieving and preparing the data
-1. 
+### Results 
+    Duration 20%
+1. How do we know it's correct?
+    1. How to validate an SVM
+    2. Test sets
+2. Review the numbers of the results
+    1. Results before param fitting of c and gamma
+    1. Departures
+        1. Weather
+        2. No weather
+    2. The more interesting: arrivals
+        1. Weather
+        2. No weather
+3. The problem of weather not seeming to help
+    1. Possible issues
+        1. Location of station
+        2. Poor quality of data
+        3. My error
+        4. Ferries really are consistent enough to not need weather
+    2. Running individual routes
+        1. Closest to Tacoma Narrows
+        2. Middleish (randomly selected)
+        3. Geographically furthest
+
+### Remaining questions and further work
+    Duration: 4%
+1. Making an actual application
+    1. State of Java web frameworks
+    2. Need to scrape or grab user data
+    3. Update SVM
+2. Are the schedules online adjusted as time goes by
+3. Mining the data for patterns
+
+### Conclusion
+    Duration: 0.5%
+Yep.  This should be here.
+
+
