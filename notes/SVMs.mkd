@@ -28,6 +28,11 @@ various sets of parameters is similar to a regression analysis.
 At least, I had the same goals of determining the important 
 aspects to creating a functional model.  It's sketchy.
 
+### SVM
+Constructs a hyperplane or a set of hyperplanes (multi-class) 
+such that the distance between plane and the nearest training
+ppoint of any class is maximized.
+
 
 
 
