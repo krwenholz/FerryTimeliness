@@ -1,0 +1,13 @@
+# Of SVMs and their use for ferry timeliness
+
+
+
+
+
+
+
+
+
+# Sources
+[Regarding nu-SVM](http://scholar.google.com/citations?view_op=view_citation&hl=en&user=Tb0ZrYwAAAAJ&citation_for_view=Tb0ZrYwAAAAJ:d1gkVwhDpl0C)
+Use top result for [LibSVM algorithm](http://scholar.google.com/scholar?hl=en&q=R.-E.+Fan%2C+P.-H.+Chen%2C+and+C.-J.+Lin.+Working+set+selection+using+second+order+information+for+training+SVM.&btnG=&as_sdt=1%2C48&as_sdtp=)
