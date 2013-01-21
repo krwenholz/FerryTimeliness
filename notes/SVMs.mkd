@@ -31,7 +31,9 @@ aspects to creating a functional model.  It's sketchy.
 ### SVM
 Constructs a hyperplane or a set of hyperplanes (multi-class) 
 such that the distance between plane and the nearest training
-ppoint of any class is maximized.
+ppoint of any class is maximized (from 
+[Vapnik's paper](http://scholar.google.com/scholar?hl=en&q=Support-vector+networks++++++Corinna+Cortes%2C+++++Vladimir+Vapnik+&btnG=&as_sdt=1%2C48&as_sdtp=).
+
 
 
 
