@@ -1,0 +1,48 @@
+# Of SVMs and their use for ferry timeliness
+
+### Supervised learning
+Labeled training data is used to inform an algorithm
+that builds a model about the data. This labeling 
+provides a reward system for the classifier we're 
+training.
+
+A general process for supervised learning and the
+many tradeoffs needing consideration can be found
+[here](https://en.wikipedia.org/wiki/Supervised_learning).
+
+### Classification rather than regression
+I chose not to do a [regression analysis](https://en.wikipedia.org/wiki/Regression_analysis): 
+instead focusing on a practical application using [classification](https://en.wikipedia.org/wiki/Statistical_classification)
+for tardiness. This means I was searching for the _tardy_ sub-population 
+using a _binary classifier_.  
+
+Great examples of classifiers are spam filters, where you want
+a clear category of is or isn't.  Tardiness is a little blurrier,
+but it still works as a concept of categorization.  We might even 
+expect that the timeliness of ferries does fit pretty neatly 
+into late or not late (e.g. most late ferries are at least 3 
+minutes later than their on time counterparts).
+
+My final analysis by actually removing the weather and trying 
+various sets of parameters is similar to a regression analysis.
+At least, I had the same goals of determining the important 
+aspects to creating a functional model.  It's sketchy.
+
+### SVM
+Constructs a hyperplane or a set of hyperplanes (multi-class) 
+such that the distance between plane and the nearest training
+ppoint of any class is maximized (from 
+[Vapnik's paper](http://scholar.google.com/scholar?hl=en&q=Support-vector+networks++++++Corinna+Cortes%2C+++++Vladimir+Vapnik+&btnG=&as_sdt=1%2C48&as_sdtp=).
+
+
+
+
+
+
+
+
+
+
+# Sources
+[Regarding nu-SVM](http://scholar.google.com/citations?view_op=view_citation&hl=en&user=Tb0ZrYwAAAAJ&citation_for_view=Tb0ZrYwAAAAJ:d1gkVwhDpl0C)
+Use top result for [LibSVM algorithm](http://scholar.google.com/scholar?hl=en&q=R.-E.+Fan%2C+P.-H.+Chen%2C+and+C.-J.+Lin.+Working+set+selection+using+second+order+information+for+training+SVM.&btnG=&as_sdt=1%2C48&as_sdtp=)
