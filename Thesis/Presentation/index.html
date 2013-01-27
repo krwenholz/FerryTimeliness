@@ -4,11 +4,11 @@
 	<head>
 		<meta charset="utf-8">
 
-        <title>Where's my Ferry?</title>
+    <title>Where's my Ferry?</title>
 
-        <meta name="description" content="Support Vector Machines for Modeling
-        Ferry Tardiness">
-		<meta name="author" content="Hakim El Hattab">
+    <meta name="description" content="Support Vector Machines for Modeling
+      Ferry Tardiness">
+		<meta name="author" content="Kyle R. Wenholz">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -33,22 +33,306 @@
       <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
           <section>
-            <h1>Where's my Ferry?</h1>
-            <h3>Support Vector Machines for Modeling Ferry Tardiness</h3>
+            <h1>Where's my </br> Ferry?</h1>
+            <h3>Support Vector Machines for </br> Modeling Ferry Tardiness</h3>
             <p>
-              <small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>
+            <small>By Kyle Wenholz 
+              </br>Advised by Professor Brad Richards
+            </small>
             </p>
           </section>
+          
+          <section data-markdown>
+          <script type="text/template">
+            ## Coming soon. . .
+              * <p class="fragment roll-in">Brad</p>
+              * <p class="fragment roll-in">Ferries</p>
+              * <p class="fragment roll-in">Tardiness</p>
+              * <p class="fragment roll-in">Hyperplanes</p>
+            </script>
+          <aside class="notes">
+            This is an introduction slide.  I just need to quickly go over
+            who I worked with, what my project was (Senior Project/Thesis), 
+            what's the problem, and what my solution was.
+            and 
+          </aside>
+          </section>
 
-    
+          <section data-markdown>
+            <!--
+            TODO: add in the details from my notes
+            -->
+            <script type="text/template">
+              ## Why do we care about ferries?
+            </script>
+            <aside class="notes">
+              Talk about what the ferry system is (WSDOT), who uses it 
+              (Geographic distribution), and how many people use it, brief
+              history.
+            </aside>
+          </section>
+          
+          <section data-markdown>
+          <!--
+          TODO: Add a map image of the routes
+          TODO: gather statistical data mentioned in notes
+          -->
+          <script type="text/template">
+          </script>
+          <aside class="notes">
+            Go over the details of the ferry system.
+            1. Boats
+            2. Of trips per day
+            3. Routes
+            4. Places serviced
+            5. Funding
+            6. Design and planning
+            7. Resources for travelers
+              1. Vessel Watch
+              2. Pamphlets
+              3. General knowledge
+              4. Email alerts
+          </aside>
+          </section>
+          
+          <section data-markdown>
+          <script type="text/template">
+            ## Generalizing the problem and narrowing in
+          </script>
+          <aside class="notes">
+            It's time to discuss how we can think of tardiness as a categorical
+            variable (in a crude sort of way) and the many features involved
+            in that tardiness: vessel, route, time of day, date of year, weather,
+            etc.
+          </aside>
+          </section>
+          
+          <section data-markdown>
+          <script type="text/template">
+            ## Data!
+            * <p class="fragment roll-in"><s>Scraping web pages</s></p>
+            * <p class="fragment roll-in">WSDOT VesselWatch</p>
+            * <p class="fragment roll-in">NOAA Tacoma Narrows weather station</p>
+            </script>
+          <aside class="notes">
+            1. Accessibility of the Vessel Watch data
+                1. Briefly discuss the web page scraper
+                    1. Using a simulated web browser
+                    2. Accounting for "botched" grabs
+                2. Using a request for the data
+                    1. Discuss what I actually received
+                    2. Discuss the quality and amount of data
+            2. Grabbing weather data
+                1. Grabbed from a deeply hidden NOAA archive
+                2. Manually downloaded files
+                3. Why the Tacoma Narrows station
+                    1. Completeness of dates
+                    2. Completeness of records
+          </aside>
+          </section>
 
+          <section data-markdown>
+          <!--
+          TODO: Get actual statistics/facts from data runs about what got cut out
+          -->
+          <script type="text/template">
+            ## Data monsters in my closet
+              * Python to clean it
+                  - Bad data: ACTUAL NUMBER
+                  - Good data: ACTUAL NUMBER
+              * Python to format it
+                  - Join ferry and weather data
+                  - Handle categorical variables
+                  - Make it all SVMable
+              * Python to eat my computer
+          </script>
+          <aside class="notes">
+            1. Discussion of data quality
+              1. Missing values
+              2. Ill formatted values
+              3. Generally consistent (huge amount so a few mistakes is okay)
+            2. Suite of Python scripts to cut out bad data
+            3. Scripts to join weather and ferry data
+            4. Performance issues encountered
+          </aside>
+          </section>
 
+          <section data-markdown>
+          <!--
+          TODO: This slide needs an image
+          -->
+          <script type="text/template">
+            ## Choosing a crystal ball
+            ### <p class="fragment fade-in">Neural Networks</p>
+            ### <p class="fragment fade-in">Support Vector Machines</p>
+          </script>
+          <aside class="notes">
+            1. Solutions considered
+                1. Artificial Intelligence as a model
+                2. Neural Networks
+                3. Support Vector Machines
+                    1. Intuitive
+                    2. More immediately supported by existing libraries
+                    3. Data lends itself well to this form of understanding
+          </aside>
+          </section>
 
+          <section data-markdown>
+          <!-- 
+          TODO: I need a good image here
+          -->
+          <script type="text/template">
+            ## Support Vector Machines (in brief)
+            * Lines of separation
+            * Tardiness as the category
+            SVM IMAGE
+          </script>
+          <aside class="notes">
+            2. What an SVM is
+                1. How an SVM works
+                2. How it relates to the ferry problem
+                    1. Separating late as >3 minutes past estimate
+                    2. The data as points in >33 space
+                3. The complication of fitting such a curve
+          </aside>
+          </section>
 
+          <section data-markdown>
+          <!--
+          TODO: Make a slide about the general algorithm for SVM
+          -->
+          <script type="text/template">
+            General algorithm
+          </script>
+          <aside class="notes">
+          </aside>
+          </section>
 
+          <section data-markdown>
+          <!--
+          TODO: I need author information and such for LibSVM
+          -->
+          <script type="text/template">
+            ## LibSVM
+            AUTHOR/GROUP
+            * <p class="fragment fade-in">Why not write my own?</p>
+            * <p class="fragment fade-in">Use in other works</p>
+            * <p class="fragment fade-in">Was it worth it?</p>
+          </script>
+          <aside class="notes">
+            3. Use of LibSVM
+                1. Why not write my own?
+                    1. Time
+                    2. Correctness
+                    3. Performance
+                2. Use in other papers/popularity
+                3. Ease of use of the library (reasonably documented)
+          </aside>
+          </section>
 
+          <section data-markdown>
+          <!--
+          TODO: A slide about the LibSVM algorithm
+          -->
+          <script type="text/template">
+            How the LibSVM algorithm is awesome
+          </script>
+          <aside class="notes">
+          </aside>
+          </section>
 
+          <section data-markdown>
+          <!--
+          TODO: fail cat
+          -->
+          <script type="text/template">
+            ## If at first you fail in aweful ways. . . 
+            * First runs in low 50% range
+            * LibSVM comes with a beginner's guide
+            * Ditching some of my own code
+          </script>
+          <aside class="notes">
+            1. Needing to fit c and gamma parameters to get better curves
+            2. Duration of runs and sheer size of data sets
+            3. Using LibSVM to do heavy lifting for subsets and such
+          </aside>
+          </section>
 
+          <section data-markdown>
+          <!--
+          TODO: Insert my "awesome" results
+          -->
+          <script type="text/template">
+            ## Results
+            <p class="fragment fade-in">AWESOME NUMBERS TO REVEAL</p>
+            </script>
+          <aside class="notes">
+            1. How do we know it's correct?
+                1. Classification versus regression: I want a "useful" machine
+                2. Test sets vs. training sets
+            2. Review the numbers of the results
+                1. Results before param fitting of c and gamma
+                1. Departures
+                    1. Weather
+                    2. No weather
+                2. The more interesting: arrivals
+                    1. Weather
+                    2. No weather
+          </aside>
+          </section>
+          
+          <section data-markdown>
+          <!--
+          TODO: Insert weather stats for my runs (and maybe a map)
+          -->
+          <script type="text/template">
+            ## The Weather Man
+            STUFF ABOUT WEATHER
+          </script>
+          <aside class="notes">
+            1. Possible issues
+                1. Location of station
+                2. Poor quality of data
+                3. My error
+                4. Ferries really are consistent enough to not need weather
+            2. Running individual routes
+                1. Closest to Tacoma Narrows
+                2. Middleish (randomly selected)
+                3. Geographically furthest
+          </aside>
+          </section>
+
+          <section data-markdown>
+          <!--
+          TODO: Java fail image
+          -->
+          <script type="text/template">
+            ## Evaluating the usefulness
+            * The state of Java web frameworks (in brief)
+            * A proper live application (i.e. I'm not a great prototyper)
+            * Uncertainty in how VesselWatch works
+            * Mining relationships in the data: regression
+            </script>
+          <aside class="notes">
+            1. Making an actual application
+                1. State of Java web frameworks
+                2. Need to scrape or grab user data
+                3. Update SVM
+            2. Are the schedules online adjusted as time goes by
+            3. Mining the data for patterns
+          </aside>
+          </section>
+          
+          <section data-markdown>
+          <!--
+          TODO: Curious cat picture?
+          -->
+          <script type="text/template">
+            Conclusion
+          </script>
+          <aside class="notes">
+          </aside>
+          </section>
 
 
 
@@ -71,7 +355,7 @@
 				center: true,
 
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+				transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
 
 				// Optional libraries used to extend on reveal.js
 				dependencies: [
