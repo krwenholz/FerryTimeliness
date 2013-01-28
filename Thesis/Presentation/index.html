@@ -63,9 +63,6 @@
           </section>
 
           <section data-markdown>
-            <!--
-            TODO: add in the details from my notes
-            -->
             <script type="text/template">
               ## Why do we care about ferries?
               * <p class="fragment roll-in">Washington State runs the largest 
@@ -260,17 +257,10 @@
           </section>
 
           <section data-markdown>
-          <!--
-          TODO: I need author information and such for LibSVM
-          -->
           <script type="text/template">
             ## LibSVM
             Chih-Chung Chang and Chih-Jen Lin
             "Working set selection using second order information for training SVM"
-
-            * <p class="fragment fade-in">Why not write my own?</p>
-            * <p class="fragment fade-in">Use in other works</p>
-            * <p class="fragment fade-in">Was it worth it?</p>
           </script>
           <aside class="notes">
             3. Use of LibSVM
@@ -284,25 +274,12 @@
           </section>
 
           <section data-markdown>
-          <!--
-          TODO: A slide about the LibSVM algorithm
-          -->
           <script type="text/template">
-            How the LibSVM algorithm is awesome
-          </script>
-          <aside class="notes">
-          </aside>
-          </section>
-
-          <section data-markdown>
-          <!--
-          TODO: fail cat
-          -->
-          <script type="text/template">
-            ## If at first you fail in aweful ways. . . 
-            * First runs in low 60% range
-            * LibSVM comes with a beginner's guide
-            * Ditching some of my own code
+            ## If at first you fail. . . 
+            First runs were in low 60% range for accuracy.
+            
+            -> LibSVM's beginner's guide is a must read.
+            <img height="40%" width="40%" src="images/cat_and_mouse.jpg">
           </script>
           <aside class="notes">
             1. Needing to fit c and gamma parameters to get better curves
@@ -317,7 +294,30 @@
           -->
           <script type="text/template">
             ## Results
-            <p class="fragment fade-in">AWESOME NUMBERS TO REVEAL</p>
+            ### Arrivals
+
+            <table>
+              <tr>
+                <td>Full</td> 
+                <td>No Weather</td> 
+                <td>Arrival (No Departure)</td>
+                <td>Arrival (No Departure, No Weather)</td>
+              </tr>
+              <tr>
+                <td>87.014%</td>
+                <td>88.014%</td>
+                <td>60.003%</td>
+                <td>59.352%</td>
+              </tr>
+            </table>
+ 
+            ### Departures
+            <table>
+              <tr>
+                <td>
+                  
+            <p class="fragment fade-in"></p>
+
             </script>
           <aside class="notes">
             1. How do we know it's correct?

@@ -12,7 +12,7 @@ import time
     The date is made to look nice and time is done as seconds after midnight.
 """
 
-data_dir = '../Data/'
+data_dir = '../../ThesisStorage/'
 w_file = open(data_dir + 'weather_data.csv', 'w')
 w_file.write('date, time, visibility, d-bulb_F, dew_point_F, rel_humidity, wind_speed, wind_dir, station_pressure, altimeter\n')
 
@@ -27,7 +27,7 @@ for yy in ('2010', '2011', '2012'):
             # We don't have data for these months
             pass
         else:
-            deep_dir = 'WeatherData/TacomaNarrows-NOAA-NoHDR/'
+            deep_dir = 'WeatherData/TacomaNarrows-NOAA/'
             reader = csv.reader(open(data_dir + deep_dir + mm + '_' + yy + '.csv', 'rb'))
             # Columns I want 1 (Date), 2 (time), 4 (sky condition), 6 (visibility),
             #   10 (dry bulb fahrenheit), 14 (wet bulb fahrenheit), 18 (dew point
