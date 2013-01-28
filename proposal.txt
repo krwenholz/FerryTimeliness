@@ -1,6 +1,0 @@
-# Thesis proposal for Kyle Wenholz #
-# September 10, 2012 #
-
-## Summary of the project ##
-
-What does the world need more than anything else?  A better prediction for the ferry system!  After looking at what is available to users of the Puget Sound ferry systems, it became clear we can make advancements in the knowledge available to users of the ferries.  The proposed project is to create a model predicting the timeliness of a certain ferry given various variables.  It will be necessary to collect data for the model's creation and testing, create a model, decide on variables, collect data for those variables, and package it all up in some usable format.  The end goal is to have a humane method for predicting the timeliness of a ferry.  A written thesis will accompany the end product as a means of documenting the process, explaining the design decisions, and guiding readers through the Math and Computer Science behind the complex modeling process. 
