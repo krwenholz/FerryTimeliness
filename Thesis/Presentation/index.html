@@ -32,20 +32,17 @@
       <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
-          <section>
-          <!-- 
-          TODO: Add an awesome quote from Turing
-          -->
+          <section data-markdown>
             <h2>Where's my Ferry?</h2>
             <h3>Support Vector Machines for </br> Modeling Ferry Tardiness</h3>
             <p>
-            <blockquote>
-              A computer would deserve to be called intelligent if it could 
-              deceive a human into believing that it was human. 
-            </blockquote>
             <small>By Kyle Wenholz 
               </br>Advised by Professor Brad Richards
             </small>
+            <blockquote>
+              Machines take me by surprise with great frequency.
+            </blockquote>
+            - Alan Turing</br>
             </p>
           </section>
           
@@ -71,46 +68,51 @@
             -->
             <script type="text/template">
               ## Why do we care about ferries?
+              * <p class="fragment roll-in">Washington State runs the largest 
+              ferry system in the nation.</p>
+              * <p class="fragment roll-in">~13 million passengers (2011) are 
+              serviced on more than 10 different routes.</p>
+              * <p class="fragment roll-in">23 total vessels are in service.</p>
+              * <p class="fragment roll-in">Scheduling is cool!</p>
             </script>
             <aside class="notes">
-              Talk about what the ferry system is (WSDOT), who uses it 
-              (Geographic distribution), and how many people use it, brief
-              history.
+              Talk about what the ferry system is (WSDOT), 
+              and how many people use it, brief history, how the problem 
+              extends.
             </aside>
           </section>
           
-          <section data-markdown>
-          <!--
-          TODO: Add a map image of the routes
-          TODO: gather statistical data mentioned in notes
-          -->
-          <script type="text/template">
-          </script>
+          <section >
+          <h2> A portrait of the system</h2>
+          <table>
+            <tr>
+              <td>
+                <ul>
+                  <li> From Victoria to Pt. Defiance</li>
+                  <li> 159,811 sailings in 2012 (12,764 in December)</li>
+                  <li> 96.4% on time </li>
+                  <li> Best: Pt. Defiance/Tahlequah and Edmonds/Kingston (99.5%)</li>
+                  <li> Worst: Anacortes/San Juans (88.9%)</li>
+                </ul>
+              </td>
+              <td valign="bottom">
+                <img width="110%" 
+                src="images/route-map-overview.gif" align="right">
+              </td>
+            </tr>
+          </table>
           <aside class="notes">
             Go over the details of the ferry system.
             1. Boats
-            2. Of trips per day
+            2. # Of trips per day
             3. Routes
             4. Places serviced
-            5. Funding
             6. Design and planning
             7. Resources for travelers
               1. Vessel Watch
               2. Pamphlets
               3. General knowledge
               4. Email alerts
-          </aside>
-          </section>
-          
-          <section data-markdown>
-          <script type="text/template">
-            ## Generalizing the problem and narrowing in
-          </script>
-          <aside class="notes">
-            It's time to discuss how we can think of tardiness as a categorical
-            variable (in a crude sort of way) and the many features involved
-            in that tardiness: vessel, route, time of day, date of year, weather,
-            etc.
           </aside>
           </section>
           
@@ -139,14 +141,31 @@
           </section>
 
           <section data-markdown>
-          <!--
-          TODO: Get actual statistics/facts from data runs about what got cut out
-          -->
+          <script type="text/template">
+            ## Weather variables
+            - Date
+            - Time
+            - Visibility
+            - Dry bulb
+            - Wet bulb
+            - Dew point
+            - Relative humidity
+            - Wind speed
+            - Wind direction
+            - Station pressure
+            - Altimeter
+          </script>
+          <aside class="notes">
+          Talk about the many weather variables I got from NOAA.
+          </aside>
+          </section>
+
+          <section data-markdown>
           <script type="text/template">
             ## Data monsters in my closet
-              * Python to clean it
-                  - Bad data: ACTUAL NUMBER
-                  - Good data: ACTUAL NUMBER
+              * Python to clean the 340,902 ferry trips
+                  - 1034 weather recordings had missing wind data
+                  - 13,220 vessel trips removed from lack of weather data (~ 4%)
               * Python to format it
                   - Join ferry and weather data
                   - Handle categorical variables
@@ -158,6 +177,7 @@
               1. Missing values
               2. Ill formatted values
               3. Generally consistent (huge amount so a few mistakes is okay)
+            2. Separated into 290,000 for training and 30,000 for testing
             2. Suite of Python scripts to cut out bad data
             3. Scripts to join weather and ferry data
             4. Performance issues encountered
@@ -165,13 +185,11 @@
           </section>
 
           <section data-markdown>
-          <!--
-          TODO: This slide needs an image
-          -->
           <script type="text/template">
             ## Choosing a crystal ball
             ### <p class="fragment fade-in">Neural Networks</p>
             ### <p class="fragment fade-in">Support Vector Machines</p>
+            <img src="images/correlation.png">
           </script>
           <aside class="notes">
             1. Solutions considered
@@ -185,14 +203,41 @@
           </section>
 
           <section data-markdown>
-          <!-- 
-          TODO: I need a good image here
+          <script type="text/template">
+            ## Linear Classifiers
+            * Inputs are feature values (think vector)
+            * Uses a weight vector (each entry corresponds to a particular 
+            feature)
+            * Output is dot product of feature and weight vectors (think >0 is
+            tardy and <0 is on time)
+            </br></br>
+            ### We want to train this weight vector.
+          </script>
+          <aside class="notes">
+          </aside>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## General algorithm for learning
+            * Start with weights = 0
+            * For each training instance:
+                * Classify with current weights
+                * If correct: no change
+                * If wrong: adjust the weight vector by adding or subtracting 
+                the feature vector.
+          </script>
+          <aside class="notes">
+          </aside>
+          </section>
+
+          <section data-markdown>
+          <!--
+          TODO: Does the image match my described algorithm?
           -->
           <script type="text/template">
-            ## Support Vector Machines (in brief)
-            * Lines of separation
-            * Tardiness as the category
-            SVM IMAGE
+            ## Visualizing an SVM
+            <img src="images/Svm_separating_hyperplanes.png">
           </script>
           <aside class="notes">
             2. What an SVM is
@@ -205,11 +250,10 @@
           </section>
 
           <section data-markdown>
-          <!--
-          TODO: Make a slide about the general algorithm for SVM
-          -->
           <script type="text/template">
-            General algorithm
+            ## Some stickier details
+            #### Ferry data isn't likely to be separable!  So I used a kernel.
+            #### Gaussian Kernel: &gamma; and _C_
           </script>
           <aside class="notes">
           </aside>
@@ -221,7 +265,9 @@
           -->
           <script type="text/template">
             ## LibSVM
-            AUTHOR/GROUP
+            Chih-Chung Chang and Chih-Jen Lin
+            "Working set selection using second order information for training SVM"
+
             * <p class="fragment fade-in">Why not write my own?</p>
             * <p class="fragment fade-in">Use in other works</p>
             * <p class="fragment fade-in">Was it worth it?</p>
@@ -254,7 +300,7 @@
           -->
           <script type="text/template">
             ## If at first you fail in aweful ways. . . 
-            * First runs in low 50% range
+            * First runs in low 60% range
             * LibSVM comes with a beginner's guide
             * Ditching some of my own code
           </script>
