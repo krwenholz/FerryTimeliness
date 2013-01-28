@@ -85,11 +85,9 @@
             <tr>
               <td>
                 <ul>
-                  <li> From Victoria to Pt. Defiance</li>
+                  <li> From Victoria to Pt. Defiance (~130 miles)</li>
                   <li> 159,811 sailings in 2012 (12,764 in December)</li>
-                  <li> 96.4% on time </li>
-                  <li> Best: Pt. Defiance/Tahlequah and Edmonds/Kingston (99.5%)</li>
-                  <li> Worst: Anacortes/San Juans (88.9%)</li>
+                  <!-- TODO: Add more information here -->
                 </ul>
               </td>
               <td valign="bottom">
@@ -289,35 +287,32 @@
           </section>
 
           <section data-markdown>
-          <!--
-          TODO: Insert my "awesome" results
-          -->
           <script type="text/template">
             ## Results
-            ### Arrivals
 
-            <table>
-              <tr>
-                <td>Full</td> 
-                <td>No Weather</td> 
-                <td>Arrival (No Departure)</td>
-                <td>Arrival (No Departure, No Weather)</td>
-              </tr>
-              <tr>
-                <td>87.014%</td>
-                <td>88.014%</td>
-                <td>60.003%</td>
-                <td>59.352%</td>
-              </tr>
-            </table>
- 
-            ### Departures
             <table>
               <tr>
                 <td>
-                  
-            <p class="fragment fade-in"></p>
-
+                  <h3>Arrivals</h3>
+                  <small>Full = Departure estimate and actual, </br>
+                    arrival estimate, vessel name, route, all weather</small>
+                  <ul>
+                    <li>  Full: 87.014%</li>
+                    <li>  No Weather: 88.014%</li>
+                    <li>  No Departure: 60.003%</li>
+                    <li>  No Departure, No Weather: 59.352%</li>
+                  </ul>
+                </td>
+                <td>
+                  <h3>Departures</h3>
+                  <small>
+                    Full = Departure estimate, vessel name, route, all weather
+                  </small>
+                  <li> Full: 76.308%</li>
+                  <li> No Weather: 75.686%</li>
+                </td>
+              </tr>
+            </table>
             </script>
           <aside class="notes">
             1. How do we know it's correct?
@@ -335,14 +330,37 @@
           </section>
           
           <section data-markdown>
-          <!--
-          TODO: Insert weather stats for my runs (and maybe a map)
-          -->
           <script type="text/template">
             ## The Weather Man
-            STUFF ABOUT WEATHER
+            
+            <table>
+              <tr>
+                <td>
+                  <h3>Arrivals</h3>
+                  <small>Weather/No Weather</small>
+                  <ul>
+                    <li> Tahlequah-Point Defiance: 95.2167%/93.9333% </li>
+                    <li> Coupeville-Port Townsend: 88.3333%/87.6667% </li>
+                    <li> Kingston-Edmonds: 85.15%/94.65% </li>
+                  </ul>
+                </td>
+                <td>
+                  <h3>Departures </h3>
+                  <small>Weather/No Weather</small>
+                  <ul>
+                    <li> Tahlequah-Point Defiance: 76.0875/75.25% </li>
+                    <li> Coupeville-Port Townsend: 68.76%/69.3667% </li>
+                    <li> Kingston-Edmonds: 82.6833%/82.7583% </li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+
+
           </script>
           <aside class="notes">
+            Without information about the departure, the arrival time
+              predictions were strictly less than 68% accuracy.
             1. Possible issues
                 1. Location of station
                 2. Poor quality of data
@@ -352,15 +370,17 @@
                 1. Closest to Tacoma Narrows
                 2. Middleish (randomly selected)
                 3. Geographically furthest
+
+
+            96.4% on time 
+            Best: Pt. Defiance/Tahlequah and Edmonds/Kingston (99.5%)
+            Worst: Anacortes/San Juans (88.9%)
           </aside>
           </section>
 
           <section data-markdown>
-          <!--
-          TODO: Java fail image
-          -->
           <script type="text/template">
-            ## Evaluating the usefulness
+            ## In summary
             * The state of Java web frameworks (in brief)
             * A proper live application (i.e. I'm not a great prototyper)
             * Uncertainty in how VesselWatch works
