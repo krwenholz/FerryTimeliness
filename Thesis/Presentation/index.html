@@ -49,10 +49,10 @@
           <section data-markdown>
           <script type="text/template">
             ## Coming soon. . .
-              * <p class="fragment roll-in">Brad</p>
               * <p class="fragment roll-in">Ferries</p>
-              * <p class="fragment roll-in">Tardiness</p>
+              * <p class="fragment roll-in">Massive CSV files</p>
               * <p class="fragment roll-in">Hyperplanes</p>
+              * <p class="fragment roll-in">Tardiness</p>
             </script>
           <aside class="notes">
             This is an introduction slide.  I just need to quickly go over
@@ -65,16 +65,12 @@
           <section data-markdown>
             <script type="text/template">
               ## Why do we care about ferries?
-              * <p class="fragment roll-in">Washington State runs the largest 
-              ferry system in the nation.</p>
-              * <p class="fragment roll-in">~13 million passengers (2011) are 
-              serviced on more than 10 different routes.</p>
-              * <p class="fragment roll-in">23 total vessels are in service.</p>
-              * <p class="fragment roll-in">Scheduling is cool!</p>
+              ### <p class="fragment roll-in">Scheduling is cool!</p>
+              ### <p class="fragment roll-in">We can get lots of data!</p>
             </script>
             <aside class="notes">
               Talk about what the ferry system is (WSDOT), 
-              and how many people use it, brief history, how the problem 
+              and how many people use it, how the problem 
               extends.
             </aside>
           </section>
@@ -83,11 +79,15 @@
           <h2> A portrait of the system</h2>
           <table>
             <tr>
-              <td>
+              <td style="vertical-align:middle;">
                 <ul>
+                  <li> Established in 1951</li>
+                  <li> 22 million passengers per year</li>
+                  <li> 20 terminals, 10 routes, 23 vessels</li>
+                  <li> Largest ferry system in the world for vehicles</li>
                   <li> From Victoria to Pt. Defiance (~130 miles)</li>
                   <li> 159,811 sailings in 2012 (12,764 in December)</li>
-                  <!-- TODO: Add more information here -->
+                  <li> Almost 10,000,000 vehicles in 2011</li>
                 </ul>
               </td>
               <td valign="bottom">
@@ -98,6 +98,7 @@
           </table>
           <aside class="notes">
             Go over the details of the ferry system.
+            1. history
             1. Boats
             2. # Of trips per day
             3. Routes
@@ -201,8 +202,7 @@
           <script type="text/template">
             ## Linear Classifiers
             * Inputs are feature values (think vector)
-            * Uses a weight vector (each entry corresponds to a particular 
-            feature)
+            * Features are weighted (again, think in a vector)
             * Output is dot product of feature and weight vectors (think >0 is
             tardy and <0 is on time)
             </br></br>
@@ -215,12 +215,14 @@
           <section data-markdown>
           <script type="text/template">
             ## General algorithm for learning
-            * Start with weights = 0
-            * For each training instance:
-                * Classify with current weights
-                * If correct: no change
-                * If wrong: adjust the weight vector by adding or subtracting 
-                the feature vector.
+                Start with w = <0,0...>
+                For each training instancey y:
+                  Classify with current weights to find y'
+                  If correct: w = w
+                  If wrong:
+                      w = w + y'*y
+
+            We use y' as -1 or 1 in adjustment computation.
           </script>
           <aside class="notes">
           </aside>
@@ -247,8 +249,8 @@
           <section data-markdown>
           <script type="text/template">
             ## Some stickier details
-            #### Ferry data isn't likely to be separable!  So I used a kernel.
-            #### Gaussian Kernel: &gamma; and _C_
+            #### Ferry data isn't likely to be separable!  So I used a kernel:
+            #### Gaussian Kernel with &gamma; and _C_
           </script>
           <aside class="notes">
           </aside>
@@ -258,7 +260,9 @@
           <script type="text/template">
             ## LibSVM
             Chih-Chung Chang and Chih-Jen Lin
-            "Working set selection using second order information for training SVM"
+
+            "Working set selection using second 
+            </br>order information for training SVM"
           </script>
           <aside class="notes">
             3. Use of LibSVM
