@@ -9,12 +9,15 @@
     <meta name="description" content="Support Vector Machines for Modeling
       Ferry Tardiness">
 		<meta name="author" content="Kyle R. Wenholz">
-
+    
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 		<link rel="stylesheet" href="css/reveal.min.css">
 		<link rel="stylesheet" href="css/theme/custom.css" id="theme">
+
+    <!--<link rel="stylesheet" href="../css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -41,20 +44,178 @@
             </small>
             </p>
           </section>
+
+          <!-- 
+            TODO: One decimal point of accuracy
+            TODO: Don't talk so much about creating an App
+            TODO: Explain grid search with a slide
+            TODO: discuss where estimates come from! Test data vs. Train data
+            TODO: Don't read points off of longer slides (audience is literate)
+            TODO: Focus on how it was awesome of me to consider weather as a 
+              possible cause of tardiness
+            FIXME: EXPLAIN WHY BAD DATA HURTS
+          -->
+
           
           <section data-markdown>
           <script type="text/template">
-            ## Coming soon. . .
+            ## All the parts of a good time
+              * <p class="fragment roll-in">Hyperplanes</p>
               * <p class="fragment roll-in">Ferries</p>
               * <p class="fragment roll-in">Massive CSV files</p>
-              * <p class="fragment roll-in">Hyperplanes</p>
               * <p class="fragment roll-in">Tardiness</p>
             </script>
           <aside class="notes">
             This is an introduction slide.  I just need to quickly go over
-            who I worked with, what my project was (Senior Project/Thesis), 
-            what's the problem, and what my solution was.
-            and 
+            who I worked with, that I wanted to learn about AI in practical 
+            situations and do something real with real data, what my project 
+            was (Senior Project/Thesis), what's the problem, and what my 
+            solution was.
+          </aside>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## Project goals
+            ### Attack a messy problem
+            ### Learn some practical AI
+            ### Work with big data
+            <img src="images/correlation.png">
+          </script>
+          <aside class="notes">
+          I want to talk about my major goals for the project.
+          </aside>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## The SVM-mobile
+            * Features are intuitive
+                - Route
+                - Vessel
+                - Weather
+            * Hyperplanes are also intuitive (mostly)
+            * SVMs were born for big data sets
+          </script>
+          <aside class="notes">
+            Discuss the major benefits of SVM for my project: features, 
+            the drawing analogy, use for big data. 
+
+            A 2008 paper discussed the use of SVM for predicting a sort of 
+            "bad day" for air traffic control (weather based mostly).  
+            78% accurate on predicting need to use some sort of software 
+            and 83% for predicting delays in air traffic.  They used a 
+            super computer.
+          </aside>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## Common uses of SVM
+            * Spam
+            * Cancer from images
+            * Facial recognition
+            <img style="float:right;margin:4px;"width="50%" height="50%" 
+            src="images/male-female.png">
+          </script>
+          <aside class="notes">
+            (email, cancer pictures, use in a paper regarding 
+            airlines) 
+          <aside>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## Linear classifiers (part 1)
+            ### Feature Vectors
+                <
+                 Time (seconds),
+                 Humidity (percent),
+                 Temperature (F),
+                 Wind Speed (mph),
+                 Wind Direction (degrees off N),
+                 Vessel Name,
+                 Route Name
+                >
+
+                <
+                 360
+                 10,
+                 3,
+                 6,
+                 17,
+                 USS Enterprise,
+                 Pt. D/Tahlequah
+                >
+
+            Two of these are not like the others.
+          </script>
+          <aside class="notes">
+          </aside>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## Visualizing an SVM
+            <img src="images/Svm_separating_hyperplanes.png">
+          </script>
+          <aside class="notes">
+            2. What an SVM is
+                1. How an SVM works
+                2. How it relates to the ferry problem
+                    1. Separating late as >3 minutes past estimate
+                    2. The data as points in >33 space
+                3. The complication of fitting such a curve
+          </aside>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## Linear classifiers (part 2)
+            * Another vector for weights 
+            * Output: dot product of feature and weight vector
+            * Sign of dot product is the "class"
+            </br></br>
+            ## <p class="fragment roll-in">WOAH! Where do we get the weights?</p>
+          </script>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## Recipe for learning
+            * Training data
+            * A machine to train the weight vector
+            * A mighty machine to do the calculations
+            * Test data for validation
+          </script>
+          <aside class="notes">
+          </aside>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## A real world problem:
+            ## <p class="fragment roll-in">Ferry data is unlikely to be separable.</p>
+          </script>
+          <aside class="notes">
+          </aside>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## Kernels to infinity and beyond
+            <img src="images/kernel-machine.png">
+          </script>
+          <aside class="notes">
+          </aside>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## Tuning the kernel
+            TODO: talk about a grid search here
+          </script>
+          <aside class="notes">
           </aside>
           </section>
 
@@ -105,13 +266,15 @@
               2. Pamphlets
               3. General knowledge
               4. Email alerts
+            * Mention that ~95% of boats are on time.  This poses some interesting
+              questions about what we can actually learn.
           </aside>
           </section>
           
           <section data-markdown>
           <script type="text/template">
-            ## Data!
-            * <p class="fragment roll-in"><s>Scraping web pages</s></p>
+            ## Sources and shades of data
+            * <p class="fragment roll-in">Scraping web pages</p>
             * <p class="fragment roll-in">WSDOT VesselWatch</p>
             * <p class="fragment roll-in">NOAA Tacoma Narrows weather station</p>
             </script>
@@ -133,8 +296,23 @@
           </section>
 
           <section data-markdown>
+          <!-- TODO: insert some images/mockups of the CSV file datas-->
           <script type="text/template">
-            ## Weather variables
+            ## Ferry data (340,902)
+                Vessel,Departing,Arriving,Sched Depart,Actual Depart,Route Name,
+                Initial ETA,Actual Arrival,Date
+
+            </br>
+            ## Weather data (1184 &times; 24)
+                94274,20110101,0053,12,CLR, ,10.00, , , ,25, ,-3.9, ,22, ,-5.4, ,
+                16, ,-8.9, , 69, , 0, ,000, , , ,29.69, ,1, ,002, ,30.04, ,AA, , ,
+                ,30.03, 
+          </script>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## Weather variables <i class="icon-cloud"></i>
 
             <table style="padding: 10px 10px 10px 10px;">
               <tr>
@@ -190,82 +368,7 @@
           </section>
 
           <section data-markdown>
-          <script type="text/template">
-            ## Choosing a crystal ball
-            ### <p class="fragment fade-in">Neural Networks</p>
-            ### <p class="fragment fade-in">Support Vector Machines</p>
-            <img src="images/correlation.png">
-          </script>
-          <aside class="notes">
-            1. Solutions considered
-                1. Artificial Intelligence as a model
-                2. Neural Networks
-                3. Support Vector Machines
-                    1. Intuitive
-                    2. More immediately supported by existing libraries
-                    3. Data lends itself well to this form of understanding
-          </aside>
-          </section>
-
-          <section data-markdown>
-          <script type="text/template">
-            ## Linear Classifiers
-            * Inputs are feature values (think vector)
-            * Features are weighted (again, think in a vector)
-            * Output is dot product of feature and weight vectors (think >0 is
-            tardy and <0 is on time)
-            </br></br>
-            ### We want to train this weight vector.
-          </script>
-          <aside class="notes">
-          </aside>
-          </section>
-
-          <section data-markdown>
-          <script type="text/template">
-            ## General algorithm for learning
-                Start with w = <0,0...>
-                For each training instancey y:
-                  Classify with current weights to find y'
-                  If correct: w = w
-                  If wrong:
-                      w = w + y'*y
-
-            We use y' as -1 or 1 in adjustment computation.
-          </script>
-          <aside class="notes">
-          </aside>
-          </section>
-
-          <section data-markdown>
-          <!--
-          TODO: Does the image match my described algorithm?
-          -->
-          <script type="text/template">
-            ## Visualizing an SVM
-            <img src="images/Svm_separating_hyperplanes.png">
-          </script>
-          <aside class="notes">
-            2. What an SVM is
-                1. How an SVM works
-                2. How it relates to the ferry problem
-                    1. Separating late as >3 minutes past estimate
-                    2. The data as points in >33 space
-                3. The complication of fitting such a curve
-          </aside>
-          </section>
-
-          <section data-markdown>
-          <script type="text/template">
-            ## Some stickier details
-            #### Ferry data isn't likely to be separable!  So I used a kernel:
-            #### Gaussian Kernel with &gamma; and _C_
-          </script>
-          <aside class="notes">
-          </aside>
-          </section>
-
-          <section data-markdown>
+          <!-- TODO: This slide needs an image or better use of space -->
           <script type="text/template">
             ## LibSVM
             Chih-Chung Chang and Chih-Jen Lin
@@ -285,6 +388,7 @@
           </section>
 
           <section data-markdown>
+          <!-- TODO: Clean this shit up with a better title -->
           <script type="text/template">
             ## If at first you fail. . . 
             First runs were in low 60% range for accuracy.
@@ -426,7 +530,7 @@
 --------------------------------------------------------------------------->
 
 		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
+    <script src="js/reveal.min.js"></script>
 
 		<script>
 
