@@ -16,8 +16,7 @@
 		<link rel="stylesheet" href="css/reveal.min.css">
 		<link rel="stylesheet" href="css/theme/custom.css" id="theme">
 
-    <!--<link rel="stylesheet" href="../css/bootstrap.min.css">-->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -48,18 +47,18 @@
           <!-- 
             TODO: One decimal point of accuracy
             TODO: Don't talk so much about creating an App
-            TODO: Explain grid search with a slide
             TODO: discuss where estimates come from! Test data vs. Train data
             TODO: Don't read points off of longer slides (audience is literate)
             TODO: Focus on how it was awesome of me to consider weather as a 
               possible cause of tardiness
             FIXME: EXPLAIN WHY BAD DATA HURTS
+            FIXME: font awesome is broken
           -->
 
           
           <section data-markdown>
           <script type="text/template">
-            ## All the parts of a good time
+            ## All the parts of a good time <i class="icon-sitemap"></i>
               * <p class="fragment roll-in">Hyperplanes</p>
               * <p class="fragment roll-in">Ferries</p>
               * <p class="fragment roll-in">Massive CSV files</p>
@@ -296,7 +295,6 @@
           </section>
 
           <section data-markdown>
-          <!-- TODO: insert some images/mockups of the CSV file datas-->
           <script type="text/template">
             ## Ferry data (340,902)
                 Vessel,Departing,Arriving,Sched Depart,Actual Depart,Route Name,
@@ -345,7 +343,7 @@
 
           <section data-markdown>
           <script type="text/template">
-            ## Data monsters in my closet
+            ## Data monsters 
               * Python to clean the 340,902 ferry trips
                   - 1034 weather recordings had missing wind data
                   - 13,220 vessel trips removed from lack of weather data (~ 4%)
@@ -353,7 +351,7 @@
                   - Join ferry and weather data
                   - Handle categorical variables
                   - Make it all SVMable
-              * Python to eat my computer
+              * Python ate my computer 
           </script>
           <aside class="notes">
             1. Discussion of data quality
@@ -368,13 +366,14 @@
           </section>
 
           <section data-markdown>
-          <!-- TODO: This slide needs an image or better use of space -->
           <script type="text/template">
             ## LibSVM
             Chih-Chung Chang and Chih-Jen Lin
 
             "Working set selection using second 
             </br>order information for training SVM"
+
+            <image height="40%" width="40%" src="images/chih-jen.gif">
           </script>
           <aside class="notes">
             3. Use of LibSVM
@@ -388,13 +387,21 @@
           </section>
 
           <section data-markdown>
-          <!-- TODO: Clean this shit up with a better title -->
           <script type="text/template">
-            ## If at first you fail. . . 
+            ## Goal refresh <i class="icon-refresh icon-spin"></i>
+            * Which features matter?
+            * Can it be made accurate?
+            * Is it practical?
+          </script>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## A first pass
             First runs were in low 60% range for accuracy.
             
-            -> LibSVM's beginner's guide is a must read.
-            <img height="40%" width="40%" src="images/cat_and_mouse.jpg">
+            __Lesson learned__: LibSVM's beginner's guide is a must read.
+            <img height="30%" width="30%" src="images/cat_and_mouse.jpg">
           </script>
           <aside class="notes">
             1. Needing to fit c and gamma parameters to get better curves
@@ -414,10 +421,10 @@
                   <small>Full = Departure estimate and actual, </br>
                     arrival estimate, vessel name, route, all weather</small>
                   <ul>
-                    <li>  Full: 87.014%</li>
-                    <li>  No Weather: 88.014%</li>
-                    <li>  No Departure: 60.003%</li>
-                    <li>  No Departure, No Weather: 59.352%</li>
+                    <li>  Full: 87.0%</li>
+                    <li>  No Weather: 88.0%</li>
+                    <li>  No Departure: 60.0%</li>
+                    <li>  No Departure, No Weather: 59.4%</li>
                   </ul>
                 </td>
                 <td>
@@ -425,8 +432,8 @@
                   <small>
                     Full = Departure estimate, vessel name, route, all weather
                   </small>
-                  <li> Full: 76.308%</li>
-                  <li> No Weather: 75.686%</li>
+                  <li> Full: 76.3%</li>
+                  <li> No Weather: 75.7%</li>
                 </td>
               </tr>
             </table>
@@ -445,10 +452,25 @@
                     2. No weather
           </aside>
           </section>
-          
+
           <section data-markdown>
           <script type="text/template">
-            ## The Weather Man
+            <table>
+              <tr>
+                <td style="vertical-align:middle;horizontal-align:right;">
+                  <h3>Too hot </br>Too cold </br>Or just right</h3>
+                </td>
+                <td style="horizontal-align:right;">
+                  <img width="70%" src="images/route-map-overview.gif" align="right">
+                </td>
+              </tr>
+            </table>
+          </script>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## How about that weather?
             
             <table>
               <tr>
@@ -456,18 +478,18 @@
                   <h3>Arrivals</h3>
                   <small>Weather/No Weather</small>
                   <ul>
-                    <li> Tahlequah-Point Defiance: 95.2167%/93.9333% </li>
-                    <li> Coupeville-Port Townsend: 88.3333%/87.6667% </li>
-                    <li> Kingston-Edmonds: 85.15%/94.65% </li>
+                    <li> Tahlequah-Point Defiance: 95.2%/93.9% </li>
+                    <li> Coupeville-Port Townsend: 88.3%/87.7% </li>
+                    <li> Kingston-Edmonds: 85.2%/94.7% </li>
                   </ul>
                 </td>
                 <td>
                   <h3>Departures </h3>
                   <small>Weather/No Weather</small>
                   <ul>
-                    <li> Tahlequah-Point Defiance: 76.0875/75.25% </li>
-                    <li> Coupeville-Port Townsend: 68.76%/69.3667% </li>
-                    <li> Kingston-Edmonds: 82.6833%/82.7583% </li>
+                    <li> Tahlequah-Point Defiance: 76.1/75.3% </li>
+                    <li> Coupeville-Port Townsend: 68.8%/69.4% </li>
+                    <li> Kingston-Edmonds: 82.7%/82.8% </li>
                   </ul>
                 </td>
               </tr>
@@ -498,10 +520,9 @@
           <section data-markdown>
           <script type="text/template">
             ## In summary
-            * The state of Java web frameworks (in brief)
-            * A proper live application (i.e. I'm not a great prototyper)
-            * Uncertainty in how VesselWatch works
-            * Mining relationships in the data: regression
+            * Hyperplanes are more than an awesome word.
+            * The ferry system is full of data we can mine.
+            * SVM is hard!
             </script>
           <aside class="notes">
             1. Making an actual application
@@ -516,7 +537,6 @@
           <section data-markdown>
           <script type="text/template">
             ## Any questions?
-            <img width="60%" height="60%" src="images/curious-cat.jpg">
           </script>
           <aside class="notes">
           </aside>
