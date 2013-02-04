@@ -45,15 +45,16 @@
           </section>
 
           <!-- 
-            TODO: One decimal point of accuracy
-            TODO: Don't talk so much about creating an App
-            TODO: discuss where estimates come from! Test data vs. Train data
-            TODO: Don't read points off of longer slides (audience is literate)
-            TODO: Focus on how it was awesome of me to consider weather as a 
-              possible cause of tardiness
-            FIXME: EXPLAIN WHY BAD DATA HURTS
             FIXME: font awesome is broken
           -->
+
+          <section data-markdown>
+          <script type="text/template">
+            # Thank you Brad!
+          </script>
+          <aside class="notes">
+          </aside>
+          </section>
 
           
           <section data-markdown>
@@ -61,7 +62,7 @@
             ## All the parts of a good time <i class="icon-sitemap"></i>
               * <p class="fragment roll-in">Hyperplanes</p>
               * <p class="fragment roll-in">Ferries</p>
-              * <p class="fragment roll-in">Massive CSV files</p>
+              * <p class="fragment roll-in">Big (messy) data</p>
               * <p class="fragment roll-in">Tardiness</p>
             </script>
           <aside class="notes">
@@ -77,7 +78,7 @@
           <script type="text/template">
             ## Project goals
             ### Attack a messy problem
-            ### Learn some practical AI
+            ### Learn some _practical_ AI
             ### Work with big data
             <img src="images/correlation.png">
           </script>
@@ -88,46 +89,55 @@
 
           <section data-markdown>
           <script type="text/template">
-            ## The SVM-mobile
+            ## The Support Vector Machine </br>and Me
             * Features are intuitive
                 - Route
                 - Vessel
                 - Weather
-            * Hyperplanes are also intuitive (mostly)
+            * Hyperplanes are (mostly) intuitive
             * SVMs were born for big data sets
           </script>
           <aside class="notes">
             Discuss the major benefits of SVM for my project: features, 
             the drawing analogy, use for big data. 
-
-            A 2008 paper discussed the use of SVM for predicting a sort of 
-            "bad day" for air traffic control (weather based mostly).  
-            78% accurate on predicting need to use some sort of software 
-            and 83% for predicting delays in air traffic.  They used a 
-            super computer.
           </aside>
           </section>
 
           <section data-markdown>
           <script type="text/template">
-            ## Common uses of SVM
+            ## Common uses of SVMs
             * Spam
             * Cancer from images
             * Facial recognition
+            * Airplane traffic
             <img style="float:right;margin:4px;"width="50%" height="50%" 
             src="images/male-female.png">
           </script>
           <aside class="notes">
             (email, cancer pictures, use in a paper regarding 
             airlines) 
+
+            A 2008 paper discussed the use of SVM for predicting a sort of 
+            "bad day" for air traffic control (weather based mostly).  
+            78% accurate on predicting need to use some sort of software 
+            and 83% for predicting delays in air traffic.  They used a 
+            super computer.
           <aside>
           </section>
 
           <section data-markdown>
           <script type="text/template">
             ## Linear classifiers (part 1)
+            * Feature vector
+            * Weight vector (line, plane, hyperplane)
+            * Sign of dot product is the "class"
+          </script>
+          </section>
+
+         <section data-markdown>
+          <script type="text/template">
+            ## Linear classifiers (part 2)
             ### Feature Vectors
-                <
                  Time (seconds),
                  Humidity (percent),
                  Temperature (F),
@@ -135,9 +145,7 @@
                  Wind Direction (degrees off N),
                  Vessel Name,
                  Route Name
-                >
 
-                <
                  360
                  10,
                  3,
@@ -145,9 +153,53 @@
                  17,
                  USS Enterprise,
                  Pt. D/Tahlequah
-                >
 
             Two of these are not like the others.
+          </script>
+          <aside class="notes">
+          </aside>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## WOAH! Where do we get the weights?
+          </script>
+          </section>
+
+         <section data-markdown>
+          <script type="text/template">
+            ## Categorical -> # 
+                USS Enterprise,
+                S.S. Minnow,
+                Millenium Falcon,
+                Death Star
+            
+            An average trip for Han Solo:
+
+                0,
+                0,
+                1,
+                0
+
+          </script>
+          <aside class="notes">
+          </aside>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## WOAH! Where do we get the weights?
+          </script>
+          </section>
+
+
+          <section data-markdown>
+          <script type="text/template">
+            ## Recipe for learning
+            * Training data
+            * A machine to train the weight vector
+            * Mighty hardware to do the calculations
+            * Test data for validation
           </script>
           <aside class="notes">
           </aside>
@@ -168,33 +220,11 @@
           </aside>
           </section>
 
-          <section data-markdown>
-          <script type="text/template">
-            ## Linear classifiers (part 2)
-            * Another vector for weights 
-            * Output: dot product of feature and weight vector
-            * Sign of dot product is the "class"
-            </br></br>
-            ## <p class="fragment roll-in">WOAH! Where do we get the weights?</p>
-          </script>
-          </section>
-
-          <section data-markdown>
-          <script type="text/template">
-            ## Recipe for learning
-            * Training data
-            * A machine to train the weight vector
-            * A mighty machine to do the calculations
-            * Test data for validation
-          </script>
-          <aside class="notes">
-          </aside>
-          </section>
 
           <section data-markdown>
           <script type="text/template">
             ## A real world problem:
-            ## <p class="fragment roll-in">Ferry data is unlikely to be separable.</p>
+            <img width="50%" height="50%" src="images/tough-separation.png">
           </script>
           <aside class="notes">
           </aside>
@@ -202,7 +232,7 @@
 
           <section data-markdown>
           <script type="text/template">
-            ## Kernels to infinity and beyond
+            ## Kernels: bending space </br>and time
             <img src="images/kernel-machine.png">
           </script>
           <aside class="notes">
@@ -212,17 +242,23 @@
           <section data-markdown>
           <script type="text/template">
             ## Tuning the kernel
-            TODO: talk about a grid search here
+            <img src="images/grid_search.png">
           </script>
           <aside class="notes">
+          * Like a brute force search
+          * Try many (almost all) possibilities
+          * Need to bound it
+          * Use model accuracy as a performance metric
+          * Measured through cross validation
           </aside>
           </section>
 
           <section data-markdown>
             <script type="text/template">
               ## Why do we care about ferries?
-              ### <p class="fragment roll-in">Scheduling is cool!</p>
-              ### <p class="fragment roll-in">We can get lots of data!</p>
+              ### <p class="fragment roll-in">Popular</p>
+              ### <p class="fragment roll-in">Complex</p>
+              ### <p class="fragment roll-in">Lots of data</p>
             </script>
             <aside class="notes">
               Talk about what the ferry system is (WSDOT), 
@@ -267,6 +303,10 @@
               4. Email alerts
             * Mention that ~95% of boats are on time.  This poses some interesting
               questions about what we can actually learn.
+
+            96.4% on time 
+            Best: Pt. Defiance/Tahlequah and Edmonds/Kingston (99.5%)
+            Worst: Anacortes/San Juans (88.9%)
           </aside>
           </section>
           
@@ -276,6 +316,8 @@
             * <p class="fragment roll-in">Scraping web pages</p>
             * <p class="fragment roll-in">WSDOT VesselWatch</p>
             * <p class="fragment roll-in">NOAA Tacoma Narrows weather station</p>
+            TODO: Get a screenshot of vesselwatch in here
+            <img src="images/vesselwatch.png">
             </script>
           <aside class="notes">
             1. Accessibility of the Vessel Watch data
@@ -297,8 +339,8 @@
           <section data-markdown>
           <script type="text/template">
             ## Ferry data (340,902)
-                Vessel,Departing,Arriving,Sched Depart,Actual Depart,Route Name,
-                Initial ETA,Actual Arrival,Date
+                Kittitas, Mukilteo, Clinton, 9/1/2010 0:00, 9/1/2010 0:01,
+                Mukilteo - Clinton, 9/1/2010 0:13, 9/1/2010 0:14, 9/1/2010
 
             </br>
             ## Weather data (1184 &times; 24)
@@ -319,17 +361,17 @@
                     <li> Date</li>
                     <li> Time</li>
                     <li> Visibility</li>
-                    <li> Dry bulb</li>
-                    <li> Wet bulb</li>
-                    <li> Dew point</li>
+                    <li> <strong>Dry bulb</strong></li>
+                    <li> <strong>Wet bulb</strong></li>
+                    <li> <strong>Dew point</strong></li>
                   </ul>
                 </td>
                 <td style="vertical-align:top;">
                   <ul>
                     <li> Relative humidity</li>
-                    <li> Wind speed</li>
-                    <li> Wind direction</li>
-                    <li> Station pressure</li>
+                    <li> <strong>Wind speed</strong></li>
+                    <li> <strong>Wind direction</strong></li>
+                    <li> <strong>Station pressure</strong></li>
                     <li> Altimeter</li>
                   </ul>
                 </td>
@@ -344,10 +386,11 @@
           <section data-markdown>
           <script type="text/template">
             ## Data monsters 
-              * Python to clean the 340,902 ferry trips
-                  - 1034 weather recordings had missing wind data
-                  - 13,220 vessel trips removed from lack of weather data (~ 4%)
-              * Python to format it
+              * Python for everything
+              * 1,034 weather recordings missing wind data
+              * 13,220 vessel trips removed from lack of weather data (~ 4%)
+              * Stages of formatting
+                  - Combine all weather data files from NOAA
                   - Join ferry and weather data
                   - Handle categorical variables
                   - Make it all SVMable
@@ -389,56 +432,45 @@
           <section data-markdown>
           <script type="text/template">
             ## Goal refresh <i class="icon-refresh icon-spin"></i>
-            * Which features matter?
-            * Can it be made accurate?
-            * Is it practical?
-          </script>
-          </section>
-
-          <section data-markdown>
-          <script type="text/template">
-            ## A first pass
-            First runs were in low 60% range for accuracy.
-            
-            __Lesson learned__: LibSVM's beginner's guide is a must read.
-            <img height="30%" width="30%" src="images/cat_and_mouse.jpg">
+            * Find order in the mess: Which features matter?
+            * Do something practical: Can we use the model?
+            * Work with big data: Was all of the data necessary/useful?
           </script>
           <aside class="notes">
-            1. Needing to fit c and gamma parameters to get better curves
-            2. Duration of runs and sheer size of data sets
-            3. Using LibSVM to do heavy lifting for subsets and such
+          >90 accuracy isn't expected!  This would be weird in most cases.
+          This is because it can't be perfect, there is a maximum iter 
+          threshold, it's optimization, noise is still noise, 
+
+          Mention the 95% accurate fact and how we can basically be correct
+          most of the time by guessing on time.  We want a model to be similarly
+          accurate.
           </aside>
           </section>
 
           <section data-markdown>
           <script type="text/template">
-            ## Results
-
-            <table>
-              <tr>
-                <td>
-                  <h3>Arrivals</h3>
-                  <small>Full = Departure estimate and actual, </br>
-                    arrival estimate, vessel name, route, all weather</small>
-                  <ul>
-                    <li>  Full: 87.0%</li>
-                    <li>  No Weather: 88.0%</li>
-                    <li>  No Departure: 60.0%</li>
-                    <li>  No Departure, No Weather: 59.4%</li>
-                  </ul>
-                </td>
-                <td>
-                  <h3>Departures</h3>
-                  <small>
-                    Full = Departure estimate, vessel name, route, all weather
-                  </small>
-                  <li> Full: 76.3%</li>
-                  <li> No Weather: 75.7%</li>
-                </td>
-              </tr>
-            </table>
-            </script>
+            ## SVM is easy right?
+            # <p class="fragment roll-in">60%</p>
+          </script>
           <aside class="notes">
+            WHY DID I DO BETTER???
+            1. Accuracy comes from test data (disjoint from train data)
+            1. Needing to fit c and gamma parameters to get better curves
+            2. Duration of runs and sheer size of data sets
+          </aside>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## Results: Arrivals
+            *  Full: 87.0%
+            *  No Weather: 88.0%
+            *  No Departure: 60.0%
+            *  No Departure, No Weather: 59.4%
+          </script>
+          <aside class="notes">
+            Full = Departure estimate and actual,
+            arrival estimate, vessel name, route, all weather
             1. How do we know it's correct?
                 1. Classification versus regression: I want a "useful" machine
                 2. Test sets vs. training sets
@@ -450,6 +482,17 @@
                 2. The more interesting: arrivals
                     1. Weather
                     2. No weather
+          </aside>
+          </section>
+
+          <section data-markdown>
+          <script type="text/template">
+            ## Results: Departures
+            * Full: 76.3%
+            * No Weather: 75.7%
+          </script>
+          <aside class="notes">
+            Full = Departure estimate, vessel name, route, all weather
           </aside>
           </section>
 
@@ -479,8 +522,8 @@
                   <small>Weather/No Weather</small>
                   <ul>
                     <li> Tahlequah-Point Defiance: 95.2%/93.9% </li>
-                    <li> Coupeville-Port Townsend: 88.3%/87.7% </li>
                     <li> Kingston-Edmonds: 85.2%/94.7% </li>
+                    <li> Coupeville-Port Townsend: 88.3%/87.7% </li>
                   </ul>
                 </td>
                 <td>
@@ -488,14 +531,12 @@
                   <small>Weather/No Weather</small>
                   <ul>
                     <li> Tahlequah-Point Defiance: 76.1/75.3% </li>
-                    <li> Coupeville-Port Townsend: 68.8%/69.4% </li>
                     <li> Kingston-Edmonds: 82.7%/82.8% </li>
+                    <li> Coupeville-Port Townsend: 68.8%/69.4% </li>
                   </ul>
                 </td>
               </tr>
             </table>
-
-
           </script>
           <aside class="notes">
             Without information about the departure, the arrival time
@@ -510,19 +551,16 @@
                 2. Middleish (randomly selected)
                 3. Geographically furthest
 
-
-            96.4% on time 
-            Best: Pt. Defiance/Tahlequah and Edmonds/Kingston (99.5%)
-            Worst: Anacortes/San Juans (88.9%)
           </aside>
           </section>
 
           <section data-markdown>
           <script type="text/template">
             ## In summary
+            * This is a "cute" model.
             * Hyperplanes are more than an awesome word.
             * The ferry system is full of data we can mine.
-            * SVM is hard!
+            * SVM is like a black box.
             </script>
           <aside class="notes">
             1. Making an actual application
@@ -536,7 +574,10 @@
           
           <section data-markdown>
           <script type="text/template">
-            ## Any questions?
+            ## Future(ish) work
+            * Multi-class SVM for "tardiness categories"
+            * Regression analysis
+            * Graphical application
           </script>
           <aside class="notes">
           </aside>
