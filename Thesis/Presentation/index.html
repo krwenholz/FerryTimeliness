@@ -48,10 +48,23 @@
           <!-- 
             FIXME: font awesome is broken
           -->
-          
           <section data-markdown>
           <script type="text/template">
-            ## All the parts of a good time <i class="icon-sitemap"></i>
+            ## Project goals
+            ### Attack a messy problem
+            ### Learn some _practical_ AI
+            ### Work with big data
+            <img src="images/correlation.png">
+          </script>
+          <aside class="notes">
+          I want to talk about my major goals for the project.
+          </aside>
+          </section>
+
+         
+          <section data-markdown>
+          <script type="text/template">
+            ## All the parts of a good time 
               * <p class="fragment roll-in">Hyperplanes</p>
               * <p class="fragment roll-in">Ferries</p>
               * <p class="fragment roll-in">Big (messy) data</p>
@@ -63,19 +76,6 @@
             situations and do something real with real data, what my project 
             was (Senior Project/Thesis), what's the problem, and what my 
             solution was.
-          </aside>
-          </section>
-
-          <section data-markdown>
-          <script type="text/template">
-            ## Project goals
-            ### Attack a messy problem
-            ### Learn some _practical_ AI
-            ### Work with big data
-            <img src="images/correlation.png">
-          </script>
-          <aside class="notes">
-          I want to talk about my major goals for the project.
           </aside>
           </section>
 
@@ -96,9 +96,9 @@
 
           <section data-markdown>
           <script type="text/template">
-            ## Common uses of linear classifiers
+            ## Common uses of </br>linear classifiers
             * Spam
-            * Cancer from images
+            * Cancer
             * Facial recognition
             * Airplane traffic
             <img style="float:right;margin:4px;"width="50%" height="50%" 
@@ -134,7 +134,7 @@
 
           <section data-markdown>
           <script type="text/template">
-            ## Linear classifiers (part 1)
+            ## Linear classifiers
             * Feature vector
             * Weight vector (line, plane, hyperplane)
             * Sign of dot product is the "class"
@@ -143,8 +143,7 @@
 
          <section data-markdown>
           <script type="text/template">
-            ## Linear classifiers (part 2)
-            ### Feature Vectors
+            ## Feature Vectors
                  Time (seconds),
                  Humidity (percent),
                  Temperature (F),
@@ -189,13 +188,14 @@
 
           <section data-markdown>
           <script type="text/template">
-            ## WOAH! Where do we get the weights?
+            ## WOAH! 
+            ## How do we get the weights?
           </script>
           </section>
 
           <section data-markdown>
           <script type="text/template">
-            ## Recipe for learning
+            ## Learning with </br>Support Vector Machines 
             * Training data
               - Mix of both classes
               - "Big"
@@ -205,15 +205,21 @@
             * Mighty hardware to do the calculations
               - Exponentially difficult
               - Long running process
-            * Test data for validation
-              - Disjoint from training data
-              - Mix of both classes
-              - Also "big"
           </script>
           <aside class="notes">
           </aside>
           </section>
 
+          <section data-markdown>
+          <script type="text/template">
+            ## How do we know it works?
+            ### Test data for validation
+            - Disjoint from training data
+            - Mix of both classes
+            - Also "big"
+           </script>
+           </section>
+          
           <section data-markdown>
           <script type="text/template">
             ## Visualizing an SVM
@@ -241,7 +247,7 @@
 
           <section data-markdown>
           <script type="text/template">
-            ## Kernels: bending space </br>and time
+            ## Kernels: bending space
             <img src="images/kernel-machine.png">
           </script>
           <aside class="notes">
@@ -360,7 +366,7 @@
 
           <section data-markdown>
           <script type="text/template">
-            ## Weather variables <i class="icon-cloud"></i>
+            ## Weather variables 
 
             <table style="padding: 10px 10px 10px 10px;">
               <tr>
@@ -369,17 +375,17 @@
                     <li> Date</li>
                     <li> Time</li>
                     <li> Visibility</li>
-                    <li> <strong>Dry bulb</strong></li>
-                    <li> <strong>Wet bulb</strong></li>
-                    <li> <strong>Dew point</strong></li>
+                    <li style="text-decoration:underline;" > Dry bulb</li>
+                    <li style="text-decoration:underline;" > Wet bulb</li>
+                    <li style="text-decoration:underline;" > Dew point</li>
                   </ul>
                 </td>
                 <td style="vertical-align:top;">
                   <ul>
                     <li> Relative humidity</li>
-                    <li> <strong>Wind speed</strong></li>
-                    <li> <strong>Wind direction</strong></li>
-                    <li> <strong>Station pressure</strong></li>
+                    <li style="text-decoration:underline;" > Wind speed</li>
+                    <li style="text-decoration:underline;" > Wind direction</li>
+                    <li style="text-decoration:underline;" > Station pressure</li>
                     <li> Altimeter</li>
                   </ul>
                 </td>
@@ -402,7 +408,6 @@
                   - Join ferry and weather data
                   - Handle categorical variables
                   - Make it all SVMable
-              * Python ate my computer 
           </script>
           <aside class="notes">
             1. Discussion of data quality
@@ -439,7 +444,7 @@
 
           <section data-markdown>
           <script type="text/template">
-            ## Goal refresh <i class="icon-refresh icon-spin"></i>
+            ## Goal refresh 
             * Find order in the mess: Which features matter?
             * Do something practical: Can we use the model?
             * Work with big data: Was all of the data necessary/useful?
@@ -458,7 +463,7 @@
           <section data-markdown>
           <script type="text/template">
             ## SVM is easy right?
-            # <p class="fragment roll-in">60%</p>
+            # <p class="fragment roll-in">No. 60%</p>
           </script>
           <aside class="notes">
             WHY DID I DO BETTER???
@@ -569,6 +574,9 @@
             * Hyperplanes are more than an awesome word.
             * The ferry system is full of data we can mine.
             * SVM is like a black box.
+
+            <image height="50%" width="50%" 
+            src="images/Space-Needle_Ferry_Seattle.jpg">
             </script>
           <aside class="notes">
             1. Making an actual application
