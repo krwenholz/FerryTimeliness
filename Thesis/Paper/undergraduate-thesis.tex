@@ -74,30 +74,107 @@
 \vspace*{\fill}
 \newpage
 
+\section{Introduction}
+\label{sec:intro}
+Ferries (as in \textbf{Figure~\ref{fig:basicferry}} present an interesting 
+opportunity to examine a complex traffic system filled with data and affecting 
+the lives of many individuals. This paper will discuss a new approach to predicting 
+the timeliness of ferries using a support vector machine.  An overview of how 
+support vector machines work and their complications in real world use will 
+introduce the discussion of how this powerful construct presents a powerful and 
+intuitive model for tackling the massive data associated with ferries.  A 
+functioning model is developed to examine the complexities of this
+approach, the practicality, and as a means of exploring some of the data.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=.15]{images/ferry.jpg}
+  \caption{A prototypical WSDOT ferry on its route.}
+  \label{fig:basicferry}
+\end{figure}
+
+We will attempt to predict the tardiness of ferries, where tardy is 
+defined as no less than three minutes later than the
+initial (at day's beginning) scheduled arrival or departure time. This definition
+of tardiness was chosen to allow for a non-trivial number of tardy events 
+(more than 10% in the data) and to remain practical: i.e. someone could use the
+restroom in three minutes time or otherwise make use of that information. The 
+Washington State Department of Transportation's ferry system in the Pacific
+Northwest served as the source for all data. As will be discussed later on, 
+this ferry system is notoriously on time with over 95\% of trips being on 
+schedule (within one minute). %TODO: CITATION
+This system is of particular interest for its sheer volume of passengers: 
+22 million per year. %TODO:CITATION
+The volume lends itself well to this project's goals of using data mining. 
+% TODO: better transition sentence is needed
+
+
+
 \section{Preliminaries}
 \label{sec:prelims}
-%Possibly include some comparisons of our model to existing research if any.
+Since the goal of the project was to use a large data set for machine learning 
+and to develop a model for possibly predict future ferry tardiness, two approaches
+popular in available implementations and the literature were initially evaluated:
+artificial neural networks (ANN) and support vector machines (SVM). These two 
+approaches fit into the
+category of \textbf{supervised learning}: labeled (known) data is fed into an
+algorithm that learns to make better predictions through comparing its own 
+predictions to the labeled data set. ANN and SVM are often considered to be
+very similar in the problems they attempt to tackle, especially since each can
+be used as a linear classifier: a function taking in some object and determining 
+a class to which it belongs. Rather than considering tardiness as a spectrum of
+degrees, we approach tardiness as a binary feature: late or not. This conceptually
+simplifies our problem.  
+% TODO: Discuss airlines tardiness example as a motivator for choosing SVM
+% and formulating problem as classification
+If artificial neural networks and support vector 
+machines can both solve classification problems, however, which are we supposed
+to choose?
 
-% Example figure
-%\textbf{Figure \ref{fig:ex}}.
-%\begin{figure}[h]
-%  \centering
-%  \includegraphics[scale=.6]{}
-%  \caption{}
-%  \label{fig:ex}
-%\end{figure}
-\subsection{Project goals}
-\label{sec:goals}
+Byvatov et al examine the differences of the two approaches for classifying drugs
+\cite{byvatov2003comparison}. While their model certainly isn't for a ferry 
+system, their discussion suggests data sets with many features (an aspect of the 
+ferry model we discuss later) are better suited for SVM, and they also find little
+difference in the predictions of ANN and SVM. Most importantly, their conclusion,
+and that of their references, is the two approaches are complementary. Each 
+tool catches different cases, but the results are comparable in each approach,
+and SVM may even require less ``tweaking''.
 
-% Project goals
-%  Attack a messy problem
-%  Learn some _practical_ AI
-%  Work with big data
-%  <img src="images/correlation.png">
-%  image height="70%" width="70%" src="images/ferry.jpg">
+Support vector machines are also more intuitively motivated. Consider mapping the
+features of a ferry trip (time of departure, weather, boat name, etc.) into a
+coordinate plane.  Now, if we do this for all the points in our training set,
+we can also attach labels to the points (late or not, as in 
+\textbf{Figure~\ref{fig:basic_svm_data}}). In two dimensions, we
+could try drawing a line through the late and not-late points to separate them.
+This line is simply a hyperplane in higher dimensions, and SVM has its theoretical
+underpinnings based on the idea of drawing this hyperplane optimally. In 
+\textbf{Figure~\ref{fig:training_hyperplanes}}, we show a sample training of a 
+simple support vector machine.
 
-\subsection{Project components}
-\label{sec:components}
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=.5]{images/basic_svm_data.png}
+  \caption{A simple example of a separating line for tardiness (i.e. hyperplane). 
+      Each data point (or instance) has features $X_1$ and $X_2$.}
+  \label{fig:basic_svm_data}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=.5]{images/Svm_separating_hyperplanes.png}
+  \caption{As in \textbf{Figure~\ref{fig:basic_svm_data}}, we are trying to separate
+    labeled points with a line. A SVM does this iteratively, meaning line $H_1$
+    would be the first pass, $H_2$ the result of refitting, and $H_3$ the final 
+    classifier produced by the SVM.}
+  \label{fig:training_hyperplanes}
+\end{figure}
+
+SVM are used as the tool for finding a linear classifier in this project mostly
+for ease of understanding and the possibility for use in regression analysis
+(a topic discussed in \cite{chang2011libsvm}). 
+% TODO: Finalize by leading into a quick discussion of how the SVM algorithm
+% works and kernels (or just kernels)
+
 
 % All the parts of a good time 
 % Hyperplanes
@@ -111,9 +188,7 @@
 %  was (Senior Project/Thesis), what's the problem, and what my 
 %  solution was.
 
-\section{Classification as a model}
-\label{sec:classification}
-
+% TODO: Possibly include some comparisons of our model to existing research if any.
 % Classification as a model
 % Tardy or not
 % Features are intuitive
@@ -271,6 +346,8 @@
 %      2. Use in other papers/popularity
 %      3. Ease of use of the library (reasonably documented)
 %
+
+
 \section{The problem with ferries}
 \label{sec:problem}
 %    ## Why do we care about ferries?
@@ -368,9 +445,6 @@
 %  4. Performance issues encountered
 % 
 
-\section{Using SVM as a model}
-\label{sec:results}
- 
 %  ## Goal refresh 
 %  * Find order in the mess: Which features matter?
 %  * Do something practical: Can we use the model?
