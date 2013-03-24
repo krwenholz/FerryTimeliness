@@ -115,7 +115,7 @@ The volume lends itself well to this project's goals of using data mining.
 Since the goal of the project was to use a large data set for machine learning 
 and to develop a model for possibly predict future ferry tardiness, two approaches
 popular in available implementations and the literature were initially evaluated:
-artificial neural networks (ANN) and support vector machines (SVM). These two 
+artificial neural networks (ANNs) and support vector machines (SVMs). These two 
 approaches fit into the
 category of \textbf{supervised learning}: labeled (known) data is fed into an
 algorithm that learns to make better predictions through comparing its own 
@@ -125,12 +125,13 @@ be used as a linear classifier: a function taking in some object and determining
 a class to which it belongs. Rather than considering tardiness as a spectrum of
 degrees, we approach tardiness as a binary feature: late or not. This conceptually
 simplifies our problem.  
-% TODO: Discuss airlines tardiness example as a motivator for choosing SVM
-% and formulating problem as classification
+% TODO: Give examples of how these two are used: spam/ham, cancer, facial recog
 If artificial neural networks and support vector 
 machines can both solve classification problems, however, which are we supposed
 to choose?
 
+\subsection{ANN and SVM}
+\label{sec:ann_svm}
 Byvatov et al examine the differences of the two approaches for classifying drugs
 \cite{byvatov2003comparison}. While their model certainly isn't for a ferry 
 system, their discussion suggests data sets with many features (an aspect of the 
@@ -138,18 +139,20 @@ ferry model we discuss later) are better suited for SVM, and they also find litt
 difference in the predictions of ANN and SVM. Most importantly, their conclusion,
 and that of their references, is the two approaches are complementary. Each 
 tool catches different cases, but the results are comparable in each approach,
-and SVM may even require less ``tweaking''.
+and SVM may even require less ``tweaking''. They concede that SVMs are generally
+easier to conceptualize, lending a sense of confidence to the work.
 
-Support vector machines are also more intuitively motivated. Consider mapping the
+Support vector machines are more intuitively motivated. Consider mapping the
 features of a ferry trip (time of departure, weather, boat name, etc.) into a
 coordinate plane.  Now, if we do this for all the points in our training set,
 we can also attach labels to the points (late or not, as in 
 \textbf{Figure~\ref{fig:basic_svm_data}}). In two dimensions, we
 could try drawing a line through the late and not-late points to separate them.
 This line is simply a hyperplane in higher dimensions, and SVM has its theoretical
-underpinnings based on the idea of drawing this hyperplane optimally. In 
-\textbf{Figure~\ref{fig:training_hyperplanes}}, we show a sample training of a 
-simple support vector machine.
+underpinnings based on the idea of drawing this hyperplane optimally. Apart from
+the possible ease of use and understanding, there are also examples of SVM 
+being used in similar traffic prediction systems, providing a baseline comparison
+and the final reason for choosing SVM over artificial neural networks.
 
 \begin{figure}[h]
   \centering
@@ -159,175 +162,103 @@ simple support vector machine.
   \label{fig:basic_svm_data}
 \end{figure}
 
+Smith et al uses SVM to predict the timeliness of airline
+traffic in conjunction with weather patterns \cite{smith2008decision}. Their goal is 
+to predict the likelihood of requiring a ``ground delay program'': shuffling traffic 
+to account for tardiness in the schedule. The model they use involves traffic 
+flow management programs to estimate the effects of capacity on an air traffic 
+system, and the SVM is trained on labeled data to produce a function predicting 
+the need of a ground delay program and/or an actual delay. Their system was
+found to be $78\%$ accurate in predicting need of a ground delay program and $83\%$ 
+accurate in predicting a delay. Air traffic is much like the ferry system given
+its sensitivity to weather, attempt to adhere to a strict schedule, and heavy use.
+Due to these similarities, Smith's access to resources like the AMPL supercomputer, 
+and his group's expert knowledge, we use $80\%$ as the target accuracy in for the
+ferry model. 
+
+It is also noteworthy that SVMs can be used for regression analysis in large
+data sets with many variables \cite{chang2011libsvm}. While this paper will not
+cover this use of SVM, the possibility of performing such an analysis with the
+same tool was one reason in choosing support vector machines.
+
+
+\subsection{Basics of SVM}
+\label{sec:basics_svm}
+% FIXME: lame intro sentence
+A brief overview of the principles behind support vector machines and their use
+will help to lay a basis for the process of the project. As stated earlier,
+SVMs are used to find a linear classifier (some function) for a set of data.  In
+this project, we seek a way to separate ferry trips that will be three minutes
+past their scheduled time (late) or less (on time). To find the linear classifier,
+an SVM uses a feature vector, $F$, to describe the trip.  An example $F$ may have
+entries for
+
+\[F=\begin{bmatrix}
+        EstimatedArrival \\
+        BoatName\\
+        Temperature\\
+        WindSpeed
+\end{bmatrix}.\]
+
+This feature vector needs to be entirely numerical, so categorical variables like
+boat name must be encoded as numbers.  It is possible to assign boat names to
+different values, but most often, it is best to expand the feature like a bit
+vector.  If there were boat names \textit{SS Minnow, Death Star,} and 
+\textit{Millennium Falcon}, then we would have
+
+\[F=\begin{bmatrix}
+        EstimatedArrival \\
+        SS\_Minnow\\
+        Death\_Star\\
+        Millennium\_Falcon\\
+        Temperature\\
+        WindSpeed
+\end{bmatrix}\]
+
+where the entries for boat names are a $1$ if this trip has that name and $0$
+otherwise. For reasons detailed in \cite{chang2011libsvm} this is considered 
+best practice.
+
+Along with feature vectors for every trip, an SVM uses a weight vector, $w$,
+that it is the backbone for the linear classifier. Thus, this $w$ is what the
+SVM trains. To determine which class a feature vector corresponds to the
+dot product of $F$ and $w$ is taken, with negative values corresponding to 
+late and positive values to on time. While training on the labeled data, however,
+the SVM adjusts $w$ whenever it predicts incorrectly.  The amount to adjust
+can vary based on the implementation, but over time $w$ improves on its ability
+to predict the class of any instance in the training set.
+
+An optimal solution to $w$ would form a hyperplane separating the instances
+perfectly by class. In \textbf{Figure~\ref{fig:training_hyperplanes}} is an 
+example of how an SVM might train a weight vector (represented graphically as
+a line) over a set of training data. The final vector, $H_3$, is considered 
+optimal because it maximizes the distance between itself and the nearest points
+of each class. In the example, it is possible to separate the data with a 
+line, but in the real world, and our ferry problem, this is rarely the case.
+
 \begin{figure}[h]
   \centering
   \includegraphics[scale=.5]{images/Svm_separating_hyperplanes.png}
   \caption{As in \textbf{Figure~\ref{fig:basic_svm_data}}, we are trying to separate
-    labeled points with a line. A SVM does this iteratively, meaning line $H_1$
+    labeled points with a line. An SVM does this iteratively, meaning line $H_1$
     would be the first pass, $H_2$ the result of refitting, and $H_3$ the final 
     classifier produced by the SVM.}
   \label{fig:training_hyperplanes}
 \end{figure}
 
-SVM are used as the tool for finding a linear classifier in this project mostly
-for ease of understanding and the possibility for use in regression analysis
-(a topic discussed in \cite{chang2011libsvm}). 
-% TODO: Finalize by leading into a quick discussion of how the SVM algorithm
-% works and kernels (or just kernels)
-
-
-% All the parts of a good time 
-% Hyperplanes
-% Ferries
-% Big (messy) data
-% Tardiness
-% 
-% This is an introduction slide.  I just need to quickly go over
-%  who I worked with, that I wanted to learn about AI in practical 
-%  situations and do something real with real data, what my project 
-%  was (Senior Project/Thesis), what's the problem, and what my 
-%  solution was.
-
-% TODO: Possibly include some comparisons of our model to existing research if any.
-% Classification as a model
-% Tardy or not
-% Features are intuitive
-%  Route
-%  Vessel
-%  Weather
-% Hyperplanes are (mostly) intuitive
-%
-
-\subsection{SVMs for tardiness}
-\label{sec:svms_tardiness}
-  
-% Discuss the major benefits of SVM for my project: features, 
-%  the drawing analogy, use for big data. 
-% 
-% Common uses of classification
-%  Spam
-%  Cancer
-%  Facial recognition
-%  Airplane traffic
-%  <img style="float:right;margin:4px;"width="50%" height="50%" 
-%  src="images/male-female.png">
-%  
-%  (email, cancer pictures, use in a paper regarding 
-%  airlines) 
-% 
-%  A 2008 paper discussed the use of SVM for predicting a sort of 
-%  "bad day" for air traffic control (weather based mostly).  
-%  78\% accurate on predicting need to use some sort of software 
-%  and 83\% for predicting delays in air traffic.  They used a 
-%  super computer.
-% 
-%  ## Ho! An example!
-%  <img src="images/basic_svm_data.png">
-%  2. What an SVM is
-%      1. How an SVM works
-%      2. How it relates to the ferry problem
-%          1. Separating late as >3 minutes past estimate
-%          2. The data as points in >33 space
-%      3. The complication of fitting such a curve
-% 
-% 
-
-\subsection{Linear classifiers}
-\label{sec:lcs}
-%  ## Linear classifiers
-%  * Feature vector
-%  * Weight vector (line, plane, hyperplane)
-%  * Sign of dot product is the "class"
-% /script>
-% /section>
-% 
-
-\subsubsection{Feature vectors}
-\label{sec:feature_vecs}
-%  ## Feature Vectors
-%       Time (seconds),
-%       Humidity (percent),
-%       Temperature (F),
-%       Wind Speed (mph),
-%       Wind Direction (degrees off N),
-%       Vessel Name,
-%       Route Name
-% 
-%       360
-%       10,
-%       3,
-%       6,
-%       17,
-%       USS Enterprise,
-%       Pt. D/Tahlequah
-% 
-%  Two of these are not like the others.
-% 
-%  ## Categorical to numeric
-%      USS Enterprise,
-%      S.S. Minnow,
-%      Millenium Falcon,
-%      Death Star
-%  
-%  An average trip for Han Solo:
-% 
-%      0,
-%      0,
-%      1,
-%      0
-% 
-% ## WOAH! 
-%  ## How do we get the weights?
-% 
-
-\subsubsection{Training}
-\label{sec:training}
-%  ## Learning with </br>Support Vector Machines 
-%  * Training data
-%    - Mix of both classes
-%    - "Big"
-%  * A machine to train the weight vector
-%    - Draws those lines many times
-%    - Knows when to stop
-%  * Mighty hardware to do the calculations
-%    - Exponentially difficult
-%    - Long running process
-% 
-
-%  ## How will we know it works?
-%  ### Test data for validation
-%  - Disjoint from training data
-%  - Mix of both classes
-%  - Also "big"
-% 
-
-%  ## Visualizing an SVM
-%  <img src="images/Svm_separating_hyperplanes.png">
-%  2. What an SVM is
-%      1. How an SVM works
-%      2. How it relates to the ferry problem
-%          1. Separating late as >3 minutes past estimate
-%          2. The data as points in >33 space
-%      3. The complication of fitting such a curve
-% 
-% 
-%  ## A real world problem:
-%  <img width="50%" height="50%" src="images/tough-separation.png">
-% 
-
-\subsubsection{Kernels}
+\subsection{Kernel mapping}
 \label{sec:kernels}
-%  ## Kernels: bending space
-%  <img src="images/kernel-machine.png">
-% 
-%  ## Tuning the kernel
-%  <img src="images/grid_search.png">
-%  Like a brute force search
-%  Try many (almost all) possibilities
-%  Need to bound it
-%  Use model accuracy as a performance metric
-%  Measured through cross validation
-% 
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=.6]{images/kernel-machine.png}
+  \caption{Separating the data in the first part requires a mapping into a higher
+      (often much) dimension. This mapping makes it possible for a learning 
+  algorithm like SVM to find at least some separating hyperplane.}
+  \label{fig:kernel-machine}
+\end{figure}
+
+
 
 \subsection{LibSVM}
 \label{sec:libsvm}
