@@ -34,6 +34,7 @@
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
 \usepackage{amsmath, amssymb, amsthm, lastpage}
 % These packages are all incorporated in the memoir class to one degree or another...
+\usepackage{url}
 
 %%% HEADERS & FOOTERS
 \usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
@@ -84,7 +85,9 @@ support vector machines work and their complications in real world use will
 introduce the discussion of how this powerful construct presents a powerful and 
 intuitive model for tackling the massive data associated with ferries.  A 
 functioning model is developed to examine the complexities of this
-approach, the practicality, and as a means of exploring some of the data.
+approach, the practicality, and as a means of exploring some of the data. 
+Additionally, the hypothesis that the addition of weather information improves 
+accuracy of the model is explored.
 
 \begin{figure}[h]
   \centering
@@ -97,15 +100,15 @@ We will attempt to predict the tardiness of ferries, where tardy is
 defined as no less than three minutes later than the
 initial (at day's beginning) scheduled arrival or departure time. This definition
 of tardiness was chosen to allow for a non-trivial number of tardy events 
-(more than 10% in the data) and to remain practical: i.e. someone could use the
+(more than 10\% in the data) and to remain practical: i.e. someone could use the
 restroom in three minutes time or otherwise make use of that information. The 
 Washington State Department of Transportation's ferry system in the Pacific
 Northwest served as the source for all data. As will be discussed later on, 
 this ferry system is notoriously on time with over 95\% of trips being on 
-schedule (within one minute). %TODO: CITATION
-This system is of particular interest for its sheer volume of passengers: 
-22 million per year. %TODO:CITATION
-The volume lends itself well to this project's goals of using data mining. 
+schedule (within one minute) \cite{wsdotComparison}. This system is of 
+particular interest for its sheer volume of passengers: 22 million per year 
+\cite{wsfTraffic}.  The volume lends itself well to this project's goals of 
+using data mining. 
 % TODO: better transition sentence is needed
 
 
@@ -248,6 +251,14 @@ line, but in the real world, and our ferry problem, this is rarely the case.
 
 \subsection{Kernel mapping}
 \label{sec:kernels}
+In \textbf{Figure~\ref{fig:kernel-machine}} is an example of data we can't separate.
+Most real world data is like this: inseparable by a hyperplane. The problem this
+creates is that we're no longer looking for a linear classifier. A nonlinear 
+classifier is required, a significantly more difficult problem. Since no optimal
+hyperplane exists, it is difficult to formulate how long an SVM ``look'' for the
+hyperplane. We might consider looking for something within reasonable bounds, but 
+the kernel trick does away with this problem and brings us back to looking for
+a linear classifier \cite{aizerman1964theoretical}.
 
 \begin{figure}[h]
   \centering
@@ -258,40 +269,73 @@ line, but in the real world, and our ferry problem, this is rarely the case.
   \label{fig:kernel-machine}
 \end{figure}
 
+The kernel trick maps the instances of data into a higher dimensional space 
+(often much higher), and the SVM works to find a separating plane in the new 
+space. The example in \textbf{Figure~\ref{fig:kernel-machine}} gives an idea
+of what the mapping would do to the data. The kernel function used in this 
+project is a Gaussian radial basis function and was chosen for its popularity
+and since it is built into the LibSVM library \cite{chang2011libsvm} (discussed in
+the next section). 
 
+Using the kernel trick requires a small addition to the training process. Optimal
+parameters for the kernel function need to be found before fitting with the SVM.
+This is done by an exhaustive grid search:
+\begin{enumerate}
+    \item The user supplies a space of parameters to try.
+    \item Within this space, a search grid is created.
+    \item Each grid square is ``tried'' by using parameters within to transform
+        the data and then run the SVM on a subset of the training data.
+\end{enumerate}
+
+So, training the kernel parameters requires training the SVM on very small sets
+of data many times to find the best parameters in a space provided by the user.
+
+Implementing all of the functionality of a SVM and kernel function would require
+expert knowledge and a thorough amount of validation. Fortunately, libraries to 
+work with SVMs and kernel functions already exist.
 
 \subsection{LibSVM}
 \label{sec:libsvm}
-%  ## LibSVM
-%  Chih-Chung Chang and Chih-Jen Lin
-% 
-%  "Working set selection using second 
-%  </br>order information for training SVM"
-% 
-%  <image height="40%" width="40%" src="images/chih-jen.gif">
-%  3. Use of LibSVM
-%      1. Why not write my own?
-%          1. Time
-%          2. Correctness
-%          3. Performance
-%      2. Use in other papers/popularity
-%      3. Ease of use of the library (reasonably documented)
-%
+LibSVM \cite{chang2011libsvm} from Chih-Chung Chang and Chih-Jen Lin provides the
+SVM implementation used.  This library has bindings to many languages, is reasonably
+straightforward to use from the command-line, is well tested, and has an acceptable
+amount of documentation. Using this implementation of an SVM allowed a great deal
+of time to be saved and provided a higher degree of certainty in the results.
+% TODO: this is weak
 
-
-\section{The problem with ferries}
+\section{Predicting tardiness through data}
 \label{sec:problem}
-%    ## Why do we care about ferries?
-%    ### <p class="fragment roll-in">Popular</p>
-%    ### <p class="fragment roll-in">Complex</p>
-%    ### <p class="fragment roll-in">Lots of data</p>
-%    Talk about what the ferry system is (WSDOT), 
-%    and how many people use it, how the problem 
-%    extends.
-% 
+% TODO: Return to what the actual problem is as we dive back into the data
+Support vector machines require two sets of labeled data to find a linear classifier:
+training and testing. The training data is fed into the SVM as a means of training
+the weight vector and finding a linear classifier, and the testing data is used
+after this process to check the accuracy of the SVM's product. It is crucial that
+these two sets be disjoint. Otherwise, the SVM is basically cheating by being
+tested on data it already learned from. There is no clear indicator for how much data
+is needed to successfully train an SVM, but too little means the SVM can't 
+generalize and too much can cause overfitting. Overfitting is where an SVM is
+trained on too much data of similar qualities so that it fails to accurately
+classify data of different qualities. This roughly corresponds to finding patterns
+which only apply to a small subset of the real instances.  So, it often comes
+down to the engineer to determine the appropriate amounts of data for the training
+and testing sets based on experience, experimentation, and availability.
+
+
 
 \subsection{Washington State's ferries}
 \label{sec:wsdot}
+% TODO: describe the system with a picture, backing up the size argument earlier 
+
+The ferry trips in this data 
+need to be labeled as late or not. Remember also, that we wish to examine how
+weather impacts the effectiveness of our model.  This requires accurate weather
+data with enough instances to be relevant to the trip records in the ferry data.
+
+In order to get a sufficient amount, it was
+easiest to request the data from the Washington State Department of Transportation.
+ 
+
+%       and manage to set the stage for how this research impacts people
 %  A portrait of the system</h2>
 %       Established in 1951</li>
 %        22 million passengers per year</li>
@@ -324,6 +368,7 @@ line, but in the real world, and our ferry problem, this is rarely the case.
 
 \subsection{Where the data comes from}
 \label{sec:data_origins}
+% TODO: discuss the WSDOT and NOAA data sources, formatting, and transformation
 %  ## Sources and shades of data
 %  * <p class="fragment roll-in">Scraping web pages</p>
 %  * <p class="fragment roll-in">WSDOT VesselWatch</p>
@@ -389,8 +434,14 @@ line, but in the real world, and our ferry problem, this is rarely the case.
 % accurate.
 % 
 
+\section{Results}
+\label{sec:results}
+% TODO: Intro to how a first pass happened, better pass happened, and new hypothesis
+%       was tested
+
 \subsection{The first pass}
 \label{sec:firstpass}
+% TODO: why did this suck?
 %  ## SVM is easy right?
 %  # <p class="fragment roll-in">No. 60%</p>
 %  WHY DID I DO BETTER???
@@ -400,7 +451,10 @@ line, but in the real world, and our ferry problem, this is rarely the case.
 % 
 
 \subsection{General results}
-\label{sec:results}
+\label{sec:gen_results}
+% TODO: discuss the general results I had on the ``successful'' runs
+% TODO: discuss how the great on-timeness of the system may impact results
+% TODO: discuss how weather seemed so strange!
 %  ## Results: Arrivals
 %  *  Full: 87.0%
 %  *  No Weather: 88.0%
@@ -429,6 +483,7 @@ line, but in the real world, and our ferry problem, this is rarely the case.
 
 \subsection{The problem with weather}
 \label{sec:weather_prob}
+% TODO: discuss how the experiment withe weather was constructed and carried out
 % ## How about that weather?
 %  Weather/No Weather
 % Without information about the departure, the arrival time
@@ -443,29 +498,27 @@ line, but in the real world, and our ferry problem, this is rarely the case.
 %      2. Middleish (randomly selected)
 %      3. Geographically furthest
 
-% TODO: Add in the actual weather data to discuss
 
 \section{Closing thoughts}
 \label{sec:summary}
+% TODO: Recap the results and why SVM was used
 %  ## In summary
 %  * This is a "cute" model.
 %  * Hyperplanes are more than an awesome word.
 %  * The ferry system is full of data we can mine.
 %  * SVM is like a black box.
-% 
+ 
+% TODO: Multiclass SVM?
 
-\subsection{Remaining questions}
-\label{sec:questions}
 %  1. Making an actual application
 %      1. State of Java web frameworks
 %      2. Need to scrape or grab user data
 %      3. Update SVM
 %  2. Are the schedules online adjusted as time goes by
 %  3. Mining the data for patterns
-% 
+ 
 
-\subsection{Extensions}
-\label{sec:extensions}
+% TODO: end with where the work can be taken next
 %  ## Future(ish) work
 %  * Multi-class SVM for "tardiness categories"
 %  * Regression analysis
