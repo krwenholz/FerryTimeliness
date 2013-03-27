@@ -23,6 +23,8 @@
 \usepackage{setspace}
 \onehalfspacing
 
+\usepackage{sidecap}
+
 \usepackage{graphicx} % support the \includegraphics command and options
 
 % \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
@@ -325,6 +327,22 @@ and testing sets based on experience, experimentation, and availability.
 \subsection{Washington State's ferries}
 \label{sec:wsdot}
 % TODO: describe the system with a picture, backing up the size argument earlier 
+The Washington State Department of Transportation (WSDOT) runs the ferry system
+in the Pacific Northwest over a stretch of more than 130 miles, from Victoria,
+British Columbia to Point Defiance in Tacoma \cite{wsdotFleet}. The system serves
+over 22 million passengers per year in about $160,000$ sailings \cite{wsfTraffic}.
+We will refer to one sailing (from one terminal to another) as a trip. 
+\textbf{Figure~\ref{fig:ferry_system}} gives the map of the WSDOT's 20 terminals
+and 10 routes, lending perspective to the size of the entire system.
+
+\begin{SCfigure}
+  \centering
+  \includegraphics[scale=.4]{images/route-map-overview.png}
+  \caption{The Washington State Department of Transportation ferry system. 20
+  terminals, making 10 routes, serve users from Point Defiance in Tacoma up to
+  Victoria in British Columbia \cite{wsdotVesselWatch}.}
+  \label{fig:ferry_system}
+\end{SCfigure}
 
 The ferry trips in this data 
 need to be labeled as late or not. Remember also, that we wish to examine how
