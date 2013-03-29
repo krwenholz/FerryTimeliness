@@ -42,7 +42,7 @@
 \usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
 \pagestyle{fancy} % options: empty , plain , fancy
 \renewcommand{\headrulewidth}{0pt} % customise the layout...
-\lhead{Team \# 16677}\chead{}\rhead{Page \thepage\ of \pageref{LastPage}}
+\lhead{}\chead{}\rhead{\textit{kwenholz \thepage}}
 \lfoot{}\rfoot{}\cfoot{}
 
 %%% SECTION TITLE APPEARANCE
@@ -343,6 +343,15 @@ and 10 routes, lending perspective to the size of the entire system.
   Victoria in British Columbia \cite{wsdotVesselWatch}.}
   \label{fig:ferry_system}
 \end{SCfigure}
+
+The system is interesting for more than just its traffic. Several of the routes
+are rather windy looking, suggesting they may be more susceptible to weather and
+traffic delays. Some terminals, furthermore, are a hub for several routes. We
+might conjecture these terminals to be susceptible to pileups in traffic. These 
+and other complexities of the system make it worthwhile in pursuing the robust 
+model provided by an SVM. Fortunately, the complexities and heavy use of the
+system seem to have convinced the WSDOT to keep thorough records of the traffic.
+
 
 The ferry trips in this data 
 need to be labeled as late or not. Remember also, that we wish to examine how
