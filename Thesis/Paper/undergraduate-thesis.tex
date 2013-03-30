@@ -13,7 +13,7 @@
 % See the LaTeX Companion or other references for full information.
 
 %%% PAGE DIMENSIONS
-\usepackage{geometry} % to change the page dimensions
+\usepackage[top=1.8cm, bottom=1.8cm, left=1.9cm, right=1.9cm]{geometry}
 \geometry{a4paper} % or letterpaper (US) or a5paper or....
 % \geometry{margins=2in} % for example, change the margins to 2 inches all round
 % \geometry{landscape} % set up the page for landscape
@@ -307,7 +307,6 @@ of time to be saved and provided a higher degree of certainty in the results.
 
 \section{Predicting tardiness through data}
 \label{sec:problem}
-% TODO: Return to what the actual problem is as we dive back into the data
 Support vector machines require two sets of labeled data to find a linear classifier:
 training and testing. The training data is fed into the SVM as a means of training
 the weight vector and finding a linear classifier, and the testing data is used
@@ -326,14 +325,13 @@ and testing sets based on experience, experimentation, and availability.
 
 \subsection{Washington State's ferries}
 \label{sec:wsdot}
-% TODO: describe the system with a picture, backing up the size argument earlier 
 The Washington State Department of Transportation (WSDOT) runs the ferry system
-in the Pacific Northwest over a stretch of more than 130 miles, from Victoria,
-British Columbia to Point Defiance in Tacoma \cite{wsdotFleet}. The system serves
-over 22 million passengers per year in about $160,000$ sailings \cite{wsfTraffic}.
-We will refer to one sailing (from one terminal to another) as a trip. 
-\textbf{Figure~\ref{fig:ferry_system}} gives the map of the WSDOT's 20 terminals
-and 10 routes, lending perspective to the size of the entire system.
+in the Pacific Northwest (since 1951) over a stretch of more than 130 miles, from 
+Victoria, British Columbia to Point Defiance in Tacoma \cite{wsdotFleet}. The system 
+serves over 22 million passengers per year in about $160,000$ sailings 
+\cite{wsfTraffic}.  We will refer to one sailing (from one terminal to another) as a 
+trip.  \textbf{Figure~\ref{fig:ferry_system}} gives the map of the WSDOT's 20 
+terminals and 10 routes, lending perspective to the size of the entire system.
 
 \begin{SCfigure}
   \centering
@@ -352,15 +350,52 @@ and other complexities of the system make it worthwhile in pursuing the robust
 model provided by an SVM. Fortunately, the complexities and heavy use of the
 system seem to have convinced the WSDOT to keep thorough records of the traffic.
 
+To effectively use an SVM, we need enough data we can experiment with and it needs
+to be in a uniform, accurate state. Originally, a web scraper was written to grab
+information from the WSDOT VesselWatch \cite{wsdotVesselWatch} page, but this was 
+made obsolete when a request for information was eventually fulfilled. The WSDOT 
+provided, upon request, a record of
+approximately $340,000$ ferry trips from October of 2010 to October of 2012. The
+data came as a comma separated value file with the nine fields. An example is shown
+in \textbf{Figure~\ref{fig:example_wsdot_data}}.
 
-The ferry trips in this data 
-need to be labeled as late or not. Remember also, that we wish to examine how
-weather impacts the effectiveness of our model.  This requires accurate weather
-data with enough instances to be relevant to the trip records in the ferry data.
+\begin{figure}
+    \centering
+    \begin{tabular}[h]{lllll}
+        \hline
+        Vessel & Departing & Arriving & Sched Depart & Actual Depart \\
+        \hline
+        Kittitas & Mukilteo & Clinton & 9/1/2010 0:00 & 9/1/2010 0:01 \\
+        Sealth & Vashon & Southworth & 9/1/2010 0:05 & 9/1/2010 0:06 \\
+        Tacoma & Colman & Bainbridge & 9/1/2010 0:15 & 9/1/2010 0:19 \\
+    \end{tabular}
 
-In order to get a sufficient amount, it was
-easiest to request the data from the Washington State Department of Transportation.
- 
+    \begin{tabular}[h]{llll}
+        \hline
+        Initial ETA & Actual Arrival & Date & Route Name\\
+        \hline
+        9/1/2010 0:13 & 9/1/2010 0:14 & 9/1/2010 & Mukilteo - Clinton \\
+        9/1/2010 0:16 & 9/1/2010 0:19 & 9/1/2010 & Southworth - Vashon \\
+        9/1/2010 0:45 & 9/1/2010 0:51 & 9/1/2010 & Seattle - Bainbridge Island \\
+    \end{tabular}
+    \caption{The header of the data provided from the WSDOT (broken into two tables
+        to fit page widths). There are over $340,000$ lines in the original file.}
+    \label{fig:example_wsdot_data}
+\end{figure}
+
+The column headings are all fairly straightforward, but it is worth noting the
+scheduled and initial values, for departure and arrival respectively, are the
+times found on the schedule for the beginning of the day. With the way the data
+is given, we separate out the times into departures and arrivals, creating two
+separate scheduling problems. This way it is possible to try predicting arrivals
+with the added information of departure time (a seemingly easier problem). 
+
+Before feeding the data into the SVM, it was necessary to transform times and 
+categorical variables into numeric values. This was done through several Python
+scripts: using seconds past January 1, 1970 for the times and expanding the 
+categoricals out as many variables functioning like a bit vector. Additionally,
+and a far more difficult problem, we joined this ferry data with weather data
+obtained from the National Oceanic and Atmospheric Administration (NOAA).
 
 %       and manage to set the stage for how this research impacts people
 %  A portrait of the system</h2>
@@ -393,32 +428,32 @@ easiest to request the data from the Washington State Department of Transportati
 %  Worst: Anacortes/San Juans (88.9%)
 % 
 
-\subsection{Where the data comes from}
+\subsection{Weather and final SVM format}
 \label{sec:data_origins}
-% TODO: discuss the WSDOT and NOAA data sources, formatting, and transformation
-%  ## Sources and shades of data
-%  * <p class="fragment roll-in">Scraping web pages</p>
-%  * <p class="fragment roll-in">WSDOT VesselWatch</p>
-%  * <p class="fragment roll-in">NOAA Tacoma Narrows weather station</p>
-%  <img src="images/vesselwatch.png">
-%  1. Accessibility of the Vessel Watch data
-%      1. Briefly discuss the web page scraper
-%          1. Using a simulated web browser
-%          2. Accounting for "botched" grabs
-%      2. Using a request for the data
-%          1. Discuss what I actually received
-%          2. Discuss the quality and amount of data
-%  2. Grabbing weather data
-%      1. Grabbed from a deeply hidden NOAA archive
-%      2. Manually downloaded files
-%      3. Why the Tacoma Narrows station
-%          1. Completeness of dates
-%          2. Completeness of records
-% 
-%  ## Ferry data (340,902)
-%      Kittitas, Mukilteo, Clinton, 9/1/2010 0:00, 9/1/2010 0:01,
-%      Mukilteo - Clinton, 9/1/2010 0:13, 9/1/2010 0:14, 9/1/2010
-% 
+Retrieving accurate and full historical weather data presented an unexpected 
+challenge. Most weather sites are focused on future weather and make historical
+data available only through programming APIs which may require a paid subscription.
+Fortunately, NOAA provides (by subscription) a portal for retrieving weather data
+by station. Stations record over $20$ different features at some point every hour.
+It seems that some stations experience outages or are unable to record on some
+instruments every so often; because of this, we used the station with the seemingly
+most complete data set in the area. This turned out to be a station near the 
+Tacoma Narrows Bridge. The data was downloaded in files by month for the range of
+October 2010 to October 2012 from a quality controlled store on NOAA's 
+site \cite{noaaWeather}. Only about $1,000$ of the more than $24,000$ weather 
+entries had to be removed for null values in the wind data.  Unfortunately, 
+the station is not a central point, but it seemed close enough at the time. 
+
+We avoided using multiple stations to keep the joining of ferry and weather 
+data simpler: since all ferries matched with one station, we just found the 
+weather recording closest (within at least an hour) of the actual time reported
+on the ferry trip. Of the over $340,000$ ferry trips, only about $13,000$ had to 
+be removed.  With a data set so large, this only constituted $4\%$, an acceptable
+loss in our case. 
+
+% TODO: What weather data was used (show example of formats and such)
+
+
 %  </br>
 %  ## Weather data (1184 &times; 24)
 %      94274,20110101,0053,12,CLR, ,10.00, , , ,25, ,-3.9, ,22, ,-5.4, ,
