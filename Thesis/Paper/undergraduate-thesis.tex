@@ -67,6 +67,7 @@
     \begin{center}
       \Huge{Where's my Ferry?}\\[0.5cm]
       \Large{Support Vector Machines for Modeling Ferry Tardiness}\\[0.4cm]
+      Kyle Wenholz, advised by Professor Brad Richards\\
       \today
     \end{center}
     \vspace*{\fill}
@@ -444,14 +445,65 @@ site \cite{noaaWeather}. Only about $1,000$ of the more than $24,000$ weather
 entries had to be removed for null values in the wind data.  Unfortunately, 
 the station is not a central point, but it seemed close enough at the time. 
 
+In \textbf{Figure~\ref{fig:weatherExampleLine}} is an example of what the weather
+data looks like in its raw form. Note there are some categorical variables, but
+nearly everything is a numeric. The categorical variables weren't utilized in the
+final model, since they can be inferred from the other data. Many of the columns
+are simply blank, due to the stations lack of equipment for certain measures. 
+The measures for dry bulb, wet bulb, dew point, wind speed, wind direction, and
+station pressure were used in the final model. There was very little missing data
+for any of these, and none of them directly imply another. Humidity may seem to 
+be missing, but it can be calculated by the dry bulb and wet bulb temperatures.
+
 We avoided using multiple stations to keep the joining of ferry and weather 
 data simpler: since all ferries matched with one station, we just found the 
 weather recording closest (within at least an hour) of the actual time reported
 on the ferry trip. Of the over $340,000$ ferry trips, only about $13,000$ had to 
-be removed.  With a data set so large, this only constituted $4\%$, an acceptable
-loss in our case. 
+be removed for lack of weather data.  With a data set so large, this only 
+constituted $4\%$, an acceptable loss in our case. To join the data, a simple
+Python script searched the weather data for a nearest time to join with each
+ferry trip, and then the departure and arrival information were separated to
+place each as an individual event in separate files. It was then straightforward
+to calculate the label (late or not) for each event by subtracting the appropriate
+times.
 
-% TODO: What weather data was used (show example of formats and such)
+\begin{figure}
+    \centering
+     \begin{tabular}{llll}
+        WBAN & Date & Time & StationType \\
+        SkyCondition & SkyConditionFlag & Visibility & VisibilityFlag \\
+        WeatherType & WeatherTypeFlag & DryBulbFarenheit & DryBulbFarenheitFlag \\
+        DryBulbCelsius & DryBulbCelsiusFlag & WetBulbFarenheit & WetBulbFarenheitFlag \\
+        WetBulbCelsius & WetBulbCelsiusFlag & DewPointFarenheit & DewPointFarenheitFlag \\
+        DewPointCelsius & DewPointCelsiusFlag & RelativeHumidity & RelativeHumidityFlag \\
+        WindSpeed & WindSpeedFlag & WindDirection & WindDirectionFlag \\
+        ValueForWindCharacter & ValueForWindCharacterFlag & StationPressure & StationPressureFlag \\
+        PressureTendency & PressureTendencyFlag & PressureChange & PressureChangeFlag \\
+        SeaLevelPressure & SeaLevelPressureFlag & RecordType & RecordTypeFlag \\
+        HourlyPrecip & HourlyPrecipFlag & Altimeter & AltimeterFlag
+    \end{tabular}
+
+
+        \[94274,20110101,0053,12,CLR, ,10.00, , , ,25, ,-3.9, ,22, ,-5.4, ,\]
+        \[16, ,-8.9, , 69, , 0, ,000, , , ,29.69, ,1, ,002, ,30.04, ,AA, , ,\]
+        \[,30.03, \]
+
+    \caption{An example line from a weather data file preceded by the many, but 
+    thankfully explicit, column headings.}
+    \label{fig:weatherExampleLine}
+\end{figure}
+
+Following the joining of weather and ferry data and the labeling, it is necessary
+scale the data between $-1$ and $1$, since this is considered an SVM best practice
+to make no feature stand out by sheer magnitude \cite{changLibSVM2011}. LibSVM 
+performs this transformation quickly and is also useful for separating out the 
+training data from the testing data. We used it to randomly sample about 
+$290,000$ data points for training and $30,000$ for testing. The sampling 
+was random to the extent that both sets of data contained a roughly equal 
+distribution of late and not-late ferry trips. This is an incredibly important
+feature to preserve, since we want to both learn about tardiness and check if the
+linear classifier produced is able to predict both scenarios. With separated
+data in hand, we proceeded to train a linear classifier using the LibSVM package.
 
 
 %  </br>
@@ -498,12 +550,41 @@ loss in our case.
 
 \section{Results}
 \label{sec:results}
-% TODO: Intro to how a first pass happened, better pass happened, and new hypothesis
-%       was tested
+The results for the project exist in three parts. As described before, the primary
+goal is to model the ferry system and answer the question of whether or not using
+an SVM to train a linear classifier is useful. This leads to the first two phases
+which involve a first pass and then a serious refining of the methodology. As a 
+benchmark, we use approximately $90\%$ accurate on the test data to be comparable
+with Smith et al \cite{smith2008decision}, since like that group, we wish to see
+if using SVM is a practical method for determining ferry tardiness. Recall that
+a secondary goal is to find which features matter in determining tardiness.  While
+this goal is asking questions best answered by a regression analysis, we will 
+attempt a crude approximation through empirical methods.  The final component is 
+a small experiment to test interesting phenomena arising in the general results.  
+This latter part is possibly the most interesting of the project, but we begin 
+with the first attempt to use LibSVM.
 
 \subsection{The first pass}
 \label{sec:firstpass}
-% TODO: why did this suck?
+We began by determining whether or not a ferry is on
+time for its departure, leaving arrival for after the process was worked out. 
+A file with all of the labeled training instances was fed into LibSVM, using the
+default parameters of the kernel. The process took an entire night running on
+low end hardware, but the results were disappointing to say the least.
+
+After running on the test data, the linear classifier only yielded $60\%$ accuracy. 
+This is significantly beneath the benchmark. The time to run the process was also
+surprising and led to a more cautious approach for the rest of the work. To 
+improve the performance of the classifier, LibSVM provides an exhaustive guide 
+\cite{changeLibSVM2011} for beginners in the perils of simply ``running it''. The 
+directions weren't followed on the first pass because it was hoped the process 
+would be much simpler just using the default parameters. 
+
+Having learned some lessons, the LibSVM guide was followed to the letter on a 
+second pass. The most significant change to the process was training on the 
+parameters for the kernel function. As mentioned before LibSVM provides code
+to perform an exhaustive search for the best fit parameters to use in the function.
+The subsets for this training came from the training data.
 %  ## SVM is easy right?
 %  # <p class="fragment roll-in">No. 60%</p>
 %  WHY DID I DO BETTER???
