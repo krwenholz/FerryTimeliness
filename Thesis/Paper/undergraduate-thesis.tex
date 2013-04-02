@@ -13,7 +13,7 @@
 % See the LaTeX Companion or other references for full information.
 
 %%% PAGE DIMENSIONS
-\usepackage[top=1.8cm, bottom=1.8cm, left=1.9cm, right=1.9cm]{geometry}
+\usepackage[top=1.9cm, bottom=1.9cm, left=1.9cm, right=1.9cm]{geometry}
 \geometry{a4paper} % or letterpaper (US) or a5paper or....
 % \geometry{margins=2in} % for example, change the margins to 2 inches all round
 % \geometry{landscape} % set up the page for landscape
@@ -334,6 +334,13 @@ serves over 22 million passengers per year in about $160,000$ sailings
 trip.  \textbf{Figure~\ref{fig:ferry_system}} gives the map of the WSDOT's 20 
 terminals and 10 routes, lending perspective to the size of the entire system.
 
+% TODO: does this fit in?
+One concern during this process is that the ferry 
+system itself is on time $95\%$ of the time. It's not clear how this impacts the
+practicality of an SVM in this problem nor what reasonable upper and lower bounds
+on expected accuracy should be. Because of this, the benchmark of $90\%$ from the
+airlines paper \cite{smith2008decision} remains the target in this project.
+
 \begin{SCfigure}
   \centering
   \includegraphics[scale=.4]{images/route-map-overview.png}
@@ -584,7 +591,10 @@ Having learned some lessons, the LibSVM guide was followed to the letter on a
 second pass. The most significant change to the process was training on the 
 parameters for the kernel function. As mentioned before LibSVM provides code
 to perform an exhaustive search for the best fit parameters to use in the function.
-The subsets for this training came from the training data.
+The subsets for this training come from the training data. Finding the best fit 
+parameters is a long process, sometimes as long as the actual SVM training, so it
+slows down the process significantly, but as we're about to discuss the dividends 
+are well worth it.
 %  ## SVM is easy right?
 %  # <p class="fragment roll-in">No. 60%</p>
 %  WHY DID I DO BETTER???
@@ -598,6 +608,83 @@ The subsets for this training came from the training data.
 % TODO: discuss the general results I had on the ``successful'' runs
 % TODO: discuss how the great on-timeness of the system may impact results
 % TODO: discuss how weather seemed so strange!
+Training the SVM to predict arrival time tardiness proved to be the most successful.
+In this case, a full instance included features for the actual departure time,
+all weather, predicted arrival time, date, vessel name, departure location, and
+arrival location. (Final results for all runs are displayed in 
+\textbf{Figure~\ref{fig:second_run_data_arrivals}}.) It is expected for this to 
+be the problem the SVM can be most accurate about, since really it only needs to 
+understand how long the trip will likely take a ferry. 
+
+The tardiness of full feature instances were able to be predicted with 
+$\approx 87.0\%$ accuracy. For a second pass, this is incredibly close to the 
+benchmark of $90\%$. To tune the linear classifier from our SVM, it is necessary
+to try trimming unnecessary features to find maximum accuracy. Due to time 
+constraints, the trimming we perform here is very coarse. A thorough examination
+would attempt to take examine all combinations of features, but this is beyond the
+scope of our work, especially in regards to available computing power.
+
+Removing the departure information from the features drops accuracy to $60\%$, 
+a disappointing result. It may be possible to dramatically improve this result with
+some of the techniques discussed in \textbf{Section~\ref{sec:improvements}}. 
+To determine whether removing more features made any significant difference, we
+also removed the weather information from predicting arrivals.  This is, by far,
+the more interesting result.
+
+A full departure feature vector includes all of the information regarding a trip
+(vessel name, time, route) and the weather. The prediction results here were not
+as exciting as with arrivals, but they proved to be more stable. The full 
+departure vectors were predicted with $76.3\%$ accuracy, and removing weather
+only reduced accuracy to $75.7\%$. While $76\%$ is not at the benchmark, having
+experienced the change removing features and adjusting the training sets can have,
+it seems like more time with the data could yield even better results.
+
+When departure information is still included in arrival predictions, the removal of 
+weather actually improves accuracy resulting in $88\%$, an improvement of one
+percentage point. Without the departure information, the percent accuracy decreases
+by only $0.6$ percentage points, a negligible difference at $59.4\%$ accuracy. 
+Weather was included as all but a given for improving the accuracy of the SVM
+work, but the results just outlined call into question this assumption and warranted 
+further investigation.
+
+
+% TODO: Put this somewhere earlier!
+Since these trips correspond to a 
+schedule time, it is conceivable a future application could use these predictions
+to tell users when their ferry is 
+% /TODO
+
+
+\begin{figure}
+    \centering
+    Arrival Predictions
+    \begin{tabular}{ll}
+        Configuration & Percent accuracy on test data\\
+        Full          & $87\%$\\
+        No Departure  & $60\%$\\
+        No Weather    & $88\%$\\
+        No Departure, No Weather  & $59.4\%$\\
+    \end{tabular}
+    \caption{Feature configurations and their associated percent accuracies in
+         predicting the timeliness of arrivals convey the empirical importance of 
+         the features included.}
+    \label{fig:second_run_data_arrivals}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \textbf{Departure Prediction Accuracy}
+    \begin{tabular}{ll}
+        Configuration & Percent accuracy on test data\\
+        Full        & $76.3\%$\\
+        No Weather  & $75.7\%$\\
+    \end{tabular}
+    \caption{Feature configurations and their associated percent accuracies in
+         predicting the timeliness of departures convey the empirical importance of 
+         the features included.}
+    \label{fig:second_run_data_departures}
+\end{figure}
+
 %  ## Results: Arrivals
 %  *  Full: 87.0%
 %  *  No Weather: 88.0%
@@ -650,7 +737,13 @@ The subsets for this training came from the training data.
 %  * Hyperplanes are more than an awesome word.
 %  * The ferry system is full of data we can mine.
 %  * SVM is like a black box.
+
+\subsection{Improvements to the data analysis}
+\label{sec:improvements}
  
+
+\subsection{Extensions}
+\label{sec:extensions}
 % TODO: Multiclass SVM?
 
 %  1. Making an actual application
@@ -660,6 +753,8 @@ The subsets for this training came from the training data.
 %  2. Are the schedules online adjusted as time goes by
 %  3. Mining the data for patterns
  
+\subsection{Conclusion}
+\label{sec:conclusion}
 
 % TODO: end with where the work can be taken next
 %  ## Future(ish) work
