@@ -605,9 +605,6 @@ are well worth it.
 
 \subsection{General results}
 \label{sec:gen_results}
-% TODO: discuss the general results I had on the ``successful'' runs
-% TODO: discuss how the great on-timeness of the system may impact results
-% TODO: discuss how weather seemed so strange!
 Training the SVM to predict arrival time tardiness proved to be the most successful.
 In this case, a full instance included features for the actual departure time,
 all weather, predicted arrival time, date, vessel name, departure location, and
@@ -657,7 +654,8 @@ to tell users when their ferry is
 
 \begin{figure}
     \centering
-    Arrival Predictions
+    \textbf{Arrival Predictions}
+
     \begin{tabular}{ll}
         Configuration & Percent accuracy on test data\\
         Full          & $87\%$\\
@@ -674,6 +672,7 @@ to tell users when their ferry is
 \begin{figure}
     \centering
     \textbf{Departure Prediction Accuracy}
+
     \begin{tabular}{ll}
         Configuration & Percent accuracy on test data\\
         Full        & $76.3\%$\\
@@ -714,24 +713,83 @@ to tell users when their ferry is
 \subsection{The problem with weather}
 \label{sec:weather_prob}
 % TODO: discuss how the experiment withe weather was constructed and carried out
-% ## How about that weather?
-%  Weather/No Weather
-% Without information about the departure, the arrival time
-%    predictions were strictly less than 68% accuracy.
-%  1. Possible issues
-%      1. Location of station
-%      2. Poor quality of data
-%      3. My error
-%      4. Ferries really are consistent enough to not need weather
-%  2. Running individual routes
-%      1. Closest to Tacoma Narrows
-%      2. Middleish (randomly selected)
-%      3. Geographically furthest
+Since weather made barely any difference in prediction accuracy (even 
+degrading it in some cases), examining possible causes of this unexpected 
+incident became the last focus of the project. By re-examining the assumptions
+made regarding weather at the start, there are several which we can now dispute:
 
+\begin{enumerate}
+    \item Weather will help improve accuracy.
+    \item \label{wAssumption_oneStation} The area is geographically small enough 
+        that one weather station should be just fine for all routes.
+    \item The weather variables dry bulb, wet bulb, dew point, wind speed, 
+        wind direction, and station pressure are the right variables to examine.
+    \item The data retrieved is of a sufficient quality.
+\end{enumerate}
+
+Given time constraints and the results of the SVM, it seems assumption 
+\ref{wAssumption_oneStation} is the best to tackle. But what how can we tease
+apart this assumption? Our strategy was to tackle the effect of the station
+location by comparing the effect of weather on three routes sufficiently far apart
+by running individual SVMs for each route (testing accuracy only on that route's 
+trips). The three routes chosen were Tahlequah-Point Defiance, Kingston-Edmonds,
+and Coupeville-Port Townsend. Looking at \textbf{Figure~\ref{fig:ferry_system}},
+we can see the furthest route, Coupeville-Port Townsend, is almost $100$ miles
+from the weather station near Point Defiance. These three were deemed to be 
+closest, middlemost, and furthest from the weather station, respectively, but also 
+have enough trips to warrant an individual SVM. 
+
+The results of the experiment are mixed and can be viewed in full with 
+\textbf{Figure~\ref{fig:weatherExperiment}}. We used full feature vectors for 
+predicting both arrivals and departures, only taking out weather where noted
+for the comparison. We can see that the removal of weather rarely made a difference
+in any of the measures, except for the Kingston-Edmonds route when looking at 
+arrivals. In that case the removal of weather was a major boon the accuracy. 
+Otherwise, the results here are inconclusive of the actual efficacy of weather
+in improving predictions, and if anything, only help confuse the situation.
+
+\begin{figure}
+    \centering
+    \textbf{Prediction accuracies with a $Weather/NoWeather$ format}
+
+    \begin{tabular}{ll}
+        \textbf{Arrivals} & \textbf{Departures}\\
+        \hline
+        Tahlequah-Point Defiance    & \\
+        95.2\%/93.9\% & 76.1\%/75.3\% \\
+        Kingston-Edmonds    & \\
+        85.2\%/94.7\% & 82.7\%/82.8\% \\
+        Coupeville-Port Townsend     & \\
+        88.3\%/87.7\% & 68.8\%/69.4\% 
+    \end{tabular}
+    \caption{The arrival and departure time prediction accuracies for individual 
+        routes when including and excluding weather.}
+    \label{fig:weatherExperiment}
+\end{figure}
+
+One final possible explanation is the robustness of this ferry system. The 
+WSDOT reports their system to be on time 95\% of the time \cite{wsdotComparison},
+a remarkable feat. It may simply be that there isn't much of a pattern in regards
+to weather or other predictable phenomena. We may be looking at a system whose
+only fault is vessel maintenance, a feature requiring very different data than
+that which we had access to. 
+
+The accuracy of the linear classifiers produced by our SVM runs are promising.
+With only novice level knowledge and hardware, we have improved significantly on
+random guesses for tardiness, and more time might see even better improvements.
 
 \section{Closing thoughts}
 \label{sec:summary}
-% TODO: Recap the results and why SVM was used
+The original goal of the project, to develop a ferry system model using AI 
+techniques, was met and spawned further investigation into the behavior of the
+system. We nearly met the benchmark of $90\%$ accuracy for a linear classifier 
+produced by an SVM, and we concluded the performance could probably be improved
+on given more time and experience tuning the process. The exploration of weather's
+relationship to the ferry system also proved to be more complex than expected, 
+clouding the assumption of there being a significant link between the two. The 
+remaining questions and further work are now even greater in scope than when
+the project began.
+
 %  ## In summary
 %  * This is a "cute" model.
 %  * Hyperplanes are more than an awesome word.
@@ -740,28 +798,63 @@ to tell users when their ferry is
 
 \subsection{Improvements to the data analysis}
 \label{sec:improvements}
- 
+Most of the percent accuracies we have analysed were short of the $90\%$ benchmark,
+but some were very close. More time to tune the features used in prediction, 
+check the data quality, and experiment with different training set sizes would
+likely yield even better predictions. The latter goal is of particular interest.
+Since no definitive guide to using SVM was found before finishing the project, 
+the size of training sets was kept the same throughout bet may be a poorly informed
+choice. A common criticism of SVMs, and AI in general, is that training on too
+large of a dataset can lead to overfitting without realising it. This means the
+machine is only really capable of predicting events similar to the training data
+and can't generalize beyond. With a chance to train on smaller sets of data,
+we might find overfitting hampers the accuracy we found with larger training sets.
+
+Recall the variance found among training an SVM over individual routes in the weather
+investigation. We discovered that individual routes varied widely, suggesting a 
+``master'' SVM for all routes may not be appropriate. We would like to assume that
+an SVM could tease apart the relationships between routes and tardiness, but there
+may be too many conflicts between routes in terms of which features matter. For 
+instance, a short route between Clinton and Mukilteo covers mostly open water
+and might not be very susceptible to weather in comparison to the island crowded
+route from Anacortes to Lopez. A thorough comparison of how individual SVMs 
+perform for the routes might make this approach even more appealing or lend 
+insight into a better choice.
+
 
 \subsection{Extensions}
 \label{sec:extensions}
-% TODO: Multiclass SVM?
+The end product of our SVM trainings worked in the ways we hoped: seeming to be 
+useful for predicting ferry timeliness and as an investigative tool for the
+WSDOT ferry system. Still, the project is far from complete. 
 
-%  1. Making an actual application
-%      1. State of Java web frameworks
-%      2. Need to scrape or grab user data
-%      3. Update SVM
-%  2. Are the schedules online adjusted as time goes by
-%  3. Mining the data for patterns
+The SVM training produced useful linear classifiers, but a framework for average
+users could still be built. Whether this would be a web or mobile application is
+unfortunately restricted by the use of LibSVM. Since it is only implemented in 
+C, a web application querying some server seems like the most straightforward
+approach. There are other possibilities since LibSVM has bindings in many languages,
+but the production of a real user interface and seeing it used would certainly 
+validate the usefulness of predicting ferry times.
+
+The SVM training itself could also be restructured. Several times, the lack of
+production time inhibited the ability to fully explore the data, but beyond this
+we could improve the definition of tardy. A multiclass SVM allows us to have degrees
+of tardiness (e.g. three minutes, five minutes, or ten minutes late). This sort
+of SVM is supported by LibSVM and extends fairly naturally from the two class case.
+Moreover, LibSVM could be used for a regression analysis of the features. This might
+be the best way to determine which features matter in regards to tardiness. 
  
 \subsection{Conclusion}
 \label{sec:conclusion}
-
-% TODO: end with where the work can be taken next
-%  ## Future(ish) work
-%  * Multi-class SVM for "tardiness categories"
-%  * Regression analysis
-%  * Graphical application
-
+The use of an SVM for predicting ferry times novelly makes use of the large data 
+sets available. This tool from artificial intelligence enables us to predict, with
+over $75\%$ accuracy in most cases, the tardiness of ferries in the complex system,
+and it brings us insight into how important various features are when predicting
+this tardiness. While we may not fully understand the strange behavior exhibited
+by including weather in the model, the base assumption of weather's importance no 
+longer appears valid. Further tuning of the SVM process is likely to yield even
+greater insight and perhaps better prediction results.
+%TODO: better finisher of how cool this is
 
 \newpage 
 
@@ -769,4 +862,15 @@ to tell users when their ferry is
 \bibliography{undergraduate-thesis.bib}
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
 
