@@ -13,7 +13,7 @@
 % See the LaTeX Companion or other references for full information.
 
 %%% PAGE DIMENSIONS
-\usepackage[top=1.9cm, bottom=1.9cm, left=1.9cm, right=1.9cm]{geometry}
+\usepackage[top=2.1cm, bottom=2.1cm, left=2.1cm, right=2.1cm]{geometry}
 \geometry{a4paper} % or letterpaper (US) or a5paper or....
 % \geometry{margins=2in} % for example, change the margins to 2 inches all round
 % \geometry{landscape} % set up the page for landscape
@@ -125,14 +125,14 @@ artificial neural networks (ANNs) and support vector machines (SVMs). These two
 approaches fit into the
 category of \textbf{supervised learning}: labeled (known) data is fed into an
 algorithm that learns to make better predictions through comparing its own 
-predictions to the labeled data set. ANN and SVM are often considered to be
+predictions to the labeled data set. Classical examples of using ANN and SVM are
+spam detection in emails, determining images in which cancer is present, or even
+determining gender from a facial image. ANN and SVM are often considered to be
 very similar in the problems they attempt to tackle, especially since each can
 be used as a linear classifier: a function taking in some object and determining 
 a class to which it belongs. Rather than considering tardiness as a spectrum of
 degrees, we approach tardiness as a binary feature: late or not. This conceptually
-simplifies our problem.  
-% TODO: Give examples of how these two are used: spam/ham, cancer, facial recog
-If artificial neural networks and support vector 
+simplifies our problem.  If artificial neural networks and support vector 
 machines can both solve classification problems, however, which are we supposed
 to choose?
 
@@ -190,7 +190,6 @@ same tool was one reason in choosing support vector machines.
 
 \subsection{Basics of SVM}
 \label{sec:basics_svm}
-% FIXME: lame intro sentence
 A brief overview of the principles behind support vector machines and their use
 will help to lay a basis for the process of the project. As stated earlier,
 SVMs are used to find a linear classifier (some function) for a set of data.  In
@@ -644,14 +643,6 @@ Weather was included as all but a given for improving the accuracy of the SVM
 work, but the results just outlined call into question this assumption and warranted 
 further investigation.
 
-
-% TODO: Put this somewhere earlier!
-Since these trips correspond to a 
-schedule time, it is conceivable a future application could use these predictions
-to tell users when their ferry is 
-% /TODO
-
-
 \begin{figure}
     \centering
     \textbf{Arrival Predictions}
@@ -854,7 +845,6 @@ this tardiness. While we may not fully understand the strange behavior exhibited
 by including weather in the model, the base assumption of weather's importance no 
 longer appears valid. Further tuning of the SVM process is likely to yield even
 greater insight and perhaps better prediction results.
-%TODO: better finisher of how cool this is
 
 \newpage 
 
