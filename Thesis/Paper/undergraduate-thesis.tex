@@ -82,10 +82,12 @@
 \label{sec:intro}
 Ferries (as in \textbf{Figure~\ref{fig:basicferry}} present an interesting 
 opportunity to examine a complex traffic system filled with data and affecting 
-the lives of many individuals. This paper will discuss a new approach to predicting 
-the timeliness of ferries using a support vector machine.  An overview of how 
+the many lives. This paper will discuss a new approach to predicting 
+the timeliness of ferries using a support vector machine. The research was part
+of an Honors Program senior thesis at University of Puget Sound, supervised by 
+Professor Brad Richards. An overview of how 
 support vector machines work and their complications in real world use will 
-introduce the discussion of how this powerful construct presents a powerful and 
+introduce our discussion of how this powerful construct presents a powerful and 
 intuitive model for tackling the massive data associated with ferries.  A 
 functioning model is developed to examine the complexities of this
 approach, the practicality, and as a means of exploring some of the data. 
@@ -99,42 +101,39 @@ accuracy of the model is explored.
   \label{fig:basicferry}
 \end{figure}
 
-We will attempt to predict the tardiness of ferries, where tardy is 
+We attempt to predict the tardiness of ferries, where tardy is 
 defined as no less than three minutes later than the
 initial (at day's beginning) scheduled arrival or departure time. This definition
 of tardiness was chosen to allow for a non-trivial number of tardy events 
 (more than 10\% in the data) and to remain practical: i.e. someone could use the
 restroom in three minutes time or otherwise make use of that information. The 
 Washington State Department of Transportation's ferry system in the Pacific
-Northwest served as the source for all data. As will be discussed later on, 
-this ferry system is notoriously on time with over 95\% of trips being on 
-schedule (within one minute) \cite{wsdotComparison}. This system is of 
+Northwest served as the source for all data. This system is of 
 particular interest for its sheer volume of passengers: 22 million per year 
-\cite{wsfTraffic}.  The volume lends itself well to this project's goals of 
-using data mining. 
-% TODO: better transition sentence is needed
-
+\cite{wsfTraffic}.  The volume lends itself well to the application of 
+data mining techniques. While many techniques exist for data mining and 
+prediction in general, support vector machines are used in this project far a 
+variety of reasons.
 
 
 \section{Preliminaries}
 \label{sec:prelims}
-Since the goal of the project was to use a large data set for machine learning 
-and to develop a model for possibly predict future ferry tardiness, two approaches
-popular in available implementations and the literature were initially evaluated:
+We consider two approaches popular in terms of both available implementations and 
+the literature to be highly applicable to this problem:
 artificial neural networks (ANNs) and support vector machines (SVMs). These two 
-approaches fit into the
-category of \textbf{supervised learning}: labeled (known) data is fed into an
+approaches are algorithms, or machines, for
+\textit{supervised learning}: labeled (known) data is fed into an
 algorithm that learns to make better predictions through comparing its own 
 predictions to the labeled data set. Classical examples of using ANN and SVM are
 spam detection in emails, determining images in which cancer is present, or even
-determining gender from a facial image. ANN and SVM are often considered to be
-very similar in the problems they attempt to tackle, especially since each can
-be used as a linear classifier: a function taking in some object and determining 
-a class to which it belongs. Rather than considering tardiness as a spectrum of
-degrees, we approach tardiness as a binary feature: late or not. This conceptually
-simplifies our problem.  If artificial neural networks and support vector 
-machines can both solve classification problems, however, which are we supposed
-to choose?
+detecting gender from a facial image. ANN and SVM are often considered to be
+very similar in the problems they tackle, especially since each can
+be used to train a linear classifier: a function taking in some object and 
+determining a class to which it belongs. Rather than considering tardiness as a 
+spectrum of degrees, we approach tardiness as a binary feature: late or not. This 
+conceptually simplifies our problem and makes a larger set of ANNs and SVMs 
+available for use .  If artificial neural networks and support vector machines 
+can both solve classification problems, however, which are we supposed to choose?
 
 \subsection{ANN and SVM}
 \label{sec:ann_svm}
@@ -144,9 +143,10 @@ system, their discussion suggests data sets with many features (an aspect of the
 ferry model we discuss later) are better suited for SVM, and they also find little
 difference in the predictions of ANN and SVM. Most importantly, their conclusion,
 and that of their references, is the two approaches are complementary. Each 
-tool catches different cases, but the results are comparable in each approach,
+tool catches different cases, with comparable results in each approach,
 and SVM may even require less ``tweaking''. They concede that SVMs are generally
-easier to conceptualize, lending a sense of confidence to the work.
+easier to conceptualize, lending a greater sense of confidence to to the 
+non-expert.
 
 Support vector machines are more intuitively motivated. Consider mapping the
 features of a ferry trip (time of departure, weather, boat name, etc.) into a
@@ -155,22 +155,24 @@ we can also attach labels to the points (late or not, as in
 \textbf{Figure~\ref{fig:basic_svm_data}}). In two dimensions, we
 could try drawing a line through the late and not-late points to separate them.
 This line is simply a hyperplane in higher dimensions, and SVM has its theoretical
-underpinnings based on the idea of drawing this hyperplane optimally. Apart from
-the possible ease of use and understanding, there are also examples of SVM 
-being used in similar traffic prediction systems, providing a baseline comparison
-and the final reason for choosing SVM over artificial neural networks.
+underpinnings based on the idea of drawing this hyperplane as an optimal separator. 
+Apart from the possible ease of use and understanding, there are also examples of 
+SVMs being used in similar traffic prediction systems, providing a baseline 
+comparison and the final reason for choosing SVMs over artificial neural networks.
 
 \begin{figure}[h]
   \centering
   \includegraphics[scale=.5]{images/basic_svm_data.png}
-  \caption{A simple example of a separating line for tardiness (i.e. hyperplane). 
-      Each data point (or instance) has features $X_1$ and $X_2$.}
+  \caption{A simple example of a separating line for tardiness. 
+      Each data point (or instance) has features $X_1$ and $X_2$, corresponding
+      to axes on the graph.}
   \label{fig:basic_svm_data}
 \end{figure}
 
-Smith et al uses SVM to predict the timeliness of airline
+Smith et al use SVM to predict the timeliness of airline
 traffic in conjunction with weather patterns \cite{smith2008decision}. Their goal is 
-to predict the likelihood of requiring a ``ground delay program'': shuffling traffic 
+to predict the likelihood of requiring a ``ground delay program'': air traffic
+control shuffling flight times
 to account for tardiness in the schedule. The model they use involves traffic 
 flow management programs to estimate the effects of capacity on an air traffic 
 system, and the SVM is trained on labeled data to produce a function predicting 
@@ -179,23 +181,24 @@ found to be $78\%$ accurate in predicting need of a ground delay program and $83
 accurate in predicting a delay. Air traffic is much like the ferry system given
 its sensitivity to weather, attempt to adhere to a strict schedule, and heavy use.
 Due to these similarities, Smith's access to resources like the AMPL supercomputer, 
-and his group's expert knowledge, we use $80\%$ as the target accuracy in for the
+and his group's expert knowledge, we use $80\%$ as the target accuracy for our
 ferry model. 
 
-It is also noteworthy that SVMs can be used for regression analysis in large
-data sets with many variables \cite{chang2011libsvm}. While this paper will not
-cover this use of SVM, the possibility of performing such an analysis with the
-same tool was one reason in choosing support vector machines.
+As a final note regarding the usefulness of SVMs, they can be used for regression 
+analysis in large
+data sets with many variables \cite{chang2011libsvm}. While our project does not
+utilize this aspect of SVMs, the possibility of performing such an analysis with the
+same tool was one more reason for choosing support vector machines.
 
 
 \subsection{Basics of SVM}
 \label{sec:basics_svm}
 A brief overview of the principles behind support vector machines and their use
-will help to lay a basis for the process of the project. As stated earlier,
+will help to explain basics of this project. As stated earlier,
 SVMs are used to find a linear classifier (some function) for a set of data.  In
 this project, we seek a way to separate ferry trips that will be three minutes
 past their scheduled time (late) or less (on time). To find the linear classifier,
-an SVM uses a feature vector, $F$, to describe the trip.  An example $F$ may have
+an SVM uses a feature vector, $F$, to describe ferry trips.  An example $F$ may have
 entries for
 
 \[F=\begin{bmatrix}
@@ -209,7 +212,7 @@ This feature vector needs to be entirely numerical, so categorical variables lik
 boat name must be encoded as numbers.  It is possible to assign boat names to
 different values, but most often, it is best to expand the feature like a bit
 vector.  If there were boat names \textit{SS Minnow, Death Star,} and 
-\textit{Millennium Falcon}, then we would have
+\textit{Millennium Falcon}, then our new $F$ would be
 
 \[F=\begin{bmatrix}
         EstimatedArrival \\
@@ -218,27 +221,30 @@ vector.  If there were boat names \textit{SS Minnow, Death Star,} and
         Millennium\_Falcon\\
         Temperature\\
         WindSpeed
-\end{bmatrix}\]
+\end{bmatrix},\]
 
 where the entries for boat names are a $1$ if this trip has that name and $0$
-otherwise. For reasons detailed in \cite{chang2011libsvm} this is considered 
-best practice.
+otherwise. For reasons better detailed in \cite{chang2011libsvm} this is considered 
+best practice, but suffice it to say that this format is better scaled, and 
+leads to better SVM performance (both in runtime and accuracy).
 
 Along with feature vectors for every trip, an SVM uses a weight vector, $w$,
-that it is the backbone for the linear classifier. Thus, this $w$ is what the
-SVM trains. To determine which class a feature vector corresponds to the
-dot product of $F$ and $w$ is taken, with negative values corresponding to 
-late and positive values to on time. While training on the labeled data, however,
+as the backbone for the linear classifier. Thus, this $w$ is what the
+SVM trains. The dot product of $F$ and $w$ is taken to determine which class a 
+trip's feature vector corresponds to, with negative outputs corresponding to 
+late and positive to on time. Moreover, while training on the labeled data
 the SVM adjusts $w$ whenever it predicts incorrectly.  The amount to adjust
 can vary based on the implementation, but over time $w$ improves on its ability
 to predict the class of any instance in the training set.
 
 An optimal solution to $w$ would form a hyperplane separating the instances
 perfectly by class. In \textbf{Figure~\ref{fig:training_hyperplanes}} is an 
-example of how an SVM might train a weight vector (represented graphically as
+example of how an SVM might train a weight vector for a linear classifier 
+(represented graphically as
 a line) over a set of training data. The final vector, $H_3$, is considered 
 optimal because it maximizes the distance between itself and the nearest points
-of each class. In the example, it is possible to separate the data with a 
+of each class with no two points of a different class on the same side of the 
+line. In the example, it is possible to separate the data with a 
 line, but in the real world, and our ferry problem, this is rarely the case.
 
 \begin{figure}[h]
@@ -246,7 +252,7 @@ line, but in the real world, and our ferry problem, this is rarely the case.
   \includegraphics[scale=.5]{images/Svm_separating_hyperplanes.png}
   \caption{As in \textbf{Figure~\ref{fig:basic_svm_data}}, we are trying to separate
     labeled points with a line. An SVM does this iteratively, meaning line $H_1$
-    would be the first pass, $H_2$ the result of refitting, and $H_3$ the final 
+    would be the first pass, $H_2$ the result of refitting $w$, and $H_3$ the final 
     classifier produced by the SVM.}
   \label{fig:training_hyperplanes}
 \end{figure}
@@ -255,21 +261,12 @@ line, but in the real world, and our ferry problem, this is rarely the case.
 \label{sec:kernels}
 In \textbf{Figure~\ref{fig:kernel-machine}} is an example of data we can't separate.
 Most real world data is like this: inseparable by a hyperplane. The problem this
-creates is that we're no longer looking for a linear classifier. A nonlinear 
-classifier is required, a significantly more difficult problem. Since no optimal
-hyperplane exists, it is difficult to formulate how long an SVM ``look'' for the
-hyperplane. We might consider looking for something within reasonable bounds, but 
-the kernel trick does away with this problem and brings us back to looking for
-a linear classifier \cite{aizerman1964theoretical}.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[scale=.6]{images/kernel-machine.png}
-  \caption{Separating the data in the first part requires a mapping into a higher
-      (often much) dimension. This mapping makes it possible for a learning 
-  algorithm like SVM to find at least some separating hyperplane.}
-  \label{fig:kernel-machine}
-\end{figure}
+creates is that we can no longer look for a linear classifier. A nonlinear 
+classifier is required, a significantly more difficult problem. We might consider 
+looking for something within reasonable bounds, since no optimal
+hyperplane exists. It is difficult to formulate how long an SVM should ``look'' 
+for the hyperplane, however. Fortunately, the kernel trick does away with this 
+problem through a transformation of the data \cite{aizerman1964theoretical}.
 
 The kernel trick maps the instances of data into a higher dimensional space 
 (often much higher), and the SVM works to find a separating plane in the new 
@@ -279,6 +276,15 @@ project is a Gaussian radial basis function and was chosen for its popularity
 and since it is built into the LibSVM library \cite{chang2011libsvm} (discussed in
 the next section). 
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=.6]{images/kernel-machine.png}
+  \caption{Separating the data in the first part requires a mapping into an
+      often much higher dimension. This mapping makes it possible for a learning 
+      algorithm like SVM to find at least some separating hyperplane.}
+  \label{fig:kernel-machine}
+\end{figure}
+
 Using the kernel trick requires a small addition to the training process. Optimal
 parameters for the kernel function need to be found before fitting with the SVM.
 This is done by an exhaustive grid search:
@@ -287,23 +293,29 @@ This is done by an exhaustive grid search:
     \item Within this space, a search grid is created.
     \item Each grid square is ``tried'' by using parameters within to transform
         the data and then run the SVM on a subset of the training data.
+    \item The best grid is then turned into a grid and the process 
+        repeats until results stabilize.
 \end{enumerate}
 
 So, training the kernel parameters requires training the SVM on very small sets
 of data many times to find the best parameters in a space provided by the user.
 
-Implementing all of the functionality of a SVM and kernel function would require
-expert knowledge and a thorough amount of validation. Fortunately, libraries to 
+Implementing all of the functionality of an SVM and kernel function would require
+expert knowledge and a thorough amount of validation. There are also concerns 
+regarding optimality and an ability to compare results. Fortunately, libraries to 
 work with SVMs and kernel functions already exist.
 
 \subsection{LibSVM}
 \label{sec:libsvm}
 LibSVM \cite{chang2011libsvm} from Chih-Chung Chang and Chih-Jen Lin provides the
-SVM implementation used.  This library has bindings to many languages, is reasonably
-straightforward to use from the command-line, is well tested, and has an acceptable
-amount of documentation. Using this implementation of an SVM allowed a great deal
-of time to be saved and provided a higher degree of certainty in the results.
-% TODO: this is weak
+implementation of SVMs we used.  This library has bindings to many languages, is 
+reasonably straightforward to use from the command-line, is well tested, and has an 
+acceptable amount of documentation. In fact, their introduction guide 
+\cite{chang2011libsvm} is incredibly helpful both for understanding how SVMs work
+and using their implementation. It is also very encouraging that the LibSVM 
+implementation is cited in thousands of papers.  Using this implementation of an 
+SVM allowed a great deal of time to be saved and provided a higher degree of 
+certainty in the results.
 
 \section{Predicting tardiness through data}
 \label{sec:problem}
@@ -848,7 +860,7 @@ greater insight and perhaps better prediction results.
 
 \newpage 
 
-\bibliographystyle{amsplain}
+\bibliographystyle{amsalpha}
 \bibliography{undergraduate-thesis.bib}
 
 \end{document}
