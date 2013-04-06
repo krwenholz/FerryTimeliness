@@ -319,6 +319,9 @@ certainty in the results.
 
 \section{Predicting tardiness through data}
 \label{sec:problem}
+We are now ready to discuss the data used in the analysis and model creation: 
+just how much is necessary, where it comes from, the formats, and the ways we
+processed it for the SVM training.
 Support vector machines require two sets of labeled data to find a linear classifier:
 training and testing. The training data is fed into the SVM as a means of training
 the weight vector and finding a linear classifier, and the testing data is used
@@ -345,11 +348,10 @@ serves over 22 million passengers per year in about $160,000$ sailings
 trip.  \textbf{Figure~\ref{fig:ferry_system}} gives the map of the WSDOT's 20 
 terminals and 10 routes, lending perspective to the size of the entire system.
 
-% TODO: does this fit in?
 One concern during this process is that the ferry 
 system itself is on time $95\%$ of the time. It's not clear how this impacts the
 practicality of an SVM in this problem nor what reasonable upper and lower bounds
-on expected accuracy should be. Because of this, the benchmark of $90\%$ from the
+on expected accuracy should be, so the benchmark of $80\%$ from the
 airlines paper \cite{smith2008decision} remains the target in this project.
 
 \begin{SCfigure}
@@ -365,16 +367,16 @@ The system is interesting for more than just its traffic. Several of the routes
 are rather windy looking, suggesting they may be more susceptible to weather and
 traffic delays. Some terminals, furthermore, are a hub for several routes. We
 might conjecture these terminals to be susceptible to pileups in traffic. These 
-and other complexities of the system make it worthwhile in pursuing the robust 
-model provided by an SVM. Fortunately, the complexities and heavy use of the
-system seem to have convinced the WSDOT to keep thorough records of the traffic.
+and other complexities of the system make the use of a complex SVM model attractive,
+and perhaps preferable given the vast data the WSDOT has stockpiled for their
+system. 
 
 To effectively use an SVM, we need enough data we can experiment with and it needs
 to be in a uniform, accurate state. Originally, a web scraper was written to grab
 information from the WSDOT VesselWatch \cite{wsdotVesselWatch} page, but this was 
-made obsolete when a request for information was eventually fulfilled. The WSDOT 
+rendered obsolete when a request for information was fulfilled. The WSDOT 
 provided, upon request, a record of
-approximately $340,000$ ferry trips from October of 2010 to October of 2012. The
+approximately $340,000$ ferry trips from September of 2010 to September of 2012. The
 data came as a comma separated value file with the nine fields. An example is shown
 in \textbf{Figure~\ref{fig:example_wsdot_data}}.
 
@@ -397,7 +399,8 @@ in \textbf{Figure~\ref{fig:example_wsdot_data}}.
         9/1/2010 0:16 & 9/1/2010 0:19 & 9/1/2010 & Southworth - Vashon \\
         9/1/2010 0:45 & 9/1/2010 0:51 & 9/1/2010 & Seattle - Bainbridge Island \\
     \end{tabular}
-    \caption{The header of the data provided from the WSDOT (broken into two tables
+    \caption{The header of the data provided from the WSDOT along with the first
+        three lines (broken into two tables
         to fit page widths). There are over $340,000$ lines in the original file.}
     \label{fig:example_wsdot_data}
 \end{figure}
@@ -412,7 +415,8 @@ with the added information of departure time (a seemingly easier problem).
 Before feeding the data into the SVM, it was necessary to transform times and 
 categorical variables into numeric values. This was done through several Python
 scripts: using seconds past January 1, 1970 for the times and expanding the 
-categoricals out as many variables functioning like a bit vector. Additionally,
+categoricals out as many variables functioning like a bit vector (addressed in 
+\textbf{Section~\ref{sec:basics_svm}}). Additionally,
 and a far more difficult problem, we joined this ferry data with weather data
 obtained from the National Oceanic and Atmospheric Administration (NOAA).
 
@@ -452,15 +456,16 @@ obtained from the National Oceanic and Atmospheric Administration (NOAA).
 Retrieving accurate and full historical weather data presented an unexpected 
 challenge. Most weather sites are focused on future weather and make historical
 data available only through programming APIs which may require a paid subscription.
-Fortunately, NOAA provides (by subscription) a portal for retrieving weather data
+Fortunately, NOAA provides (by a subscription our institution already has) a portal 
+for retrieving weather data
 by station. Stations record over $20$ different features at some point every hour.
 It seems that some stations experience outages or are unable to record on some
 instruments every so often; because of this, we used the station with the seemingly
 most complete data set in the area. This turned out to be a station near the 
 Tacoma Narrows Bridge. The data was downloaded in files by month for the range of
-October 2010 to October 2012 from a quality controlled store on NOAA's 
+September 2010 to September 2012 from a quality controlled store on NOAA's 
 site \cite{noaaWeather}. Only about $1,000$ of the more than $24,000$ weather 
-entries had to be removed for null values in the wind data.  Unfortunately, 
+entries had to be removed for null entries.  Unfortunately, 
 the station is not a central point, but it seemed close enough at the time. 
 
 In \textbf{Figure~\ref{fig:weatherExampleLine}} is an example of what the weather
@@ -513,15 +518,18 @@ times.
 
 Following the joining of weather and ferry data and the labeling, it is necessary
 scale the data between $-1$ and $1$, since this is considered an SVM best practice
-to make no feature stand out by sheer magnitude \cite{changLibSVM2011}. LibSVM 
+to make no feature stand out by sheer magnitude \cite{chang2011libsvm}. LibSVM 
 performs this transformation quickly and is also useful for separating out the 
 training data from the testing data. We used it to randomly sample about 
 $290,000$ data points for training and $30,000$ for testing. The sampling 
 was random to the extent that both sets of data contained a roughly equal 
 distribution of late and not-late ferry trips. This is an incredibly important
 feature to preserve, since we want to both learn about tardiness and check if the
-linear classifier produced is able to predict both scenarios. With separated
-data in hand, we proceeded to train a linear classifier using the LibSVM package.
+linear classifier produced is able to predict both scenarios. We stated earlier that
+it was unknown what amount of data to train on, so the size of the training set
+here was chosen as a baseline to be examined and experimented with should time 
+permit. With separated data in hand, we proceeded to train a linear classifier using 
+the LibSVM package.
 
 
 %  </br>
@@ -568,19 +576,20 @@ data in hand, we proceeded to train a linear classifier using the LibSVM package
 
 \section{Results}
 \label{sec:results}
-The results for the project exist in three parts. As described before, the primary
-goal is to model the ferry system and answer the question of whether or not using
-an SVM to train a linear classifier is useful. This leads to the first two phases
-which involve a first pass and then a serious refining of the methodology. As a 
-benchmark, we use approximately $90\%$ accurate on the test data to be comparable
+The modeling aspect of the project took place in roughly three phases. As 
+described before, the primary goal is to model the ferry system and answer the 
+question of whether or not using an SVM to train a linear classifier is useful 
+for ferry traffic. This leads to the first two phases
+which involve a first pass and then a serious refining of the methodology.  Recall 
+that we consider approximately $80\%$ accurate on the test data to be comparable
 with Smith et al \cite{smith2008decision}, since like that group, we wish to see
-if using SVM is a practical method for determining ferry tardiness. Recall that
-a secondary goal is to find which features matter in determining tardiness.  While
+if using SVM is a practical method for determining ferry tardiness. 
+A secondary goal is to find which features matter in determining tardiness.  While
 this goal is asking questions best answered by a regression analysis, we will 
 attempt a crude approximation through empirical methods.  The final component is 
 a small experiment to test interesting phenomena arising in the general results.  
 This latter part is possibly the most interesting of the project, but we begin 
-with the first attempt to use LibSVM.
+first with an attempt to use LibSVM.
 
 \subsection{The first pass}
 \label{sec:firstpass}
@@ -588,23 +597,23 @@ We began by determining whether or not a ferry is on
 time for its departure, leaving arrival for after the process was worked out. 
 A file with all of the labeled training instances was fed into LibSVM, using the
 default parameters of the kernel. The process took an entire night running on
-low end hardware, but the results were disappointing to say the least.
+low end hardware, and the results were disappointing to say the least.
 
 After running on the test data, the linear classifier only yielded $60\%$ accuracy. 
 This is significantly beneath the benchmark. The time to run the process was also
 surprising and led to a more cautious approach for the rest of the work. To 
 improve the performance of the classifier, LibSVM provides an exhaustive guide 
-\cite{changeLibSVM2011} for beginners in the perils of simply ``running it''. The 
+\cite{chang2011libsvm} for beginners in the perils of simply ``running it''. The 
 directions weren't followed on the first pass because it was hoped the process 
 would be much simpler just using the default parameters. 
 
 Having learned some lessons, the LibSVM guide was followed to the letter on a 
-second pass. The most significant change to the process was training on the 
+second pass. The only major change to the process was training on the 
 parameters for the kernel function. As mentioned before LibSVM provides code
 to perform an exhaustive search for the best fit parameters to use in the function.
 The subsets for this training come from the training data. Finding the best fit 
 parameters is a long process, sometimes as long as the actual SVM training, so it
-slows down the process significantly, but as we're about to discuss the dividends 
+slows down the process significantly, but as we're about to discuss the results
 are well worth it.
 %  ## SVM is easy right?
 %  # <p class="fragment roll-in">No. 60%</p>
@@ -617,43 +626,28 @@ are well worth it.
 \subsection{General results}
 \label{sec:gen_results}
 Training the SVM to predict arrival time tardiness proved to be the most successful.
-In this case, a full instance included features for the actual departure time,
-all weather, predicted arrival time, date, vessel name, departure location, and
-arrival location. (Final results for all runs are displayed in 
+In this case, a full trip description (feature vector) included features for the 
+actual departure 
+time, all weather, predicted arrival time, date, vessel name, departure location, 
+and arrival location. (Final results for all runs are displayed in 
 \textbf{Figure~\ref{fig:second_run_data_arrivals}}.) It is expected for this to 
 be the problem the SVM can be most accurate about, since really it only needs to 
 understand how long the trip will likely take a ferry. 
 
 The tardiness of full feature instances were able to be predicted with 
-$\approx 87.0\%$ accuracy. For a second pass, this is incredibly close to the 
-benchmark of $90\%$. To tune the linear classifier from our SVM, it is necessary
+$\approx 87.0\%$ accuracy. For a second pass, this is fantastic to be above the
+benchmark of $80\%$. To tune the linear classifier from our SVM, it is necessary
 to try trimming unnecessary features to find maximum accuracy. Due to time 
 constraints, the trimming we perform here is very coarse. A thorough examination
-would attempt to take examine all combinations of features, but this is beyond the
+would attempt to examine all combinations of features, but this is beyond the
 scope of our work, especially in regards to available computing power.
 
 Removing the departure information from the features drops accuracy to $60\%$, 
 a disappointing result. It may be possible to dramatically improve this result with
 some of the techniques discussed in \textbf{Section~\ref{sec:improvements}}. 
 To determine whether removing more features made any significant difference, we
-also removed the weather information from predicting arrivals.  This is, by far,
-the more interesting result.
-
-A full departure feature vector includes all of the information regarding a trip
-(vessel name, time, route) and the weather. The prediction results here were not
-as exciting as with arrivals, but they proved to be more stable. The full 
-departure vectors were predicted with $76.3\%$ accuracy, and removing weather
-only reduced accuracy to $75.7\%$. While $76\%$ is not at the benchmark, having
-experienced the change removing features and adjusting the training sets can have,
-it seems like more time with the data could yield even better results.
-
-When departure information is still included in arrival predictions, the removal of 
-weather actually improves accuracy resulting in $88\%$, an improvement of one
-percentage point. Without the departure information, the percent accuracy decreases
-by only $0.6$ percentage points, a negligible difference at $59.4\%$ accuracy. 
-Weather was included as all but a given for improving the accuracy of the SVM
-work, but the results just outlined call into question this assumption and warranted 
-further investigation.
+also removed the weather information from predicting arrivals, yielding 
+the more interesting result which we discuss after departure prediction.
 
 \begin{figure}
     \centering
@@ -672,6 +666,25 @@ further investigation.
     \label{fig:second_run_data_arrivals}
 \end{figure}
 
+% TODO: Overfitting? (is it already discussed?)
+
+A full departure trip description includes all of the information regarding a trip
+(vessel name, estimated time of departure, route) and the weather. 
+The prediction results here were not
+as exciting as with arrivals, but they proved to be more stable. The full 
+departure vectors were predicted with $76.3\%$ accuracy, and removing weather
+only reduced accuracy to $75.7\%$. While $76\%$ is not at the benchmark, having
+experienced the change removing features and adjusting the training sets can have,
+it seems like more time with the data could yield even better results.
+
+When departure information is still included in arrival predictions, the removal of 
+weather actually improves accuracy resulting in $88\%$, an improvement of one
+percentage point. Without the departure information, the percent accuracy decreases
+by only $0.6$ percentage points, a negligible difference at $59.4\%$ accuracy. 
+Weather was included as all but a given for improving the accuracy of the SVM
+work, but the results just outlined call into question this assumption and warranted 
+further investigation.
+
 \begin{figure}
     \centering
     \textbf{Departure Prediction Accuracy}
@@ -687,35 +700,8 @@ further investigation.
     \label{fig:second_run_data_departures}
 \end{figure}
 
-%  ## Results: Arrivals
-%  *  Full: 87.0%
-%  *  No Weather: 88.0%
-%  *  No Departure: 60.0%
-%  *  No Departure, No Weather: 59.4%
-%  Full = Departure estimate and actual,
-%  arrival estimate, vessel name, route, all weather
-%  1. How do we know it's correct?
-%      1. Classification versus regression: I want a "useful" machine
-%      2. Test sets vs. training sets
-%  2. Review the numbers of the results
-%      1. Results before param fitting of c and gamma
-%      1. Departures
-%          1. Weather
-%          2. No weather
-%      2. The more interesting: arrivals
-%          1. Weather
-%          2. No weather
-% 
-%  ## Results: Departures
-%  * Full: 76.3%
-%  * No Weather: 75.7%
-%  Full = Departure estimate, vessel name, route, all weather
-% 
-%       <img width="70%" src="images/route-map-overview.gif" align="right">
-
 \subsection{The problem with weather}
 \label{sec:weather_prob}
-% TODO: discuss how the experiment withe weather was constructed and carried out
 Since weather made barely any difference in prediction accuracy (even 
 degrading it in some cases), examining possible causes of this unexpected 
 incident became the last focus of the project. By re-examining the assumptions
@@ -733,8 +719,8 @@ made regarding weather at the start, there are several which we can now dispute:
 Given time constraints and the results of the SVM, it seems assumption 
 \ref{wAssumption_oneStation} is the best to tackle. But what how can we tease
 apart this assumption? Our strategy was to tackle the effect of the station
-location by comparing the effect of weather on three routes sufficiently far apart
-by running individual SVMs for each route (testing accuracy only on that route's 
+location by comparing the effect of weather on three routes sufficiently far apart.
+Running individual SVMs for each route (testing accuracy only on that route's 
 trips). The three routes chosen were Tahlequah-Point Defiance, Kingston-Edmonds,
 and Coupeville-Port Townsend. Looking at \textbf{Figure~\ref{fig:ferry_system}},
 we can see the furthest route, Coupeville-Port Townsend, is almost $100$ miles
@@ -743,7 +729,8 @@ closest, middlemost, and furthest from the weather station, respectively, but al
 have enough trips to warrant an individual SVM. 
 
 The results of the experiment are mixed and can be viewed in full with 
-\textbf{Figure~\ref{fig:weatherExperiment}}. We used full feature vectors for 
+\textbf{Figure~\ref{fig:weatherExperiment}}. We used the full feature vectors 
+(described in \textbf{Section~\ref{sec:gen_results}}) for 
 predicting both arrivals and departures, only taking out weather where noted
 for the comparison. We can see that the removal of weather rarely made a difference
 in any of the measures, except for the Kingston-Edmonds route when looking at 
@@ -770,7 +757,7 @@ in improving predictions, and if anything, only help confuse the situation.
     \label{fig:weatherExperiment}
 \end{figure}
 
-One final possible explanation is the robustness of this ferry system. The 
+Another possible explanation is the robustness of this ferry system. The  
 WSDOT reports their system to be on time 95\% of the time \cite{wsdotComparison},
 a remarkable feat. It may simply be that there isn't much of a pattern in regards
 to weather or other predictable phenomena. We may be looking at a system whose
@@ -785,7 +772,7 @@ random guesses for tardiness, and more time might see even better improvements.
 \label{sec:summary}
 The original goal of the project, to develop a ferry system model using AI 
 techniques, was met and spawned further investigation into the behavior of the
-system. We nearly met the benchmark of $90\%$ accuracy for a linear classifier 
+system. We beat the initial benchmark of $80\%$ accuracy for a linear classifier 
 produced by an SVM, and we concluded the performance could probably be improved
 on given more time and experience tuning the process. The exploration of weather's
 relationship to the ferry system also proved to be more complex than expected, 
@@ -856,7 +843,9 @@ and it brings us insight into how important various features are when predicting
 this tardiness. While we may not fully understand the strange behavior exhibited
 by including weather in the model, the base assumption of weather's importance no 
 longer appears valid. Further tuning of the SVM process is likely to yield even
-greater insight and perhaps better prediction results.
+greater insight and perhaps better prediction results. In general, however, the 
+results of the project are promising and suggest support vector machines are
+a useful approach to modeling the ferry system.
 
 \newpage 
 
