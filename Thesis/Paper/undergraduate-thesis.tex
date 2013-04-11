@@ -125,31 +125,37 @@ artificial neural networks (ANNs) and support vector machines (SVMs). These two
 approaches are algorithms, or machines, for
 \textit{supervised learning}: labeled (known) data is fed into an
 algorithm that learns to make better predictions through comparing its own 
-predictions to the labeled data set. Classical examples of using ANN and SVM are
+predictions to the labeled data set. Classical examples of using ANNs and SVMs are
 spam detection in emails, determining images in which cancer is present, or even
-detecting gender from a facial image. ANN and SVM are often considered to be
+detecting gender from a facial image. ANNs and SVMs are often considered to be
 very similar in the problems they tackle, especially since each can
 be used to train a linear classifier: a function taking in some object and 
-determining a class to which it belongs. Rather than considering tardiness as a 
+determining a class to which it belongs. Specifically, a linear classifier uses
+a linear combination of the object's features, often represented as a vector and
+called a feature vector, to make a classification decision.
+
+Rather than considering tardiness as a 
 spectrum of degrees, we approach tardiness as a binary feature: late or not. This 
 conceptually simplifies our problem and makes a larger set of ANNs and SVMs 
-available for use .  If artificial neural networks and support vector machines 
+available for use and adds questions regarding which features are important in 
+the ferry system. 
+If artificial neural networks and support vector machines 
 can both solve classification problems, however, which are we supposed to choose?
 
 \subsection{ANN and SVM}
 \label{sec:ann_svm}
-Byvatov et al examine the differences of the two approaches for classifying drugs
+Byvatov et al. examine the differences of the two approaches for classifying drugs
 \cite{byvatov2003comparison}. While their model certainly isn't for a ferry 
 system, their discussion suggests data sets with many features (an aspect of the 
-ferry model we discuss later) are better suited for SVM, and they also find little
-difference in the predictions of ANN and SVM. Most importantly, their conclusion,
+ferry model we discuss later) may be predicted with a smaller standard error by
+SVM, albeit only marginally in some cases. Most importantly, their conclusion,
 and that of their references, is the two approaches are complementary. Each 
-tool catches different cases, with comparable results in each approach,
-and SVM may even require less ``tweaking''. They concede that SVMs are generally
-easier to conceptualize, lending a greater sense of confidence to to the 
-non-expert.
+tool yields different false positives, false negatives, true
+positives, and true negatives, although SVM may require less ``tweaking''. Even
+with such strong similarities, a few reasons exist, leading to the choice of SVMs.
 
-Support vector machines are more intuitively motivated. Consider mapping the
+To the non-expert support vector machines are intuitively motivated. Consider 
+mapping the
 features of a ferry trip (time of departure, weather, boat name, etc.) into a
 coordinate plane.  Now, if we do this for all the points in our training set,
 we can also attach labels to the points (late or not, as in 
@@ -170,7 +176,7 @@ comparison and the final reason for choosing SVMs over artificial neural network
   \label{fig:basic_svm_data}
 \end{figure}
 
-Smith et al use SVM to predict the timeliness of airline
+Smith et al. use SVM to predict the timeliness of airline
 traffic in conjunction with weather patterns \cite{smith2008decision}. Their goal is 
 to predict the likelihood of requiring a ``ground delay program'': air traffic
 control shuffling flight times
@@ -179,11 +185,19 @@ flow management programs to estimate the effects of capacity on an air traffic
 system, and the SVM is trained on labeled data to produce a function predicting 
 the need of a ground delay program and/or an actual delay. Their system was
 found to be $78\%$ accurate in predicting need of a ground delay program and $83\%$ 
-accurate in predicting a delay. Air traffic is much like the ferry system given
+accurate in predicting a delay. Combined with the discussion in 
+\cite{byvatov2003comparison}, it seems that linear classifiers near $80\%$ 
+accuracy are within a range of acceptance.
+
+Air traffic is much like the ferry system given
 its sensitivity to weather, attempt to adhere to a strict schedule, and heavy use.
 Due to these similarities, Smith's access to resources like the AMPL supercomputer, 
 and his group's expert knowledge, we use $80\%$ as the target accuracy for our
-ferry model. 
+ferry model. Accuracy will serve as a crude investigative tool and measure of 
+comparison for our first passes, but in \textbf{Section~\ref{sec:beyond_accuracy}}
+we investigate the precision and recall of the various linear classifiers our
+work yields. These measures weren't discussed in \cite{smith2008decision} but
+grant us deeper insight into the usefulness of our work. 
 
 As a final note regarding the usefulness of SVMs, they can be used for regression 
 analysis in large
@@ -667,8 +681,6 @@ the more interesting result which we discuss after departure prediction.
     \label{fig:second_run_data_arrivals}
 \end{figure}
 
-% TODO: Overfitting? (is it already discussed?)
-
 A full departure trip description includes all of the information regarding a trip
 (vessel name, estimated time of departure, route) and the weather. 
 The prediction results here were not
@@ -768,6 +780,9 @@ that which we had access to.
 The accuracy of the linear classifiers produced by our SVM runs are promising.
 With only novice level knowledge and hardware, we have improved significantly on
 random guesses for tardiness, and more time might see even better improvements.
+
+\subsection{Beyond accuracy}
+\label{sec:beyond_accuracy}
 
 \section{Closing thoughts}
 \label{sec:summary}
