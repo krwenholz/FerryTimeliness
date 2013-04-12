@@ -334,23 +334,28 @@ certainty in the results.
 
 \section{Predicting tardiness through data}
 \label{sec:problem}
-We are now ready to discuss the data used in the analysis and model creation: 
-just how much is necessary, where it comes from, the formats, and the ways we
-processed it for the SVM training.
+Before we dig into the details of our data set, let us note a few details regarding
+the use of data with an SVM.  
 Support vector machines require two sets of labeled data to find a linear classifier:
 training and testing. The training data is fed into the SVM as a means of training
-the weight vector and finding a linear classifier, and the testing data is used
-after this process to check the accuracy of the SVM's product. It is crucial that
+the weight vector to find a linear classifier, and the testing data is used
+after this process to check the accuracy of the SVM's product.  It is crucial that
 these two sets be disjoint. Otherwise, the SVM is basically cheating by being
 tested on data it already learned from. There is no clear indicator for how much data
 is needed to successfully train an SVM, but too little means the SVM can't 
-generalize and too much can cause overfitting. Overfitting is where an SVM is
-trained on too much data of similar qualities so that it fails to accurately
+generalize and too much can lead to \textit{overfitting}. Overfitting is where an 
+SVM is trained on too much data of similar qualities so that it fails to accurately
 classify data of different qualities. This roughly corresponds to finding patterns
-which only apply to a small subset of the real instances.  So, it often comes
-down to the engineer to determine the appropriate amounts of data for the training
-and testing sets based on experience, experimentation, and availability.
+which only apply to a small sample of the real instances, so it often rests 
+on the engineer to determine the appropriate amounts of data for training
+and testing sets based on experience, experimentation, and availability. Below,
+we discuss our decision for these sets, primarily based on having practical
+seeming numbers of late and not-late instances in both sets along with the intent
+to experiment with various sizes later.
 
+We are now ready to discuss the data used in the analysis and model creation: 
+just how much is necessary, where it comes from, the formats, and the ways we
+processed it for the SVM training.
 
 
 \subsection{Washington State's ferries}
@@ -422,10 +427,16 @@ in \textbf{Figure~\ref{fig:example_wsdot_data}}.
 
 The column headings are all fairly straightforward, but it is worth noting the
 scheduled and initial values, for departure and arrival respectively, are the
-times found on the schedule for the beginning of the day. With the way the data
-is given, we separate out the times into departures and arrivals, creating two
-separate scheduling problems. This way it is possible to try predicting arrivals
-with the added information of departure time (a seemingly easier problem). 
+times found on the schedule for the beginning of the day. We didn't expect to 
+have both predicted and actual times for both arrivals and departures, so the
+problem was reformulated to apply to tardiness for either type of scheduled
+time. To account for this, we separate the table in two: one for
+data pertaining to arrivals and one for departures. The arrival table actually 
+includes the departure information since this is still pertinent to predicting
+the arrival time (an apparently easier problem with this information, which we
+discuss in \textbf{Section~\ref{sec:gen_results}}). The two tables essentially
+give us two data sets and two problems: predicting arrival tardiness and predicting 
+departure tardiness.
 
 Before feeding the data into the SVM, it was necessary to transform times and 
 categorical variables into numeric values. This was done through several Python
