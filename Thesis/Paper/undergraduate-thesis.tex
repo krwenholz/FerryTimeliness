@@ -823,7 +823,9 @@ the predicted classes to convey the true positive (late), true negative
 \end{center}
 
 Here we are considering positive to mean a trip is flagged as 
-late and negative as not-late. Thus, the precision is calculated as 
+late and negative as not-late. The diagonal of the matrix tells us the times our
+classifier is correct, and non-zero values off the diagonal indicate incorrect
+classifications. Thus, the precision is calculated as 
 
 \[Precision=\frac{tp}{tp+fp}\]
 
@@ -842,9 +844,57 @@ First note we will be using the testing sets to find this data, so the number of
 trips we are considering is $50,000$. Also, a perfect score for either recall or
 precision is 1. It's incredibly unlikely, and probably unreasonable, to expect 
 such a score. We will look at scores for the weather/no-weather models of 
-arrivals without departure and departure times from 
-\textbf{Section~\ref{sec:gen_results}}.
+departure tardiness from \textbf{Section~\ref{sec:gen_results}}, our best and most
+interesting model.
 
+\begin{figure}
+    \centering
+    \textbf{Departures}
+
+    \begin{tabular}[h]{l|ll}
+                         & actual class &  \\
+         \hline
+         predicted class & $1,466$ ($tp$)& $993$ ($fp$)\\
+                         & $10,853$ ($fn$)& $36,688$ ($tn$)\\
+    \end{tabular}
+
+    \textbf{Departures without weather}
+    \begin{tabular}[h]{l|ll}
+                         & actual class &  \\
+         \hline
+         predicted class & $158$ ($tp$)& $445$ ($fp$)\\
+                         & $12,161$ ($fn$)& $37,236$ ($tn$)\\
+    \end{tabular}
+    \caption{The confusion matrices for predicting departure tardiness.}
+    \label{fig:confusion_departures}
+\end{figure}
+
+\textbf{Figure~\ref{fig:confusion_departures}} is the confusion matrix for the 
+classifiers produced to predict departure tardiness with and without weather. 
+We can see the classifier without weather seems to predict quite a few more trips 
+as not-late. Remembering that the departure classifier with weather is $76.3\%$ 
+accurate and the classifier without weather is $75.7\%$ accurate, perhaps the
+weather information is only good for the relatively small number of trips that 
+are actually late. 
+
+The precision scores for the two classifiers are
+
+\begin{tabular}{ll}
+     Classifier & Precision\\
+     Full departure & 0.597\\
+     Departure without weather & 0.262\\
+\end{tabular}
+
+and recall is 
+
+\begin{tabular}{ll}
+     Classifier & Recall\\
+     Full departure & 0.119\\
+     Departure without weather & 0.013\\
+ \end{tabular}.
+
+ We can see that the full departure classifier actually scores much higher in
+ both precision and recall. 
 
 
 \section{Closing thoughts}
