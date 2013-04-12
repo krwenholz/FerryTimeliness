@@ -150,7 +150,7 @@ system, their discussion suggests data sets with many features (an aspect of the
 ferry model we discuss later) may be predicted with a smaller standard error by
 SVM, albeit only marginally in some cases. Most importantly, their conclusion,
 and that of their references, is the two approaches are complementary. Each 
-tool yields different false positives, false negatives, true
+tool yields different false positives (late), false negatives (not-late), true
 positives, and true negatives, although SVM may require less ``tweaking''. Even
 with such strong similarities, a few reasons exist, leading to the choice of SVMs.
 
@@ -368,11 +368,18 @@ serves over 22 million passengers per year in about $160,000$ sailings
 trip.  \textbf{Figure~\ref{fig:ferry_system}} gives the map of the WSDOT's 20 
 terminals and 10 routes, lending perspective to the size of the entire system.
 
-One concern during this process is that the ferry 
-system itself is on time $95\%$ of the time. It's not clear how this impacts the
+One concern during this process is that the ferry system itself is considered on 
+time $95\%$ of the time. It's not clear how this impacts the
 practicality of an SVM in this problem nor what reasonable upper and lower bounds
 on expected accuracy should be, so the benchmark of $80\%$ from the
-airlines paper \cite{smith2008decision} remains the target in this project.
+airlines paper \cite{smith2008decision} remains the target in this project. The
+WSDOT's definition of on-time isn't made clear in their report. Examining the 
+data, however, reveals that our definition of on-time leads to approximately
+$13\%$ of trips being late. For better or worse, this predictability in the 
+system suggests a basic model could call everything not-late and be $87\%$ 
+accurate, but the discussion in \textbf{Section~\ref{sec:beyond_accuracy}} will 
+show that recall and precision are other important factors we might be able to 
+improve on.
 
 \begin{SCfigure}
   \centering
@@ -547,7 +554,7 @@ scale the data between $-1$ and $1$, since this is considered an SVM best practi
 to make no feature stand out by sheer magnitude \cite{chang2011libsvm}. LibSVM 
 performs this transformation quickly and is also useful for separating out the 
 training data from the testing data. We used it to randomly sample about 
-$290,000$ data points for training and $30,000$ for testing. The sampling 
+$270,000$ data points for training and $50,000$ for testing. The sampling 
 was random to the extent that both sets of data contained a roughly equal 
 distribution of late and not-late ferry trips. This is an incredibly important
 feature to preserve, since we want to both learn about tardiness and check if the
@@ -651,6 +658,8 @@ are well worth it.
 
 \subsection{General results}
 \label{sec:gen_results}
+% TODO: Add a little discussion about our accuracies near the end of this in 
+% comparison to the ``stupid'' model that has 87% accuracy (lead in to p/r disc.)
 Training the SVM to predict arrival time tardiness proved to be the most successful.
 In this case, a full trip description (feature vector) included features for the 
 actual departure 
@@ -781,19 +790,62 @@ in improving predictions, and if anything, only help confuse the situation.
     \label{fig:weatherExperiment}
 \end{figure}
 
-Another possible explanation is the robustness of this ferry system. The  
-WSDOT reports their system to be on time 95\% of the time \cite{wsdotComparison},
-a remarkable feat. It may simply be that there isn't much of a pattern in regards
+Another possible explanation is the robustness of this ferry system. Recall we that
+our definition leads to only about $13\%$ of ferry trips being late, a remarkable 
+feat for the WSDOT. It may simply be that there isn't much of a pattern in regards
 to weather or other predictable phenomena. We may be looking at a system whose
 only fault is vessel maintenance, a feature requiring very different data than
 that which we had access to. 
 
-The accuracy of the linear classifiers produced by our SVM runs are promising.
-With only novice level knowledge and hardware, we have improved significantly on
-random guesses for tardiness, and more time might see even better improvements.
+The accuracy of the linear classifiers produced by our SVM runs are promising,
+but so far we have only used accuracy as a measure of effectiveness. We now 
+turn our attention to confusion matrices, precision, and recall. These features
+will allow us to more thoroughly analyze the first linear classifiers we produced.
 
 \subsection{Beyond accuracy}
 \label{sec:beyond_accuracy}
+As mentioned before, accuracy is only a crude measure of success. It also binds us
+to comparing our models with a ``naive'' model which always guesses not-late and
+is $87\%$ accurate. Investigating the precision and recall of our models against
+this naive model reveal the nuances of prediction \cite{classifierEval}. 
+We will use confusion matrices to visualize the results and help calculate the 
+precision and recall. A confusion matrix displays the actual classes against 
+the predicted classes to convey the true positive (late), true negative 
+(not-late), false positive, and false negative results:
+
+\begin{center}
+\begin{tabular}[h]{l|ll}
+                     & actual class &  \\
+     \hline
+     predicted class & True Positive ($tp$)& False Positive($fp$)\\
+                     & False Negative ($fn$)& True Negative($tn$)\\
+\end{tabular}
+\end{center}
+
+Here we are considering positive to mean a trip is flagged as 
+late and negative as not-late. Thus, the precision is calculated as 
+
+\[Precision=\frac{tp}{tp+fp}\]
+
+and recall is
+
+\[Recall=\frac{tp}{tp+fn}.\]
+
+Higher precision corresponds to an ability to return more relevant results than
+irrelevant results, and high recall means an algorithm returns \textit{most} of
+the relevant results.  So with high precision, a trip flagged as late is more 
+likely to be late than not-late. High recall means our model is catching most of
+the late trips. These two measures go beyond just accuracy and tell us more about
+the usefulness of our model.
+
+First note we will be using the testing sets to find this data, so the number of 
+trips we are considering is $50,000$. Also, a perfect score for either recall or
+precision is 1. It's incredibly unlikely, and probably unreasonable, to expect 
+such a score. We will look at scores for the weather/no-weather models of 
+arrivals without departure and departure times from 
+\textbf{Section~\ref{sec:gen_results}}.
+
+
 
 \section{Closing thoughts}
 \label{sec:summary}
