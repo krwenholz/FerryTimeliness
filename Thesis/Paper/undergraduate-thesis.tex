@@ -88,11 +88,11 @@ of an Honors Program senior thesis at University of Puget Sound, supervised by
 Professor Brad Richards. An overview of how 
 support vector machines work and their complications in real world use will 
 introduce our discussion of how this powerful construct presents a powerful and 
-intuitive model for tackling the massive data associated with ferries.  A 
-functioning model is developed to examine the complexities of this
+intuitive model for tackling the massive data associated with ferries. We
+develop a functioning model to examine the complexities of this
 approach, the practicality, and as a means of exploring some of the data. 
-Additionally, the hypothesis that the addition of weather information improves 
-accuracy of the model is explored.
+Additionally, we explore the hypothesis that the addition of weather information 
+improves accuracy of the model.
 
 \begin{figure}[h]
   \centering
@@ -101,8 +101,8 @@ accuracy of the model is explored.
   \label{fig:basicferry}
 \end{figure}
 
-We attempt to predict the tardiness of ferries, where tardy is 
-defined as no less than three minutes later than the initial (at day's beginning) 
+We attempt to predict the tardiness of ferries, defining tardy 
+as no less than three minutes later than the initial (at day's beginning) 
 scheduled arrival or departure time. We consider both arrival and departure 
 times since we will be predicting them separately later on. This definition
 of tardiness was chosen to allow for a non-trivial number of tardy events 
@@ -123,10 +123,10 @@ We consider two approaches popular in terms of both available implementations an
 the literature to be highly applicable to this problem:
 artificial neural networks (ANNs) and support vector machines (SVMs). These two 
 approaches are algorithms, or machines, for
-\textit{supervised learning}: labeled (known) data is fed into an
+\textit{supervised learning}: feed labeled (known) data into an
 algorithm that learns to make better predictions through comparing its own 
 predictions to the labeled data set. Classical examples of using ANNs and SVMs are
-spam detection in emails, determining images in which cancer is present, or even
+spam detection in emails, determining images with cancer present, or even
 detecting gender from a facial image. ANNs and SVMs are often considered to be
 very similar in the problems they tackle, especially since each can
 be used to train a linear classifier: a function taking in some object and 
@@ -148,8 +148,8 @@ Byvatov et al. examine the differences of the two approaches for classifying dru
 \cite{byvatov2003comparison}. While their model certainly isn't for a ferry 
 system, their discussion suggests data sets with many features (an aspect of the 
 ferry model we discuss later) may be predicted with a smaller standard error by
-SVM, albeit only marginally in some cases. Most importantly, their conclusion,
-and that of their references, is the two approaches are complementary. Each 
+SVM, albeit only marginally in some cases. Most importantly, they conclude,
+along with their references, the two approaches are complementary. Each 
 tool yields different false positives (late), false negatives (not-late), true
 positives, and true negatives, although SVM may require less ``tweaking''. Even
 with such strong similarities, a few reasons exist, leading to the choice of SVMs.
@@ -177,20 +177,20 @@ comparison and the final reason for choosing SVMs over artificial neural network
 \end{figure}
 
 Smith et al. use SVM to predict the timeliness of airline
-traffic in conjunction with weather patterns \cite{smith2008decision}. Their goal is 
-to predict the likelihood of requiring a ``ground delay program'': air traffic
+traffic in conjunction with weather patterns \cite{smith2008decision}. Their goal 
+is to predict the likelihood of requiring a ``ground delay program'': air traffic
 control shuffling flight times
 to account for tardiness in the schedule. The model they use involves traffic 
 flow management programs to estimate the effects of capacity on an air traffic 
-system, and the SVM is trained on labeled data to produce a function predicting 
+system, and train the SVM on labeled data to produce a function predicting 
 the need of a ground delay program and/or an actual delay. Their system was
 found to be $78\%$ accurate in predicting need of a ground delay program and $83\%$ 
 accurate in predicting a delay. Combined with the discussion in 
 \cite{byvatov2003comparison}, it seems that linear classifiers near $80\%$ 
 accuracy are within a range of acceptance.
 
-Air traffic is much like the ferry system given
-its sensitivity to weather, attempt to adhere to a strict schedule, and heavy use.
+Air traffic and the ferry system are quite alike: exhibiting a
+sensitivity to weather, attempt to adhere to a strict schedule, and heavy use.
 Due to these similarities, Smith's access to resources like the AMPL supercomputer, 
 and his group's expert knowledge, we use $80\%$ as the target accuracy for our
 ferry model. Accuracy will serve as a crude investigative tool and measure of 
@@ -225,7 +225,7 @@ entries for
 
 This feature vector needs to be entirely numerical, so categorical variables like
 boat name must be encoded as numbers.  It is possible to assign boat names to
-different values, but most often, it is best to expand the feature like a bit
+different values, but most often, the best method expands the feature like a bit
 vector.  If there were boat names \textit{SS Minnow, Death Star,} and 
 \textit{Millennium Falcon}, then our new $F$ would be
 
@@ -239,13 +239,13 @@ vector.  If there were boat names \textit{SS Minnow, Death Star,} and
 \end{bmatrix},\]
 
 where the entries for boat names are a $1$ if this trip has that name and $0$
-otherwise. For reasons better detailed in \cite{chang2011libsvm} this is considered 
+otherwise. Reasons better detailed in \cite{chang2011libsvm} consider this a  
 best practice, but suffice it to say that this format is better scaled, and 
-leads to better SVM performance (both in runtime and accuracy).
+leads to superior SVM performance (both in runtime and accuracy).
 
 Along with feature vectors for every trip, an SVM uses a weight vector, $w$,
 as the backbone for the linear classifier. Thus, this $w$ is what the
-SVM trains. The dot product of $F$ and $w$ is taken to determine which class a 
+SVM trains. Taking the dot product of $F$ and $w$ determines which class a 
 trip's feature vector corresponds to, with negative outputs corresponding to 
 late and positive to on time. Moreover, while training on the labeled data
 the SVM adjusts $w$ whenever it predicts incorrectly.  The amount to adjust
@@ -253,14 +253,14 @@ can vary based on the implementation, but over time $w$ improves on its ability
 to predict the class of any instance in the training set.
 
 An optimal solution to $w$ would form a hyperplane separating the instances
-perfectly by class. In \textbf{Figure~\ref{fig:training_hyperplanes}} is an 
+perfectly by class. \textbf{Figure~\ref{fig:training_hyperplanes}} illustrates an
 example of how an SVM might train a weight vector for a linear classifier 
 (represented graphically as
-a line) over a set of training data. The final vector, $H_3$, is considered 
+a line) over a set of training data. The final vector, $H_3$, is  
 optimal because it maximizes the distance between itself and the nearest points
 of each class with no two points of a different class on the same side of the 
-line. In the example, it is possible to separate the data with a 
-line, but in the real world, and our ferry problem, this is rarely the case.
+line. In the example, we can separate the data with a 
+line, but in the real world, and our ferry problem, this rarely works.
 
 \begin{figure}[h]
   \centering
@@ -274,12 +274,12 @@ line, but in the real world, and our ferry problem, this is rarely the case.
 
 \subsection{Kernel mapping}
 \label{sec:kernels}
-In \textbf{Figure~\ref{fig:kernel-machine}} is an example of data we can't separate.
-Most real world data is like this: inseparable by a hyperplane. The problem this
+\textbf{Figure~\ref{fig:kernel-machine}} has an example of data we can't separate.
+This exemplifies most real world data: inseparable by a hyperplane. The problem this
 creates is that we can no longer look for a linear classifier. A nonlinear 
-classifier is required, a significantly more difficult problem. We might consider 
+classifier must be used, a significantly more difficult problem. We might consider 
 looking for something within reasonable bounds, since no optimal
-hyperplane exists. It is difficult to formulate how long an SVM should ``look'' 
+hyperplane exists. Difficulty arises in formulating how long an SVM should ``look'' 
 for the hyperplane, however. Fortunately, the kernel trick does away with this 
 problem through a transformation of the data \cite{aizerman1964theoretical}.
 
@@ -288,8 +288,8 @@ The kernel trick maps the instances of data into a higher dimensional space
 space. The example in \textbf{Figure~\ref{fig:kernel-machine}} gives an idea
 of what the mapping would do to the data. The kernel function used in this 
 project is a Gaussian radial basis function and was chosen for its popularity
-and since it is built into the LibSVM library \cite{chang2011libsvm} (discussed in
-the next section). 
+and since the LibSVM library implements it as the default kernel 
+\cite{chang2011libsvm} (discussed in the next section). 
 
 \begin{figure}[h]
   \centering
@@ -302,14 +302,14 @@ the next section).
 
 Using the kernel trick requires a small addition to the training process. Optimal
 parameters for the kernel function need to be found before fitting with the SVM.
-This is done by an exhaustive grid search:
+An exhaustive grid search performs this task:
 \begin{enumerate}
     \item The user supplies a space of parameters to try.
-    \item Within this space, a search grid is created.
-    \item Each grid square is ``tried'' by using parameters within to transform
+    \item Within this space, create a search grid.
+    \item ``Try'' each grid square by using parameters within to transform
         the data and then run the SVM on a subset of the training data.
-    \item The best grid is then turned into a grid and the process 
-        repeats until results stabilize.
+    \item The best grid square turns into a grid and the process repeats 
+        until results stabilize.
 \end{enumerate}
 
 So, training the kernel parameters requires training the SVM on very small sets
@@ -327,24 +327,24 @@ implementation of SVMs we used.  This library has bindings to many languages, is
 reasonably straightforward to use from the command-line, is well tested, and has an 
 acceptable amount of documentation. In fact, their introduction guide 
 \cite{chang2011libsvm} is incredibly helpful both for understanding how SVMs work
-and using their implementation. It is also very encouraging that the LibSVM 
-implementation is cited in thousands of papers.  Using this implementation of an 
+and using their implementation. It is also very encouraging that many thousands of
+papers cite the LibSVM implementation.  Using this implementation of an 
 SVM allowed a great deal of time to be saved and provided a higher degree of 
 certainty in the results.
 
 \section{Predicting tardiness through data}
 \label{sec:problem}
 Before we dig into the details of our data set, let us note a few details regarding
-the use of data with an SVM.  
-Support vector machines require two sets of labeled data to find a linear classifier:
-training and testing. The training data is fed into the SVM as a means of training
-the weight vector to find a linear classifier, and the testing data is used
-after this process to check the accuracy of the SVM's product.  It is crucial that
-these two sets be disjoint. Otherwise, the SVM is basically cheating by being
+the use of data with an SVM.  Support vector machines require two sets of labeled 
+data to find a linear classifier:
+training and testing. Feeding the training data into an SVM helps to adjust 
+the weight vector for the linear classifier, and the testing data helps 
+to check the accuracy of the SVM's product.  These two sets absolutely must 
+be disjoint. Otherwise, the SVM basically cheats by being
 tested on data it already learned from. There is no clear indicator for how much data
 is needed to successfully train an SVM, but too little means the SVM can't 
-generalize and too much can lead to \textit{overfitting}. Overfitting is where an 
-SVM is trained on too much data of similar qualities so that it fails to accurately
+generalize and too much can lead to \textit{overfitting}. Overfitting is when an 
+SVM trains on too much data of similar qualities so that it fails to accurately
 classify data of different qualities. This roughly corresponds to finding patterns
 which only apply to a small sample of the real instances, so it often rests 
 on the engineer to determine the appropriate amounts of data for training
@@ -368,7 +368,7 @@ serves over 22 million passengers per year in about $160,000$ sailings
 trip.  \textbf{Figure~\ref{fig:ferry_system}} gives the map of the WSDOT's 20 
 terminals and 10 routes, lending perspective to the size of the entire system.
 
-One concern during this process is that the ferry system itself is considered on 
+One concern during this process is that the ferry system itself as on 
 time $95\%$ of the time. It's not clear how this impacts the
 practicality of an SVM in this problem nor what reasonable upper and lower bounds
 on expected accuracy should be, so the benchmark of $80\%$ from the
@@ -390,7 +390,7 @@ improve on.
   \label{fig:ferry_system}
 \end{SCfigure}
 
-The system is interesting for more than just its traffic. Several of the routes
+The system stands out for more than just its traffic. Several of the routes
 are rather windy looking, suggesting they may be more susceptible to weather and
 traffic delays. Some terminals, furthermore, are a hub for several routes. We
 might conjecture these terminals to be susceptible to pileups in traffic. These 
@@ -404,8 +404,8 @@ information from the WSDOT VesselWatch \cite{wsdotVesselWatch} page, but this wa
 rendered obsolete when a request for information was fulfilled. The WSDOT 
 provided, upon request, a record of
 approximately $340,000$ ferry trips from September of 2010 to September of 2012. The
-data came as a comma separated value file with the nine fields. An example is shown
-in \textbf{Figure~\ref{fig:example_wsdot_data}}.
+data came as a comma separated value file with the nine fields. See 
+\textbf{Figure~\ref{fig:example_wsdot_data}} for an example.
 
 \begin{figure}
     \centering
@@ -432,7 +432,7 @@ in \textbf{Figure~\ref{fig:example_wsdot_data}}.
     \label{fig:example_wsdot_data}
 \end{figure}
 
-The column headings are all fairly straightforward, but it is worth noting the
+The column headings are all fairly straightforward, but the
 scheduled and initial values, for departure and arrival respectively, are the
 times found on the schedule for the beginning of the day. We didn't expect to 
 have both predicted and actual times for both arrivals and departures, so the
@@ -501,8 +501,8 @@ site \cite{noaaWeather}. Only about $1,000$ of the more than $24,000$ weather
 entries had to be removed for null entries.  Unfortunately, 
 the station is not a central point, but it seemed close enough at the time. 
 
-In \textbf{Figure~\ref{fig:weatherExampleLine}} is an example of what the weather
-data looks like in its raw form. Note there are some categorical variables, but
+In \textbf{Figure~\ref{fig:weatherExampleLine}} is an example of the weather
+data in its raw form. Note there are some categorical variables, but
 nearly everything is a numeric. The categorical variables weren't utilized in the
 final model, since they can be inferred from the other data. Many of the columns
 are simply blank, due to the stations lack of equipment for certain measures. 
@@ -549,8 +549,8 @@ times.
     \label{fig:weatherExampleLine}
 \end{figure}
 
-Following the joining of weather and ferry data and the labeling, it is necessary
-scale the data between $-1$ and $1$, since this is considered an SVM best practice
+Following the joining of weather and ferry data and the labeling, it is necessary to
+scale the data between $-1$ and $1$, an SVM best practice
 to make no feature stand out by sheer magnitude \cite{chang2011libsvm}. LibSVM 
 performs this transformation quickly and is also useful for separating out the 
 training data from the testing data. We used it to randomly sample about 
@@ -558,70 +558,28 @@ $270,000$ data points for training and $50,000$ for testing. The sampling
 was random to the extent that both sets of data contained a roughly equal 
 distribution of late and not-late ferry trips. This is an incredibly important
 feature to preserve, since we want to both learn about tardiness and check if the
-linear classifier produced is able to predict both scenarios. We stated earlier that
+linear classifier produced predicts both scenarios. We stated earlier that
 it was unknown what amount of data to train on, so the size of the training set
 here was chosen as a baseline to be examined and experimented with should time 
-permit. With separated data in hand, we proceeded to train a linear classifier using 
-the LibSVM package.
+permit. With separated data in hand, we proceeded to train a linear classifier 
+using the LibSVM package.
 
-
-%  </br>
-%  ## Weather data (1184 &times; 24)
-%      94274,20110101,0053,12,CLR, ,10.00, , , ,25, ,-3.9, ,22, ,-5.4, ,
-%      16, ,-8.9, , 69, , 0, ,000, , , ,29.69, ,1, ,002, ,30.04, ,AA, , ,
-%      ,30.03, 
-% 
-%  ## Weather variables 
-% 
-% talk about the many weather variables I got from NOAA.
-% 
-%  ## Data monsters 
-%    * Python for everything
-%    * 1,034 weather recordings missing wind data
-%    * 13,220 vessel trips removed from lack of weather data (~ 4%)
-%    * Stages of formatting
-%        - Combine all weather data files from NOAA
-%        - Join ferry and weather data
-%        - Handle categorical variables
-%        - Make it all SVMable
-%  1. Discussion of data quality
-%    1. Missing values
-%    2. Ill formatted values
-%    3. Generally consistent (huge amount so a few mistakes is okay)
-%  2. Separated into 290,000 for training and 30,000 for testing
-%  2. Suite of Python scripts to cut out bad data
-%  3. Scripts to join weather and ferry data
-%  4. Performance issues encountered
-% 
-
-%  ## Goal refresh 
-%  * Find order in the mess: Which features matter?
-%  * Do something practical: Can we use the model?
-%  * Work with big data: Was all of the data necessary/useful?
-% 90 accuracy isn't expected!  This would be weird in most cases.
-% This is because it can't be perfect, there is a maximum iter 
-% threshold, it's optimization, noise is still noise, 
-% 
-% Mention the 95% accurate fact and how we can basically be correct
-% Most of the time by guessing on time.  We want a model to be similarly
-% accurate.
-% 
 
 \section{Results}
 \label{sec:results}
 The modeling aspect of the project took place in roughly three phases. As 
-described before, the primary goal is to model the ferry system and answer the 
-question of whether or not using an SVM to train a linear classifier is useful 
+described before, the primary goal models the ferry system and answers the 
+question of whether or not using an SVM to train a linear classifier proves useful 
 for ferry traffic. This leads to the first two phases
 which involve a first pass and then a serious refining of the methodology.  Recall 
 that we consider approximately $80\%$ accurate on the test data to be comparable
 with Smith et al \cite{smith2008decision}, since like that group, we wish to see
 if using SVM is a practical method for determining ferry tardiness. 
 A secondary goal is to find which features matter in determining tardiness.  While
-this goal is asking questions best answered by a regression analysis, we will 
+this goal asks questions best answered by a regression analysis, we will 
 attempt a crude approximation through empirical methods.  The final component is 
 a small experiment to test interesting phenomena arising in the general results.  
-This latter part is possibly the most interesting of the project, but we begin 
+This latter part may be the most interesting of the project, but we begin 
 first with an attempt to use LibSVM.
 
 \subsection{The first pass}
@@ -648,38 +606,35 @@ The subsets for this training come from the training data. Finding the best fit
 parameters is a long process, sometimes as long as the actual SVM training, so it
 slows down the process significantly, but as we're about to discuss the results
 are well worth it.
-%  ## SVM is easy right?
-%  # <p class="fragment roll-in">No. 60%</p>
-%  WHY DID I DO BETTER???
-%  1. Accuracy comes from test data (disjoint from train data)
-%  1. Needing to fit c and gamma parameters to get better curves
-%  2. Duration of runs and sheer size of data sets
-% 
 
 \subsection{General results}
 \label{sec:gen_results}
-% TODO: Add a little discussion about our accuracies near the end of this in 
-% comparison to the ``stupid'' model that has 87% accuracy (lead in to p/r disc.)
 Training the SVM to predict arrival time tardiness proved to be the most successful.
 In this case, a full trip description (feature vector) included features for the 
 actual departure 
 time, all weather, predicted arrival time, date, vessel name, departure location, 
 and arrival location. (Final results for all runs are displayed in 
-\textbf{Figure~\ref{fig:second_run_data_arrivals}}.) It is expected for this to 
+\textbf{Figure~\ref{fig:second_run_data_arrivals}}.) We expect for this to 
 be the problem the SVM can be most accurate about, since really it only needs to 
 understand how long the trip will likely take a ferry. 
 
 The tardiness of full feature instances were able to be predicted with 
 $\approx 87.0\%$ accuracy. For a second pass, this is fantastic to be above the
-benchmark of $80\%$. To tune the linear classifier from our SVM, it is necessary
-to try trimming unnecessary features to find maximum accuracy. Due to time 
+benchmark of $80\%$. Given that about $87\%$ of trips are on time though, this 
+accuracy shouldn't be surprising. In fact, we could achieve the same results 
+by guessing all trips are on time, so this model isn't as exciting as we might
+like. We'll examine more ways to check the usefulness of the model in 
+\textbf{Section~\ref{sec:beyond_accuracy}}. 
+
+To tune the linear classifier from our SVM, we should
+try trimming unnecessary features to find maximum accuracy. Due to time 
 constraints, the trimming we perform here is very coarse. A thorough examination
 would attempt to examine all combinations of features, but this is beyond the
 scope of our work, especially in regards to available computing power.
 
 Removing the departure information from the features drops accuracy to $60\%$, 
 a disappointing result. It may be possible to dramatically improve this result with
-some of the techniques discussed in \textbf{Section~\ref{sec:improvements}}. 
+some of the techniques discussed in \textbf{Section~\ref{sec:improvements}}.
 To determine whether removing more features made any significant difference, we
 also removed the weather information from predicting arrivals, yielding 
 the more interesting result which we discuss after departure prediction.
@@ -715,8 +670,8 @@ weather actually improves accuracy resulting in $88\%$, an improvement of one
 percentage point. Without the departure information, the percent accuracy decreases
 by only $0.6$ percentage points, a negligible difference at $59.4\%$ accuracy. 
 Weather was included as all but a given for improving the accuracy of the SVM
-work, but the results just outlined call into question this assumption and warranted 
-further investigation.
+work, but the results just outlined call into question this assumption and 
+warranted further investigation.
 
 \begin{figure}
     \centering
@@ -756,7 +711,7 @@ location by comparing the effect of weather on three routes sufficiently far apa
 Running individual SVMs for each route (testing accuracy only on that route's 
 trips). The three routes chosen were Tahlequah-Point Defiance, Kingston-Edmonds,
 and Coupeville-Port Townsend. Looking at \textbf{Figure~\ref{fig:ferry_system}},
-we can see the furthest route, Coupeville-Port Townsend, is almost $100$ miles
+we can see the furthest route, Coupeville-Port Townsend, is nearly $100$ miles
 from the weather station near Point Defiance. These three were deemed to be 
 closest, middlemost, and furthest from the weather station, respectively, but also 
 have enough trips to warrant an individual SVM. 
@@ -790,7 +745,8 @@ in improving predictions, and if anything, only help confuse the situation.
     \label{fig:weatherExperiment}
 \end{figure}
 
-Another possible explanation is the robustness of this ferry system. Recall we that
+The robustness of the ferry system provides another possible explanation. Recall 
+we that
 our definition leads to only about $13\%$ of ferry trips being late, a remarkable 
 feat for the WSDOT. It may simply be that there isn't much of a pattern in regards
 to weather or other predictable phenomena. We may be looking at a system whose
@@ -798,7 +754,7 @@ only fault is vessel maintenance, a feature requiring very different data than
 that which we had access to. 
 
 The accuracy of the linear classifiers produced by our SVM runs are promising,
-but so far we have only used accuracy as a measure of effectiveness. We now 
+but so far we have used accuracy as the only measure of effectiveness. We now 
 turn our attention to confusion matrices, precision, and recall. These features
 will allow us to more thoroughly analyze the first linear classifiers we produced.
 
@@ -822,10 +778,10 @@ the predicted classes to convey the true positive (late), true negative
 \end{tabular}
 \end{center}
 
-Here we are considering positive to mean a trip is flagged as 
-late and negative as not-late. The diagonal of the matrix tells us the times our
-classifier is correct, and non-zero values off the diagonal indicate incorrect
-classifications. Thus, the precision is calculated as 
+Here we are considering positive to mean a trip flagged as 
+late and negative as not-late. The diagonal of the matrix tells us the trips our
+classifier correctly predicts, and non-zero values off the diagonal indicate 
+incorrect classifications. Thus, the we calculate precision 
 
 \[Precision=\frac{tp}{tp+fp}\]
 
@@ -836,19 +792,146 @@ and recall is
 Higher precision corresponds to an ability to return more relevant results than
 irrelevant results, and high recall means an algorithm returns \textit{most} of
 the relevant results.  So with high precision, a trip flagged as late is more 
-likely to be late than not-late. High recall means our model is catching most of
+likely to be late than not-late. High recall means our model catches most of
 the late trips. These two measures go beyond just accuracy and tell us more about
 the usefulness of our model.
 
 First note we will be using the testing sets to find this data, so the number of 
 trips we are considering is $50,000$. Also, a perfect score for either recall or
 precision is 1. It's incredibly unlikely, and probably unreasonable, to expect 
-such a score. We will look at scores for the weather/no-weather models of 
-departure tardiness from \textbf{Section~\ref{sec:gen_results}}, our best and most
-interesting model.
+such a score. We will look at scores for the weather/no-weather models of arrival
+departure tardiness from \textbf{Section~\ref{sec:gen_results}}. This examination
+will hopefully make clear the differences beyond accuracy.
+
+We start by examining the arrivals with departure information. Recall the 
+classifier is $87\%$ accurate with weather and $88\%$ without, as good as the
+naive model just discussed, but we consider this model to have an 
+``unfair advantage'' by knowing information about departures. 
+\textbf{Figure~\ref{fig:confusion_arrivals}} displays this model's confusion
+matrix.
+The high accuracy of this model appears in the low numbers off of the diagonals,
+but the precision and recall are what we might hope will differentiate this
+model from naive guessing. 
+
+% Full/NoWeather: high accuracy with departures 
+% 87 weather/ 88 no weather
+\begin{figure}
+    \textbf{Arrivals}
+
+    \begin{tabular}[h]{l|ll}
+                         & actual class &  \\
+         \hline
+         predicted class & $17,574 $ ($tp$)& $1,974$ ($fp$)\\
+                         & $4,477$ ($fn$)& $25,975$ ($tn$)\\
+    \end{tabular}
+
+    \textbf{Arrivals without weather}
+
+    \begin{tabular}[h]{l|ll}
+                         & actual class &  \\
+         \hline
+         predicted class & $18,122$ ($tp$)& $2,115$ ($fp$)\\
+                         & $3,878$ ($fn$)& $25,885$ ($tn$)\\
+    \end{tabular}
+    \caption{The confusion matrices for predicting arrival tardiness with
+    the departure information.}
+    \label{fig:confusion_arrivals}
+\end{figure}
 
 \begin{figure}
-    \centering
+    \begin{tabular}{ll}
+         Classifier & Precision\\
+         Arrivals & 0.899\\
+         Arrivals without weather & 0.895\\
+    \end{tabular}
+    
+    \begin{tabular}{ll}
+         Classifier & Recall\\
+         Arrivals & 0.797\\
+         Arrivals without weather & 0.824\\
+    \end{tabular}
+    \caption{Precision and recall for the arrivals model with departure 
+    information.}
+    \label{fig:pr_arrivals}
+\end{figure}
+
+In \textbf{Figure~\ref{fig:pr_arrivals}}, note the very high precision and 
+recall for both with and without weather.  The high precision indicates this
+model returns substantially more late trips as late than falsely identifying
+not-late trips. The high recall also suggests our model returns most of
+the late results as late. These are good results, but it remains that this
+model requires the departure information, something a user might not have if they
+look for a prediction before the departure information becomes available. So, let
+us turn to the arrivals model without departure information.
+
+The arrivals model without departure information achieved $60\%$ accuracy with
+weather and $59.4\%$ without.  \textbf{Figure~\ref{fig:confusion_arrivals_nod}}
+contains the confusion matrix for this arrivals model.
+
+% 60 weather/ 59.4 without
+% Arrival 2: low accuracy without departure info
+\begin{figure}
+    \textbf{Arrivals without departures}
+
+    ***TODO: This information still finishing on the server***
+
+    \begin{tabular}[h]{l|ll}
+                         & actual class &  \\
+         \hline
+         predicted class & $ $ ($tp$)& $ $ ($fp$)\\
+                         & $ $ ($fn$)& $ $ ($tn$)\\
+    \end{tabular}
+
+    \textbf{Arrivals without departures and weather}
+
+    \begin{tabular}[h]{l|ll}
+                         & actual class &  \\
+         \hline
+         predicted class & $8,696$ ($tp$)& $6,969$ ($fp$)\\
+                         & $13,355$ ($fn$)& $20,980$ ($tn$)\\
+    \end{tabular}
+    \caption{The confusion matrices for predicting arrival tardiness without
+    the departure information.}
+    \label{fig:confusion_arrivals_nod}
+\end{figure}
+
+The lower accuracy of this model comes through in the high numbers off of the 
+diagonals, but note the high values in the true negative section. It seems this
+model may be rather successful at finding the not-late trips. We might expect 
+this from the relatively high number of the total trips which are not-late. 
+What can we learn from the precision and recall though? For this information,
+we look to \textbf{Figuer~\ref{fig:pr_arrivals_nod}}.
+
+\begin{figure}
+    \begin{tabular}{ll}
+         Classifier & Precision\\
+         Arrivals without departures & \\
+         Arrivals without departures and weather & 0.555\\
+    \end{tabular}
+    
+    \begin{tabular}{ll}
+         Classifier & Recall\\
+         Arrivals without departures & \\
+         Arrivals without departures and weather& 0.394\\
+    \end{tabular}
+    \caption{Precision and recal for the arrivals model without departure 
+    information.}
+    \label{fig:pr_arrivals_nod}
+\end{figure}
+
+***TODO: discussion change for the difference between with and without weather?***
+
+This time, the scores are significantly lower, expected given the low accuracy
+of this model. The precision is almost at $50\%$, indicating the model may be
+confusing not-late and late events. Additionally, the recall is below 
+$50\%$, suggesting a large number of late events are being missed. With scores
+so low we can label this model defunct and requiring further work, but
+we still have the departures model, for which the confusion matrix sits in
+\textbf{Figure~\ref{fig:confusion_departures}}.
+
+% Now for departures
+
+\begin{figure}
     \textbf{Departures}
 
     \begin{tabular}[h]{l|ll}
@@ -859,6 +942,7 @@ interesting model.
     \end{tabular}
 
     \textbf{Departures without weather}
+
     \begin{tabular}[h]{l|ll}
                          & actual class &  \\
          \hline
@@ -879,22 +963,35 @@ are actually late.
 
 The precision scores for the two classifiers are
 
-\begin{tabular}{ll}
-     Classifier & Precision\\
-     Full departure & 0.597\\
-     Departure without weather & 0.262\\
-\end{tabular}
+\begin{figure}
+    \begin{tabular}{ll}
+         Classifier & Precision\\
+         Full departure & 0.597\\
+         Departure without weather & 0.262\\
+    \end{tabular}
+    
+    \begin{tabular}{ll}
+         Classifier & Recall\\
+         Full departure & 0.119\\
+         Departure without weather & 0.013\\
+    \end{tabular}
+    \caption{Precision and recall for the departure model.}
+    \label{fig:pr_departures}
+\end{figure}
 
-and recall is 
+We can see that the full departure classifier actually scores much higher in
+both precision and recall. The recall score means the classifier flags about 
+$12\%$ of late trips, and the approximately $60\%$ precision means the classifier
+flags mostly late trips as late, rather than indicating many not-late trips
+as late. The recall suggests we may be missing some indicator of what makes a 
+trip late. In the case of precision, the number is encouraging, indicating we 
+aren't confusing late and not-late trips, for the most part.
 
-\begin{tabular}{ll}
-     Classifier & Recall\\
-     Full departure & 0.119\\
-     Departure without weather & 0.013\\
- \end{tabular}.
-
- We can see that the full departure classifier actually scores much higher in
- both precision and recall. 
+To tune these parameters, we could try any number of approaches (many outlined in
+\textbf{Section~\ref{sec:improvements}}). Since the recall and precision aren't 
+much better than guessing, the model isn't appreciably better than a naive, always 
+on time approach to flagging tardy trips. This is disheartening, but for a first 
+attempt we have produced a model nearly as good as guessing.
 
 
 \section{Closing thoughts}
@@ -905,19 +1002,17 @@ system. We beat the initial benchmark of $80\%$ accuracy for a linear classifier
 produced by an SVM, and we concluded the performance could probably be improved
 on given more time and experience tuning the process. The exploration of weather's
 relationship to the ferry system also proved to be more complex than expected, 
-clouding the assumption of there being a significant link between the two. The 
-remaining questions and further work are now even greater in scope than when
-the project began.
-
-%  ## In summary
-%  * This is a "cute" model.
-%  * Hyperplanes are more than an awesome word.
-%  * The ferry system is full of data we can mine.
-%  * SVM is like a black box.
+clouding the assumption of there being a significant link between the two. We 
+also examined the precision and recall, discovering mixed results between the 
+models. Our most effective model, which had the advantage of departure information,
+exhibited high precision and recall, indicating it may be worth further study
+as an improvement upon the naive guess of always not-late. The remaining 
+questions and further work are now even greater in scope than when the 
+project began.
 
 \subsection{Improvements to the data analysis}
 \label{sec:improvements}
-Most of the percent accuracies we have analysed were short of the $90\%$ benchmark,
+Most of the percent accuracies we have analysed were short of the $80\%$ benchmark,
 but some were very close. More time to tune the features used in prediction, 
 check the data quality, and experiment with different training set sizes would
 likely yield even better predictions. The latter goal is of particular interest.
@@ -925,12 +1020,13 @@ Since no definitive guide to using SVM was found before finishing the project,
 the size of training sets was kept the same throughout bet may be a poorly informed
 choice. A common criticism of SVMs, and AI in general, is that training on too
 large of a dataset can lead to overfitting without realising it. This means the
-machine is only really capable of predicting events similar to the training data
+machine only accurately predicts events similar to the training data
 and can't generalize beyond. With a chance to train on smaller sets of data,
 we might find overfitting hampers the accuracy we found with larger training sets.
 
-Recall the variance found among training an SVM over individual routes in the weather
-investigation. We discovered that individual routes varied widely, suggesting a 
+Recall the variance found among training an SVM over individual routes in the 
+weather investigation. We discovered that individual routes varied widely, 
+suggesting a 
 ``master'' SVM for all routes may not be appropriate. We would like to assume that
 an SVM could tease apart the relationships between routes and tardiness, but there
 may be too many conflicts between routes in terms of which features matter. For 
@@ -949,7 +1045,7 @@ WSDOT ferry system. Still, the project is far from complete.
 
 The SVM training produced useful linear classifiers, but a framework for average
 users could still be built. Whether this would be a web or mobile application is
-unfortunately restricted by the use of LibSVM. Since it is only implemented in 
+unfortunately restricted by the use of LibSVM. Since the only implementation is in 
 C, a web application querying some server seems like the most straightforward
 approach. There are other possibilities since LibSVM has bindings in many languages,
 but the production of a real user interface and seeing it used would certainly 
@@ -958,8 +1054,8 @@ validate the usefulness of predicting ferry times.
 The SVM training itself could also be restructured. Several times, the lack of
 production time inhibited the ability to fully explore the data, but beyond this
 we could improve the definition of tardy. A multiclass SVM allows us to have degrees
-of tardiness (e.g. three minutes, five minutes, or ten minutes late). This sort
-of SVM is supported by LibSVM and extends fairly naturally from the two class case.
+of tardiness (e.g. three minutes, five minutes, or ten minutes late). LibSVM 
+supports this sort of SVM, a fairly natural extension of the two class case.
 Moreover, LibSVM could be used for a regression analysis of the features. This might
 be the best way to determine which features matter in regards to tardiness. 
  
@@ -971,7 +1067,7 @@ over $75\%$ accuracy in most cases, the tardiness of ferries in the complex syst
 and it brings us insight into how important various features are when predicting
 this tardiness. While we may not fully understand the strange behavior exhibited
 by including weather in the model, the base assumption of weather's importance no 
-longer appears valid. Further tuning of the SVM process is likely to yield even
+longer appears valid. Further tuning of the SVM process may yield even
 greater insight and perhaps better prediction results. In general, however, the 
 results of the project are promising and suggest support vector machines are
 a useful approach to modeling the ferry system.
