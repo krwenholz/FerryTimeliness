@@ -82,12 +82,12 @@
 \label{sec:intro}
 Ferries (as in \textbf{Figure~\ref{fig:basicferry}} present an interesting 
 opportunity to examine a complex traffic system filled with data and affecting 
-the many lives. This paper will discuss a new approach to predicting 
+the many lives. This paper discusses a new approach to predicting 
 the timeliness of ferries using a support vector machine. The research was part
 of an Honors Program senior thesis at University of Puget Sound, supervised by 
 Professor Brad Richards. An overview of how 
-support vector machines work and their complications in real world use will 
-introduce our discussion of how this powerful construct presents a powerful and 
+support vector machines work and their complications in real world use 
+introduces our discussion of how this powerful construct presents a powerful and 
 intuitive model for tackling the massive data associated with ferries. We
 develop a functioning model to examine the complexities of this
 approach, the practicality, and as a means of exploring some of the data. 
@@ -104,7 +104,7 @@ improves accuracy of the model.
 We attempt to predict the tardiness of ferries, defining tardy 
 as no less than three minutes later than the initial (at day's beginning) 
 scheduled arrival or departure time. We consider both arrival and departure 
-times since we will be predicting them separately later on. This definition
+times since we predict them separately later on. This definition
 of tardiness was chosen to allow for a non-trivial number of tardy events 
 (more than 10\% in the data) and to remain practical: i.e. someone could use the
 restroom in three minutes time or otherwise make use of that information. The 
@@ -193,7 +193,7 @@ Air traffic and the ferry system are quite alike: exhibiting a
 sensitivity to weather, attempt to adhere to a strict schedule, and heavy use.
 Due to these similarities, Smith's access to resources like the AMPL supercomputer, 
 and his group's expert knowledge, we use $80\%$ as the target accuracy for our
-ferry model. Accuracy will serve as a crude investigative tool and measure of 
+ferry model. Accuracy serves as a crude investigative tool and measure of 
 comparison for our first passes, but in \textbf{Section~\ref{sec:beyond_accuracy}}
 we investigate the precision and recall of the various linear classifiers our
 work yields. These measures weren't discussed in \cite{smith2008decision} but
@@ -209,7 +209,7 @@ same tool was one more reason for choosing support vector machines.
 \subsection{Basics of SVM}
 \label{sec:basics_svm}
 A brief overview of the principles behind support vector machines and their use
-will help to explain basics of this project. As stated earlier,
+helps to explain basics of this project. As stated earlier,
 SVMs are used to find a linear classifier (some function) for a set of data.  In
 this project, we seek a way to separate ferry trips that will be three minutes
 past their scheduled time (late) or less (on time). To find the linear classifier,
@@ -341,8 +341,8 @@ training and testing. Feeding the training data into an SVM helps to adjust
 the weight vector for the linear classifier, and the testing data helps 
 to check the accuracy of the SVM's product.  These two sets absolutely must 
 be disjoint. Otherwise, the SVM basically cheats by being
-tested on data it already learned from. There is no clear indicator for how much data
-is needed to successfully train an SVM, but too little means the SVM can't 
+tested on data it already learned from. There is no clear indicator for how much 
+data is needed to successfully train an SVM, but too little means the SVM can't 
 generalize and too much can lead to \textit{overfitting}. Overfitting is when an 
 SVM trains on too much data of similar qualities so that it fails to accurately
 classify data of different qualities. This roughly corresponds to finding patterns
@@ -364,7 +364,7 @@ The Washington State Department of Transportation (WSDOT) runs the ferry system
 in the Pacific Northwest (since 1951) over a stretch of more than 130 miles, from 
 Victoria, British Columbia to Point Defiance in Tacoma \cite{wsdotFleet}. The system 
 serves over 22 million passengers per year in about $160,000$ sailings 
-\cite{wsfTraffic}.  We will refer to one sailing (from one terminal to another) as a 
+\cite{wsfTraffic}.  We refer to one sailing (from one terminal to another) as a 
 trip.  \textbf{Figure~\ref{fig:ferry_system}} gives the map of the WSDOT's 20 
 terminals and 10 routes, lending perspective to the size of the entire system.
 
@@ -377,8 +377,8 @@ WSDOT's definition of on-time isn't made clear in their report. Examining the
 data, however, reveals that our definition of on-time leads to approximately
 $13\%$ of trips being late. For better or worse, this predictability in the 
 system suggests a basic model could call everything not-late and be $87\%$ 
-accurate, but the discussion in \textbf{Section~\ref{sec:beyond_accuracy}} will 
-show that recall and precision are other important factors we might be able to 
+accurate, but the discussion in \textbf{Section~\ref{sec:beyond_accuracy}} 
+shows that recall and precision are other important factors we might be able to 
 improve on.
 
 \begin{SCfigure}
@@ -576,7 +576,7 @@ that we consider approximately $80\%$ accurate on the test data to be comparable
 with Smith et al \cite{smith2008decision}, since like that group, we wish to see
 if using SVM is a practical method for determining ferry tardiness. 
 A secondary goal is to find which features matter in determining tardiness.  While
-this goal asks questions best answered by a regression analysis, we will 
+this goal asks questions best answered by a regression analysis, we 
 attempt a crude approximation through empirical methods.  The final component is 
 a small experiment to test interesting phenomena arising in the general results.  
 This latter part may be the most interesting of the project, but we begin 
@@ -584,7 +584,7 @@ first with an attempt to use LibSVM.
 
 \subsection{The first pass}
 \label{sec:firstpass}
-We began by determining whether or not a ferry is on
+We first tried determining whether or not a ferry is on
 time for its departure, leaving arrival for after the process was worked out. 
 A file with all of the labeled training instances was fed into LibSVM, using the
 default parameters of the kernel. The process took an entire night running on
@@ -592,11 +592,17 @@ low end hardware, and the results were disappointing to say the least.
 
 After running on the test data, the linear classifier only yielded $60\%$ accuracy. 
 This is significantly beneath the benchmark. The time to run the process was also
-surprising and led to a more cautious approach for the rest of the work. To 
+surprising and led to a more cautious approach for the rest of the work. It became
+clear at this point how precious each run would be (for time and computing 
+resources). 
+
+To 
 improve the performance of the classifier, LibSVM provides an exhaustive guide 
 \cite{chang2011libsvm} for beginners in the perils of simply ``running it''. The 
 directions weren't followed on the first pass because it was hoped the process 
-would be much simpler just using the default parameters. 
+would be much simpler just using the default parameters. Although this approach
+was wrong, it provides anecdotal evidence regarding the importance of being 
+thorough and following the steps in the guide.
 
 Having learned some lessons, the LibSVM guide was followed to the letter on a 
 second pass. The only major change to the process was training on the 
@@ -616,7 +622,7 @@ time, all weather, predicted arrival time, date, vessel name, departure location
 and arrival location. (Final results for all runs are displayed in 
 \textbf{Figure~\ref{fig:second_run_data_arrivals}}.) We expect for this to 
 be the problem the SVM can be most accurate about, since really it only needs to 
-understand how long the trip will likely take a ferry. 
+understand how long the trip takes a ferry. 
 
 The tardiness of full feature instances were able to be predicted with 
 $\approx 87.0\%$ accuracy. For a second pass, this is fantastic to be above the
@@ -696,7 +702,7 @@ incident became the last focus of the project. By re-examining the assumptions
 made regarding weather at the start, there are several which we can now dispute:
 
 \begin{enumerate}
-    \item Weather will help improve accuracy.
+    \item Weather helps improve accuracy.
     \item \label{wAssumption_oneStation} The area is geographically small enough 
         that one weather station should be just fine for all routes.
     \item The weather variables dry bulb, wet bulb, dew point, wind speed, 
@@ -756,15 +762,15 @@ that which we had access to.
 The accuracy of the linear classifiers produced by our SVM runs are promising,
 but so far we have used accuracy as the only measure of effectiveness. We now 
 turn our attention to confusion matrices, precision, and recall. These features
-will allow us to more thoroughly analyze the first linear classifiers we produced.
+allow us to more thoroughly analyze the first linear classifiers we produced.
 
 \subsection{Beyond accuracy}
 \label{sec:beyond_accuracy}
 As mentioned before, accuracy is only a crude measure of success. It also binds us
 to comparing our models with a ``naive'' model which always guesses not-late and
-is $87\%$ accurate. Investigating the precision and recall of our models against
-this naive model reveal the nuances of prediction \cite{classifierEval}. 
-We will use confusion matrices to visualize the results and help calculate the 
+is $87\%$ accurate. Investigating the precision and recall of our models each other,
+with more than accuracy, reveal the nuances of prediction \cite{classifierEval}. 
+We use confusion matrices to visualize the results and help calculate the 
 precision and recall. A confusion matrix displays the actual classes against 
 the predicted classes to convey the true positive (late), true negative 
 (not-late), false positive, and false negative results:
@@ -781,27 +787,29 @@ the predicted classes to convey the true positive (late), true negative
 Here we are considering positive to mean a trip flagged as 
 late and negative as not-late. The diagonal of the matrix tells us the trips our
 classifier correctly predicts, and non-zero values off the diagonal indicate 
-incorrect classifications. Thus, the we calculate precision 
+incorrect classifications. Thus, we calculate precision by
 
 \[Precision=\frac{tp}{tp+fp}\]
 
-and recall is
+and recall with
 
 \[Recall=\frac{tp}{tp+fn}.\]
 
-Higher precision corresponds to an ability to return more relevant results than
-irrelevant results, and high recall means an algorithm returns \textit{most} of
-the relevant results.  So with high precision, a trip flagged as late is more 
+Higher precision corresponds to an ability to return \textit{more relevant results 
+than irrelevant results}, and high recall means an algorithm returns \textit{most of
+the relevant results}.  So with high precision, a trip flagged as late is more 
 likely to be late than not-late. High recall means our model catches most of
 the late trips. These two measures go beyond just accuracy and tell us more about
 the usefulness of our model.
 
-First note we will be using the testing sets to find this data, so the number of 
+First note we are using the testing sets to find this data, so the number of 
 trips we are considering is $50,000$. Also, a perfect score for either recall or
 precision is 1. It's incredibly unlikely, and probably unreasonable, to expect 
-such a score. We will look at scores for the weather/no-weather models of arrival
+such a score. In fact, the only reasonable scenario for this would be with an
+entirely deterministic system.  We now look at scores for the weather/no-weather 
+models of arrival
 departure tardiness from \textbf{Section~\ref{sec:gen_results}}. This examination
-will hopefully make clear the differences beyond accuracy.
+hopefully makes clear the differences beyond accuracy.
 
 We start by examining the arrivals with departure information. Recall the 
 classifier is $87\%$ accurate with weather and $88\%$ without, as good as the
@@ -809,9 +817,9 @@ naive model just discussed, but we consider this model to have an
 ``unfair advantage'' by knowing information about departures. 
 \textbf{Figure~\ref{fig:confusion_arrivals}} displays this model's confusion
 matrix.
-The high accuracy of this model appears in the low numbers off of the diagonals,
-but the precision and recall are what we might hope will differentiate this
-model from naive guessing. 
+The high accuracy of this model reveals itself in the low numbers off of the 
+diagonals, but the precision and recall are what we hope differentiates
+this model from naive guessing. 
 
 % Full/NoWeather: high accuracy with departures 
 % 87 weather/ 88 no weather
@@ -839,14 +847,14 @@ model from naive guessing.
 \end{figure}
 
 \begin{figure}
-    \begin{tabular}{ll}
+    \begin{tabular}{l|l}
          Classifier & Precision\\
+         \hline
          Arrivals & 0.899\\
          Arrivals without weather & 0.895\\
-    \end{tabular}
-    
-    \begin{tabular}{ll}
-         Classifier & Recall\\
+         \hline
+         & Recall\\
+         \hline
          Arrivals & 0.797\\
          Arrivals without weather & 0.824\\
     \end{tabular}
@@ -855,6 +863,7 @@ model from naive guessing.
     \label{fig:pr_arrivals}
 \end{figure}
 
+% TODO: Can this discussion be better?
 In \textbf{Figure~\ref{fig:pr_arrivals}}, note the very high precision and 
 recall for both with and without weather.  The high precision indicates this
 model returns substantially more late trips as late than falsely identifying
@@ -865,8 +874,12 @@ look for a prediction before the departure information becomes available. So, le
 us turn to the arrivals model without departure information.
 
 The arrivals model without departure information achieved $60\%$ accuracy with
-weather and $59.4\%$ without.  \textbf{Figure~\ref{fig:confusion_arrivals_nod}}
-contains the confusion matrix for this arrivals model.
+weather and $59.4\%$ without.  These are significantly lower accuracies than
+our model with departure information, but it's possible the precision and recall
+values for the model make it competitive in some sense. (Especially since it can
+be used long before the departure information becomes available to a user.)
+\textbf{Figure~\ref{fig:confusion_arrivals_nod}} contains the confusion matrix 
+for this arrivals model.
 
 % 60 weather/ 59.4 without
 % Arrival 2: low accuracy without departure info
@@ -898,23 +911,26 @@ contains the confusion matrix for this arrivals model.
 The lower accuracy of this model comes through in the high numbers off of the 
 diagonals, but note the high values in the true negative section. It seems this
 model may be rather successful at finding the not-late trips. We might expect 
-this from the relatively high number of the total trips which are not-late. 
+this from the relatively high number of the total trips which are not-late, but
+it's still an interesting phenomena.
 What can we learn from the precision and recall though? For this information,
-we look to \textbf{Figuer~\ref{fig:pr_arrivals_nod}}.
+we look to \textbf{Figure~\ref{fig:pr_arrivals_nod}}.
 
 \begin{figure}
-    \begin{tabular}{ll}
+    ***TODO: This information still finishing on the server***
+
+    \begin{tabular}{l|l}
          Classifier & Precision\\
+         \hline
          Arrivals without departures & \\
          Arrivals without departures and weather & 0.555\\
-    \end{tabular}
-    
-    \begin{tabular}{ll}
-         Classifier & Recall\\
+         \hline
+          & Recall\\
+         \hline
          Arrivals without departures & \\
          Arrivals without departures and weather& 0.394\\
     \end{tabular}
-    \caption{Precision and recal for the arrivals model without departure 
+    \caption{Precision and recall for the arrivals model without departure 
     information.}
     \label{fig:pr_arrivals_nod}
 \end{figure}
@@ -922,9 +938,11 @@ we look to \textbf{Figuer~\ref{fig:pr_arrivals_nod}}.
 ***TODO: discussion change for the difference between with and without weather?***
 
 This time, the scores are significantly lower, expected given the low accuracy
-of this model. The precision is almost at $50\%$, indicating the model may be
+of this model. The precision is almost at $50\%$, indicating the model is
 confusing not-late and late events. Additionally, the recall is below 
-$50\%$, suggesting a large number of late events are being missed. With scores
+$50\%$, meaning a large number of late events are being missed. The low recall
+is most troubling: users would be expecting many boats to be not on time when
+they aren't. In a way, this model isn't aggressive enough. With scores
 so low we can label this model defunct and requiring further work, but
 we still have the departures model, for which the confusion matrix sits in
 \textbf{Figure~\ref{fig:confusion_departures}}.
@@ -953,25 +971,25 @@ we still have the departures model, for which the confusion matrix sits in
     \label{fig:confusion_departures}
 \end{figure}
 
-\textbf{Figure~\ref{fig:confusion_departures}} is the confusion matrix for the 
-classifiers produced to predict departure tardiness with and without weather. 
-We can see the classifier without weather seems to predict quite a few more trips 
+We can see the classifier for departures without weather predicts quite 
+a few more trips 
 as not-late. Remembering that the departure classifier with weather is $76.3\%$ 
 accurate and the classifier without weather is $75.7\%$ accurate, perhaps the
 weather information is only good for the relatively small number of trips that 
-are actually late. 
-
-The precision scores for the two classifiers are
+are actually late. Having investigated the other confusion matrices, this seems
+like a possible link: weather is important only for the ``rare'' late cases. 
+It's an interesting idea for later study. For now, we turn to the precision and
+recall values of the model in \textbf{Figure~\ref{fig:pr_departures}}.
 
 \begin{figure}
-    \begin{tabular}{ll}
+    \begin{tabular}{l|l}
          Classifier & Precision\\
+         \hline
          Full departure & 0.597\\
          Departure without weather & 0.262\\
-    \end{tabular}
-    
-    \begin{tabular}{ll}
-         Classifier & Recall\\
+         \hline
+         & Recall\\
+         \hline
          Full departure & 0.119\\
          Departure without weather & 0.013\\
     \end{tabular}
@@ -979,25 +997,31 @@ The precision scores for the two classifiers are
     \label{fig:pr_departures}
 \end{figure}
 
-We can see that the full departure classifier actually scores much higher in
+We can see the full departure classifier actually scores much higher in
 both precision and recall. The recall score means the classifier flags about 
 $12\%$ of late trips, and the approximately $60\%$ precision means the classifier
 flags mostly late trips as late, rather than indicating many not-late trips
 as late. The recall suggests we may be missing some indicator of what makes a 
 trip late. In the case of precision, the number is encouraging, indicating we 
-aren't confusing late and not-late trips, for the most part.
+aren't confusing late and not-late trips, for the most part. The numbers are so
+much lower than for arrivals though, even our low accuracy model without departure
+information, this departure model isn't looking quite as good. Such a low 
+recall means a user of this model might feel like the application is always 
+guessing not-late. Obviously, this model needs further tuning.
 
 To tune these parameters, we could try any number of approaches (many outlined in
-\textbf{Section~\ref{sec:improvements}}). Since the recall and precision aren't 
-much better than guessing, the model isn't appreciably better than a naive, always 
-on time approach to flagging tardy trips. This is disheartening, but for a first 
-attempt we have produced a model nearly as good as guessing.
+\textbf{Section~\ref{sec:improvements}}). The arrival models are much more 
+interesting than their accuracy indicates, especially given how low the 
+departures model scores. After tweaking and testing more, we might find the
+arrivals are generally more predictable than departures or there just isn't
+a way to consistently classify those fringe tardy trips. Regardless, the first
+pass at these models is encouraging.
 
 
 \section{Closing thoughts}
 \label{sec:summary}
-The original goal of the project, to develop a ferry system model using AI 
-techniques, was met and spawned further investigation into the behavior of the
+We met the original goal of the project, to develop a ferry system model using AI 
+techniques, and further investigated the behavior of the
 system. We beat the initial benchmark of $80\%$ accuracy for a linear classifier 
 produced by an SVM, and we concluded the performance could probably be improved
 on given more time and experience tuning the process. The exploration of weather's
