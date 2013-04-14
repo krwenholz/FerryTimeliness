@@ -863,9 +863,8 @@ this model from naive guessing.
     \label{fig:pr_arrivals}
 \end{figure}
 
-% TODO: Can this discussion be better?
-In \textbf{Figure~\ref{fig:pr_arrivals}}, note the very high precision and 
-recall for both with and without weather.  The high precision indicates this
+In \textbf{Figure~\ref{fig:pr_arrivals}}, note the very high precision and recall 
+for both the models with and without weather.  The high precision indicates this
 model returns substantially more late trips as late than falsely identifying
 not-late trips. The high recall also suggests our model returns most of
 the late results as late. These are good results, but it remains that this
@@ -886,13 +885,11 @@ for this arrivals model.
 \begin{figure}
     \textbf{Arrivals without departures}
 
-    ***TODO: This information still finishing on the server***
-
     \begin{tabular}[h]{l|ll}
                          & actual class &  \\
          \hline
-         predicted class & $ $ ($tp$)& $ $ ($fp$)\\
-                         & $ $ ($fn$)& $ $ ($tn$)\\
+         predicted class & $6,146$ ($tp$)& $4,692$ ($fp$)\\
+                         & $15,905$ ($fn$)& $23,257$ ($tn$)\\
     \end{tabular}
 
     \textbf{Arrivals without departures and weather}
@@ -909,25 +906,22 @@ for this arrivals model.
 \end{figure}
 
 The lower accuracy of this model comes through in the high numbers off of the 
-diagonals, but note the high values in the true negative section. It seems this
-model may be rather successful at finding the not-late trips. We might expect 
-this from the relatively high number of the total trips which are not-late, but
-it's still an interesting phenomena.
-What can we learn from the precision and recall though? For this information,
-we look to \textbf{Figure~\ref{fig:pr_arrivals_nod}}.
+diagonals.  Otherwise, there isn't anything immediately noteworthy regarding this
+model. Neither the true negatives nor true positives stand out as high, so the
+model probably isn't better at classifying late events or classifying not-late
+events. What can we learn from the precision and recall though? For this 
+information, we look to \textbf{Figure~\ref{fig:pr_arrivals_nod}}.
 
 \begin{figure}
-    ***TODO: This information still finishing on the server***
-
     \begin{tabular}{l|l}
          Classifier & Precision\\
          \hline
-         Arrivals without departures & \\
+         Arrivals without departures & 0.588\\
          Arrivals without departures and weather & 0.555\\
          \hline
           & Recall\\
          \hline
-         Arrivals without departures & \\
+         Arrivals without departures & 0.279\\
          Arrivals without departures and weather& 0.394\\
     \end{tabular}
     \caption{Precision and recall for the arrivals model without departure 
@@ -935,16 +929,18 @@ we look to \textbf{Figure~\ref{fig:pr_arrivals_nod}}.
     \label{fig:pr_arrivals_nod}
 \end{figure}
 
-***TODO: discussion change for the difference between with and without weather?***
-
 This time, the scores are significantly lower, expected given the low accuracy
-of this model. The precision is almost at $50\%$, indicating the model is
-confusing not-late and late events. Additionally, the recall is below 
+of this model. The precisions are almost at $50\%$, indicating the model is
+confusing not-late and late events. Additionally, the recalls are below 
 $50\%$, meaning a large number of late events are being missed. The low recall
-is most troubling: users would be expecting many boats to be not on time when
-they aren't. In a way, this model isn't aggressive enough. With scores
-so low we can label this model defunct and requiring further work, but
-we still have the departures model, for which the confusion matrix sits in
+is most troubling: users would be expecting many boats to be late when
+they aren't. In a way, this model isn't aggressive enough. The fact that 
+the model without weather has a significantly higher recall is interesting. 
+Weather continues to yield bizarre effects, possibly suggesting weather
+information confuses the ability to pick out late events. This is definitely
+worthy of further investigation, but with scores so low we can label this 
+model defunct and requiring significant further work.  We still have the 
+departures model, however, for which the confusion matrix sits in
 \textbf{Figure~\ref{fig:confusion_departures}}.
 
 % Now for departures
