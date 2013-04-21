@@ -78,6 +78,11 @@
 \vspace*{\fill}
 \newpage
 
+% TODO: Read the intro over
+% TODO: Read the conclusion over
+% TODO: Look it over for cleanliness and formatting
+% TODO: Spell check?
+
 \section{Introduction}
 \label{sec:intro}
 Ferries (as in \textbf{Figure~\ref{fig:basicferry}} present an interesting 
@@ -561,9 +566,15 @@ feature to preserve, since we want to both learn about tardiness and check if th
 linear classifier produced predicts both scenarios. We stated earlier that
 it was unknown what amount of data to train on, so the size of the training set
 here was chosen as a baseline to be examined and experimented with should time 
-permit. With separated data in hand, we proceeded to train a linear classifier 
-using the LibSVM package.
+permit. 
 
+Our data is separated in a \textbf{non-uniform} manner. The LibSVM library was
+used to make the training and testing sets have a  roughly proportional, but still
+random, sampling of the late and not-late trips. The is the default behavior of 
+LibSVM and seemed reasonable at the time. A uniform sampling of the data might be
+more realistic, but without precedence for it, we feel the distinction between
+the sampling techniques is only one more in a list of several ways we might tweak
+the training and analysis to further explore the data.
 
 \section{Results}
 \label{sec:results}
@@ -768,7 +779,14 @@ allow us to more thoroughly analyze the first linear classifiers we produced.
 \label{sec:beyond_accuracy}
 As mentioned before, accuracy is only a crude measure of success. It also binds us
 to comparing our models with a ``naive'' model which always guesses not-late and
-is $87\%$ accurate. Investigating the precision and recall of our models each other,
+is $87\%$ accurate on the full dataset. We should note, however, that our testing
+data is split such that about $61\%$ are not-late. This means the naive model is
+only $61\%$ accurate on this testing data, certainly making our models look a bit
+better. Even so, it's an incredibly basic model we should strive to improve on
+or at least understand better.
+
+Investigating the precision and recall 
+of our models each other,
 with more than accuracy, reveal the nuances of prediction \cite{classifierEval}. 
 We use confusion matrices to visualize the results and help calculate the 
 precision and recall. A confusion matrix displays the actual classes against 
@@ -812,7 +830,8 @@ departure tardiness from \textbf{Section~\ref{sec:gen_results}}. This examinatio
 hopefully makes clear the differences beyond accuracy.
 
 We start by examining the arrivals with departure information. Recall the 
-classifier is $87\%$ accurate with weather and $88\%$ without, as good as the
+classifier is $87\%$ accurate with weather and $88\%$ without, better on testing
+data than
 naive model just discussed, but we consider this model to have an 
 ``unfair advantage'' by knowing information about departures. 
 \textbf{Figure~\ref{fig:confusion_arrivals}} displays this model's confusion
@@ -1030,7 +1049,7 @@ as an improvement upon the naive guess of always not-late. The remaining
 questions and further work are now even greater in scope than when the 
 project began.
 
-\subsection{Improvements to the data analysis}
+\subsection{Improvements to the data and model analysis}
 \label{sec:improvements}
 Most of the percent accuracies we have analysed were short of the $80\%$ benchmark,
 but some were very close. More time to tune the features used in prediction, 
@@ -1056,12 +1075,36 @@ route from Anacortes to Lopez. A thorough comparison of how individual SVMs
 perform for the routes might make this approach even more appealing or lend 
 insight into a better choice.
 
+% TODO: Does this flow with the whole conclusion?
+\textbf{Section~\ref{sec:beyond_accuracy}} explored confusion matrices as a 
+means of slicing and dicing the finer details of our models' performance. That
+discussion only focused on the models we produced and not necessarily how to
+improve them. Using information from the confusion matrix, we can explore the
+receiver operating characteristic (more simply called a ROC curve). This 
+graphical plot depicts the true positive rate against the false positive rate
+to help in selecting a ``best'' model. To use a ROC curve, we plot the true
+positive and false positive rates as parameters are tweaked to produce different
+models. This analysis gives us a means of understanding the trade-offs between
+precision and recall. 
+
+Many cases require a trade-off in one or the other, a 
+trait we haven't examined in this project. (As an example, consider a 
+surgeon deciding which tissue to remove when dealing with cancer. Removing too
+little may increase precision, more cells removed are cancerous, but significantly
+decrease recall, getting too few cancerous cells. The other way around also has
+evident advantages and disadvantages.) If we did examine the trade-offs in the
+ferry system, it could be our model simply can't win in both metrics. This 
+information would actually tell us a great deal about the usefulness of any
+model for this situation!
 
 \subsection{Extensions}
 \label{sec:extensions}
 The end product of our SVM trainings worked in the ways we hoped: seeming to be 
 useful for predicting ferry timeliness and as an investigative tool for the
-WSDOT ferry system. Still, the project is far from complete. 
+WSDOT ferry system. Still, the project is far from complete. Just changing the
+training/testing sampling to be uniform, for instance, could greatly influence
+the success of our classifier, but it would also be interesting just to compare
+the results of using a different sampling technique.
 
 The SVM training produced useful linear classifiers, but a framework for average
 users could still be built. Whether this would be a web or mobile application is
