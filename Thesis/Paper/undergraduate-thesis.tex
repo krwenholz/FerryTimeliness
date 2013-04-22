@@ -87,10 +87,10 @@
 \label{sec:intro}
 Ferries (as in \textbf{Figure~\ref{fig:basicferry}} present an interesting 
 opportunity to examine a complex traffic system filled with data and affecting 
-the many lives. This paper discusses a new approach to predicting 
+many lives. This paper discusses a new approach to predicting 
 the timeliness of ferries using a support vector machine. The research was part
 of an Honors Program senior thesis at University of Puget Sound, supervised by 
-Professor Brad Richards. An overview of how 
+Professor Brad Richards (many thanks). An overview of how 
 support vector machines work and their complications in real world use 
 introduces our discussion of how this powerful construct presents a powerful and 
 intuitive model for tackling the massive data associated with ferries. We
@@ -118,7 +118,7 @@ Northwest served as the source for all data. This system is of
 particular interest for its sheer volume of passengers: 22 million per year 
 \cite{wsfTraffic}.  The volume lends itself well to the application of 
 data mining techniques. While many techniques exist for data mining and 
-prediction in general, support vector machines are used in this project far a 
+prediction in general, support vector machines are used in this project for a 
 variety of reasons.
 
 
@@ -662,6 +662,7 @@ the more interesting result which we discuss after departure prediction.
 
     \begin{tabular}{ll}
         Configuration & Percent accuracy on test data\\
+        \hline
         Full          & $87\%$\\
         No Departure  & $60\%$\\
         No Weather    & $88\%$\\
@@ -696,6 +697,7 @@ warranted further investigation.
 
     \begin{tabular}{ll}
         Configuration & Percent accuracy on test data\\
+        \hline
         Full        & $76.3\%$\\
         No Weather  & $75.7\%$\\
     \end{tabular}
@@ -866,6 +868,8 @@ this model from naive guessing.
 \end{figure}
 
 \begin{figure}
+    \textbf{Arrivals: precision and recall}
+
     \begin{tabular}{l|l}
          Classifier & Precision\\
          \hline
@@ -932,6 +936,8 @@ events. What can we learn from the precision and recall though? For this
 information, we look to \textbf{Figure~\ref{fig:pr_arrivals_nod}}.
 
 \begin{figure}
+    \textbf{Arrivals without departures: precision and recall}
+
     \begin{tabular}{l|l}
          Classifier & Precision\\
          \hline
@@ -997,6 +1003,8 @@ It's an interesting idea for later study. For now, we turn to the precision and
 recall values of the model in \textbf{Figure~\ref{fig:pr_departures}}.
 
 \begin{figure}
+    \textbf{Departures: precision and recall}
+
     \begin{tabular}{l|l}
          Classifier & Precision\\
          \hline
@@ -1051,14 +1059,14 @@ project began.
 
 \subsection{Improvements to the data and model analysis}
 \label{sec:improvements}
-Most of the percent accuracies we have analysed were short of the $80\%$ benchmark,
+Most of the percent accuracies we analysed were short of the $80\%$ benchmark,
 but some were very close. More time to tune the features used in prediction, 
 check the data quality, and experiment with different training set sizes would
 likely yield even better predictions. The latter goal is of particular interest.
 Since no definitive guide to using SVM was found before finishing the project, 
 the size of training sets was kept the same throughout bet may be a poorly informed
 choice. A common criticism of SVMs, and AI in general, is that training on too
-large of a dataset can lead to overfitting without realising it. This means the
+large of a dataset can lead to overfitting without realising. This means the
 machine only accurately predicts events similar to the training data
 and can't generalize beyond. With a chance to train on smaller sets of data,
 we might find overfitting hampers the accuracy we found with larger training sets.
@@ -1075,7 +1083,6 @@ route from Anacortes to Lopez. A thorough comparison of how individual SVMs
 perform for the routes might make this approach even more appealing or lend 
 insight into a better choice.
 
-% TODO: Does this flow with the whole conclusion?
 \textbf{Section~\ref{sec:beyond_accuracy}} explored confusion matrices as a 
 means of slicing and dicing the finer details of our models' performance. That
 discussion only focused on the models we produced and not necessarily how to
@@ -1084,9 +1091,10 @@ receiver operating characteristic (more simply called a ROC curve). This
 graphical plot depicts the true positive rate against the false positive rate
 to help in selecting a ``best'' model. To use a ROC curve, we plot the true
 positive and false positive rates as parameters are tweaked to produce different
-models. This analysis gives us a means of understanding the trade-offs between
-precision and recall. 
+models. 
 
+Analysing a ROC curve gives us a means of understanding the trade-offs between
+precision and recall. 
 Many cases require a trade-off in one or the other, a 
 trait we haven't examined in this project. (As an example, consider a 
 surgeon deciding which tissue to remove when dealing with cancer. Removing too
@@ -1097,8 +1105,6 @@ ferry system, it could be our model simply can't win in both metrics. This
 information would actually tell us a great deal about the usefulness of any
 model for this situation!
 
-\subsection{Extensions}
-\label{sec:extensions}
 The end product of our SVM trainings worked in the ways we hoped: seeming to be 
 useful for predicting ferry timeliness and as an investigative tool for the
 WSDOT ferry system. Still, the project is far from complete. Just changing the
@@ -1106,13 +1112,15 @@ training/testing sampling to be uniform, for instance, could greatly influence
 the success of our classifier, but it would also be interesting just to compare
 the results of using a different sampling technique.
 
+\subsection{Extensions}
+\label{sec:extensions}
 The SVM training produced useful linear classifiers, but a framework for average
 users could still be built. Whether this would be a web or mobile application is
 unfortunately restricted by the use of LibSVM. Since the only implementation is in 
 C, a web application querying some server seems like the most straightforward
 approach. There are other possibilities since LibSVM has bindings in many languages,
 but the production of a real user interface and seeing it used would certainly 
-validate the usefulness of predicting ferry times.
+validate the usefulness of predicting ferry times for the riders.
 
 The SVM training itself could also be restructured. Several times, the lack of
 production time inhibited the ability to fully explore the data, but beyond this
